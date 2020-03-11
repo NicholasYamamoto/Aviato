@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_aviato_logo"
+    tools:context="com.example.aviato.Pages.LoginOptionsPage"
+    android:layout_gravity="center"
+    >
+
+    <Button
+        android:id="@+id/userinfo"
+        android:layout_width="150dp"
+        android:layout_height="55dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginRight="8dp"
+        android:background="#39796b"
+        android:text="User Information"
+        android:textColor="#FFFFFF"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/order_details"
+        android:layout_width="150dp"
+        android:layout_height="55dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="243dp"
+        android:layout_marginRight="8dp"
+        android:background="#39796b"
+        android:text="Order Details"
+        android:layout_alignParentLeft="true"
+        android:textColor="#FFFFFF"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/signin"
+        android:layout_width="150dp"
+        android:layout_height="55dp"
+        android:layout_margin="25dp"
+        android:background="@drawable/btns_lightblue"
+        android:text="Sign In"
+        android:textColor="#FFFFFF"
+
+        />
+
+    <Button
+        android:id="@+id/signup"
+        android:layout_width="150dp"
+        android:layout_height="55dp"
+        android:layout_margin="25dp"
+        android:layout_toRightOf="@+id/signin"
+        android:background="@drawable/btns_lightblue"
+        android:text="Sign Up"
+        android:textColor="#FFFFFF"
+
+        />
+
+</RelativeLayout>
+
+<!--android:background_logo="#39796b"-->

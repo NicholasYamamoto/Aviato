@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Aviato</string>
+    <string name="slogan"></string>
+    <string name="title_activity_main">Home</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="dialog_title">Are you sure you want to Logout?</string>
+    <string name="dialog_popup"> Aviato </string>
+    <string name="ok" />
+    <string name="cancel" />
+
+    <string-array name="airports_array">
+        <item>Kansas City, MO - MCI</item>
+        <item>Los Angeles, CA - LAX</item>
+        <item>Atlanta, GA - ATL</item>
+        <item>Chicago, IL - ORD</item>
+        <item>Dallas, TX - DFW</item>
+        <item>Denver, CO - DEN</item>
+        <item>New York, NY - JFK</item>
+    </string-array>
+
+    <string-array name="carriers_array">
+        <item>Southwest Airlines</item>
+        <item>Delta Air Lines</item>
+        <item>American Airlines</item>
+        <item>Delta Airlines</item>
+        <item>SkyWest Airlines</item>
+        <item>JetBlue Airlines</item>
+        <item>Alaska Airlines</item>
+        <item>Spirit Airlines</item>
+    </string-array>
+
+</resources>
