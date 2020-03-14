@@ -7,6 +7,7 @@
     android:background="@drawable/background_aviato_logo"
     tools:context="com.example.aviato.Pages.LoginOptionsPage"
     android:layout_gravity="center"
+
     >
 
     <Button
@@ -44,6 +45,8 @@
         android:layout_margin="25dp"
         android:background="@drawable/btns_lightblue"
         android:text="Sign In"
+        android:layout_alignParentBottom="true"
+
         android:textColor="#FFFFFF"
 
         />
@@ -56,6 +59,8 @@
         android:layout_toRightOf="@+id/signin"
         android:background="@drawable/btns_lightblue"
         android:text="Sign Up"
+        android:layout_alignParentBottom="true"
+
         android:textColor="#FFFFFF"
 
         />
