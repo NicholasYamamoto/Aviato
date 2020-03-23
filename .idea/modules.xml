@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Aviato.iml" filepath="$PROJECT_DIR$/.idea/Aviato.iml" group="Aviato" />
+      <module fileurl="file://$PROJECT_DIR$/Aviato/Aviato-Aviato.iml" filepath="$PROJECT_DIR$/Aviato/Aviato-Aviato.iml" group="Aviato/Aviato" />
+    </modules>
+  </component>
+</project>
