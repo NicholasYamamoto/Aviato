@@ -1,37 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/aviato_logo_background"
-    tools:context="com.example.aviato.Pages.LoginOptionsPage"
-    android:layout_gravity="center"
-    >
+    tools:context="com.example.aviato.Pages.ContactUsPage"
+    android:layout_gravity="center">
 
     <Button
-        android:id="@+id/signin"
+        android:id="@+id/callUsBtn"
         android:layout_width="150dp"
         android:layout_height="55dp"
         android:layout_margin="25dp"
         android:background="@drawable/btns_lightblue"
-        android:text="Sign In"
+        android:text="Call Us"
         android:layout_alignParentBottom="true"
         android:textColor="#FFFFFF"
 
         />
 
     <Button
-        android:id="@+id/signup"
+        android:id="@+id/emailUsBtn"
         android:layout_width="150dp"
         android:layout_height="55dp"
         android:layout_margin="25dp"
-        android:layout_toRightOf="@+id/signin"
+        android:layout_toRightOf="@+id/callUsBtn"
         android:background="@drawable/btns_lightblue"
-        android:text="Sign Up"
+        android:text="Email Us"
         android:layout_alignParentBottom="true"
         android:textColor="#FFFFFF"
 
         />
-
 </RelativeLayout>

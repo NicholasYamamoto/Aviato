@@ -8,9 +8,6 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:clickable="true"
-    tools:context="com.example.homepc.restauranteatitapp.MiamiFragment">
-
-
-
-
+    tools:context="com.example.aviato.Fragments.Cities.MiamiFragment"
+    >
 </ListView>

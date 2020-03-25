@@ -19,13 +19,14 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.aviato.Fragments.AboutUsFragment;
-import com.example.aviato.Fragments.BookFlightFragment;
-import com.example.aviato.Fragments.ContactUsFragment;
 import com.example.aviato.Fragments.MainFragment;
-import com.example.aviato.Fragments.PlanATripFragment;
+import com.example.aviato.Fragments.PastOrdersFragment;
 import com.example.aviato.Fragments.ViewProfileFragment;
+import com.example.aviato.Pages.BookAFlightPage;
+import com.example.aviato.Pages.ContactUsPage;
 import com.example.aviato.Pages.LoginOptionsPage;
-import com.example.aviato.Pages.OrderPage;
+import com.example.aviato.Pages.PlanATripPage;
+import com.example.aviato.Pages.ViewCartPage;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -42,16 +43,15 @@ public class MainActivity extends AppCompatActivity
 
         database = new DatabaseHelper(this);
         Intent i = getIntent();
-        //TODO: Fix this to get it to return the currently logged in Account's name
-        String user_name = i.getStringExtra("Name_marker");
+        String firstName = i.getStringExtra("user_name");
 
-        Toast welcomeMessage = Toast.makeText(getApplicationContext(), "Hello " + user_name + " , Welcome to Aviato.", Toast.LENGTH_LONG);
+        Toast welcomeMessage = Toast.makeText(getApplicationContext(), "Hello " + firstName + " , Welcome to Aviato.", Toast.LENGTH_LONG);
         welcomeMessage.setGravity(Gravity.CENTER_VERTICAL, Gravity.CENTER_HORIZONTAL, 350);
         welcomeMessage.show();
 
         //DEFAULT FRAGMENT
         MainFragment fragment = new MainFragment();
-        android.support.v4.app.FragmentTransaction fragmentTransaction =
+        FragmentTransaction fragmentTransaction =
                 getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.Fragment_container, fragment);
         fragmentTransaction.commit();
@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         navigationView = findViewById(R.id.nav_view);
+        navigationView.setItemIconTintList(null);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
@@ -74,7 +75,9 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        }
+
+        else {
             super.onBackPressed();
         }
     }
@@ -93,9 +96,12 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.view_cart) {
+            Cursor check;
+            check = database.getOrderDetails() ;
+
+            Intent intent = new Intent(getApplicationContext(), ViewCartPage.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
@@ -108,78 +114,60 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.view_profile) {
-            Intent intent = new Intent(getApplicationContext(), OrderPage.class);
-            startActivity(intent);
+            ViewProfileFragment fragment = new ViewProfileFragment();
+            FragmentTransaction fragmentTransaction =
+                    getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.Fragment_container, fragment);
+            fragmentTransaction.commit();
         }
-        //TODO: Implement this Cart to view Current Cart
-//        else if(id == R.id.view_cart){
-//
-//            Cursor check ;
-//            check = database.getOrderDetails() ;
-//
-//            if(check!=null && check.getCount()>0) {
-//                SubmitOrder fragment = new SubmitOrder();
-//                android.support.v4.app.FragmentTransaction fragmentTransaction =
-//                        getSupportFragmentManager().beginTransaction();
-//                fragmentTransaction.replace(R.id.Fragment_container, fragment);
-//                fragmentTransaction.commit();
-//
-//            }
-//            else  {Toast.makeText(getApplicationContext(),"Sorry, You don't order anything...",Toast.LENGTH_SHORT).show(); }
-//        }
+
         else if (id == R.id.past_orders) {
 
             Cursor check;
             check = database.getOrderDetails();
 
             if (check != null && check.getCount() > 0) {
-                SubmitOrder fragment = new SubmitOrder();
-                android.support.v4.app.FragmentTransaction fragmentTransaction =
+                PastOrdersFragment fragment = new PastOrdersFragment();
+                FragmentTransaction fragmentTransaction =
                         getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.Fragment_container, fragment);
                 fragmentTransaction.commit();
 
-            } else {
+            }
+ else {
                 Toast noOrdersMessage = Toast.makeText(getApplicationContext(), "No past orders found for this user.", Toast.LENGTH_LONG);
                 noOrdersMessage.setGravity(Gravity.CENTER_VERTICAL, Gravity.CENTER_HORIZONTAL, 350);
                 noOrdersMessage.show();
             }
-        } else if (id == R.id.book_a_flight) {
-            BookFlightFragment fragment = new BookFlightFragment();
-            android.support.v4.app.FragmentTransaction fragmentTransaction =
-                    getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.Fragment_container, fragment);
-            fragmentTransaction.commit();
+        }
 
-        } else if (id == R.id.view_profile) {
-            ViewProfileFragment fragment = new ViewProfileFragment();
-            android.support.v4.app.FragmentTransaction fragmentTransaction =
-                    getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.Fragment_container, fragment);
-            fragmentTransaction.commit();
-        } else if (id == R.id.plan_a_trip) {
+        else if (id == R.id.book_a_flight) {
+            Intent intent = new Intent(getApplicationContext(), BookAFlightPage.class);
+            startActivity(intent);
 
-            PlanATripFragment fragment = new PlanATripFragment();
+        }
+
+        else if (id == R.id.plan_a_trip) {
+            Intent intent = new Intent(getApplicationContext(), PlanATripPage.class);
+            startActivity(intent);
+
+        }
+
+        else if (id == R.id.about_us) {
+            AboutUsFragment fragment = new AboutUsFragment();
             FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.Fragment_container, fragment);
             fragmentTransaction.commit();
 
-        } else if (id == R.id.about_us) {
+        }
 
-            AboutUsFragment fragment = new AboutUsFragment();
-            android.support.v4.app.FragmentTransaction fragmentTransaction =
-                    getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.Fragment_container, fragment);
-            fragmentTransaction.commit();
+        else if (id == R.id.contact_us) {
+            Intent intent = new Intent(getApplicationContext(), ContactUsPage.class);
+            startActivity(intent);
+        }
 
-        } else if (id == R.id.contact_us) {
-            ContactUsFragment fragment = new ContactUsFragment();
-            android.support.v4.app.FragmentTransaction fragmentTransaction =
-                    getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.Fragment_container, fragment);
-            fragmentTransaction.commit();
-        } else if (id == R.id.log_out) {
+        else if (id == R.id.log_out) {
             openLogoutDialog();
         }
 

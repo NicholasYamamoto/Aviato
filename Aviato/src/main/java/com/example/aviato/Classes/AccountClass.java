@@ -1,44 +1,44 @@
 package com.example.aviato.Classes;
 
 public class AccountClass {
-    private int account_id;
-    private String email;
+    private int accountID;
+    private String emailAddress;
     private String password;
-    private String name;
+    private String firstName;
     private String defaultCarrier;
     private String defaultDepart;
 
-    public AccountClass(int account_id, String name, String email, String password, String defaultCarrier, String defaultDepart) {
-        this.account_id = account_id;
-        this.email = email;
+    public AccountClass(int accountID, String firstName, String emailAddress, String password, String defaultCarrier, String defaultDepart) {
+        this.accountID = accountID;
+        this.emailAddress = emailAddress;
         this.password = password;
-        this.name = name;
+        this.firstName = firstName;
         this.defaultCarrier = defaultCarrier;
         this.defaultDepart = defaultDepart;
     }
 
-    public AccountClass(String name, String email, String password, String defaultCarrier, String defaultDepart) {
-        this.email = email;
+    public AccountClass(String firstName, String emailAddress, String password, String defaultCarrier, String defaultDepart) {
+        this.firstName = firstName;
+        this.emailAddress = emailAddress;
         this.password = password;
-        this.name = name;
         this.defaultCarrier = defaultCarrier;
         this.defaultDepart = defaultDepart;
     }
 
     public int getAccount_id() {
-        return account_id;
+        return accountID;
     }
 
     public void setAccount_id(int account_id) {
-        this.account_id = account_id;
+        this.accountID = account_id;
     }
 
     public String getEmail() {
-        return email;
+        return emailAddress;
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.emailAddress = email;
     }
 
     public String getPassword() {
@@ -49,12 +49,12 @@ public class AccountClass {
         this.password = password;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getDefaultCarrier() {

@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.aviato.DatabaseHelper;
@@ -14,30 +16,46 @@ import com.example.aviato.R;
 
 public class SignInPage extends AppCompatActivity {
     DatabaseHelper myDB;
-    EditText edt_signinName, edt_signinPassword;
-    Button btn_signinBtn;
+    EditText signinEmail, signinPassword;
+    TextView forgotPassword;
+    Button loginBtn;
+    CheckBox rememberMe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in_page);
-        myDB = new DatabaseHelper(this);
-        edt_signinName = findViewById(R.id.signin_id);
-        edt_signinPassword = findViewById(R.id.signin_password);
-        btn_signinBtn = findViewById(R.id.signinBtn);
-        btn_signinBtn.setOnClickListener(new View.OnClickListener() {
 
+        myDB = new DatabaseHelper(this);
+
+        signinEmail = findViewById(R.id.signin_email_address);
+        signinPassword = findViewById(R.id.signin_password);
+        loginBtn = findViewById(R.id.loginBtn);
+        forgotPassword = findViewById(R.id.forgotPasswordBtn);
+        rememberMe = findViewById(R.id.rememberMeChkbx);
+
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean isExist = myDB.verifyAccount(edt_signinName.getText().toString(),
-                        edt_signinPassword.getText().toString());
+                Intent forgotPassword = new Intent(getApplicationContext(), ForgotPasswordPage.class);
+                startActivity(forgotPassword);
+            }
+        });
+
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean isExist = myDB.verifyAccount(signinEmail.getText().toString(),
+                        signinPassword.getText().toString());
                 if (isExist) {
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    intent.putExtra("user_name", edt_signinName.getText().toString());
-                    startActivity(intent);
+                    Intent login = new Intent(getApplicationContext(), MainActivity.class);
+                    login.putExtra("user_name", signinEmail.getText().toString());
+                    startActivity(login);
                     finish();
-                } else {
-                    edt_signinPassword.setText(null);
+                }
+                
+                else {
+                    signinPassword.setText(null);
                     Toast.makeText(SignInPage.this, "Log In Failed. Please Try Again.", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(), SignInPage.class);
                     startActivity(intent);

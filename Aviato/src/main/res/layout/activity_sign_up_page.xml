@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_aviato_logo"
+    android:background="@drawable/aviato_logo_background"
     tools:context="com.example.aviato.Pages.SignUpPage">
 
     <TextView
@@ -21,7 +21,7 @@
         android:gravity="center_horizontal" />
 
     <EditText
-        android:id="@+id/signup_id"
+        android:id="@+id/signup_name"
         android:layout_width="340sp"
         android:layout_height="55sp"
         android:layout_below="@+id/tv_create_account_label"
@@ -38,7 +38,7 @@
         android:id="@+id/signup_email"
         android:layout_width="340sp"
         android:layout_height="55sp"
-        android:layout_below="@+id/signup_id"
+        android:layout_below="@+id/signup_name"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10sp"
         android:layout_marginBottom="10sp"

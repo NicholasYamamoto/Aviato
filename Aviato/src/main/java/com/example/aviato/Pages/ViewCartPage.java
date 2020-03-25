@@ -12,8 +12,10 @@ import com.example.aviato.R;
 
 import java.util.ArrayList;
 
-public class OrderPage extends AppCompatActivity {
+public class ViewCartPage extends AppCompatActivity {
 
+    //TODO: This can probably be a Fragment to show the cart, rather than it's own page.
+    // The Checkout page can handle the functionality that this View Cart page would've
     DatabaseHelper mydb;
 
     @Override
@@ -21,7 +23,7 @@ public class OrderPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_page);
 
-        ListView listView = findViewById(R.id.order_page);
+        ListView listView = findViewById(R.id.view_cart_page);
         mydb = new DatabaseHelper(this);
 
 
@@ -31,7 +33,9 @@ public class OrderPage extends AppCompatActivity {
         if (data.getCount() == 0) {
 
 
-        } else {
+        }
+
+        else {
             while (data.moveToNext()) {
 
                 list.add(new PastOrdersClass(data.getString(0), data.getString(1), data.getString(2), data.getString(3)));
@@ -43,31 +47,6 @@ public class OrderPage extends AppCompatActivity {
         listView.setAdapter(adapter);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

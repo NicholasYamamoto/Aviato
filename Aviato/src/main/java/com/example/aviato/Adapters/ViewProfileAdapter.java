@@ -24,7 +24,6 @@ public class ViewProfileAdapter extends ArrayAdapter<ViewProfileClass> {
     int pos = 0, counter = 1;
     String[] order_details = new String[1000];
     DatabaseHelper mydb;
-    String Number, Name, Quantity, Price = "";
 
     public ViewProfileAdapter(Activity context, ArrayList<ViewProfileClass> c_food) {
         super(context, 0, c_food);

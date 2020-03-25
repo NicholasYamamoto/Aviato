@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.aviato">
 
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,14 +17,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name="com.example.aviato.Pages.LoginOptionsPage" />
         <activity android:name="com.example.aviato.Pages.SignInPage" />
         <activity android:name="com.example.aviato.Pages.SignUpPage" />
+        <activity android:name="com.example.aviato.Pages.ForgotPasswordPage" />
+
+        <activity android:name="com.example.aviato.Pages.BookAFlightPage" />
+        <activity android:name="com.example.aviato.Pages.PlanATripPage" />
+
+        <activity android:name="com.example.aviato.Pages.ContactUsPage" />
+
+        <activity android:name="com.example.aviato.Pages.ViewCartPage" />
+        <activity android:name="com.example.aviato.Pages.CheckoutPage" />
+        <activity android:name="com.example.aviato.Pages.ReviewOrderPage" />
+        <activity android:name="com.example.aviato.Pages.OrderConfirmationPage" />
+
         <activity
             android:name="com.example.aviato.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme" />
-        <activity android:name="com.example.aviato.Pages.OrderPage"></activity>
     </application>
 
 

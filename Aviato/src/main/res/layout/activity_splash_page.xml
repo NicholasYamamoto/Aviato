@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_aviato_logo"
+    android:background="@drawable/aviato_logo_background"
     tools:context="com.example.aviato.Pages.SplashPage">
 
 </RelativeLayout>

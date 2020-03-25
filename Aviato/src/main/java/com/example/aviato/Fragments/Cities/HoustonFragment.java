@@ -30,7 +30,7 @@ public class HoustonFragment extends Fragment {
         this.mydb = new DatabaseHelper(getContext());
         ArrayList<HoustonClass> houstonItem = new ArrayList<HoustonClass>();
         houstonItem.add(new HoustonClass("Houston Space\nCenter", "$150", R.drawable.houston_space_center, "0"));
-        houstonItem.add(new HoustonClass("Hermann Square", "$550", R.drawable.houston_houston_hermann_square, "0"));
+        houstonItem.add(new HoustonClass("Hermann Square", "$550", R.drawable.houston_hermann_square, "0"));
         houstonItem.add(new HoustonClass("Hotel Zaza", "$250", R.drawable.houston_hotel_zaza, "0"));
         houstonItem.add(new HoustonClass("The Houston\nZoo", "$100", R.drawable.houston_houston_zoo, "0"));
         houstonItem.add(new HoustonClass("San Jacinto\nMonument", "$100", R.drawable.houston_san_jacinto, "0"));

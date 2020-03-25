@@ -1,4 +1,4 @@
-package com.example.aviato;
+package com.example.aviato.Fragments;
 
 
 import android.content.Intent;
@@ -9,15 +9,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.aviato.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SubmitOrder extends Fragment {
+public class OrderConfirmationFragment extends Fragment {
 
     String email = "aviato-orders@gmail.com";
 
-    public SubmitOrder() {
+    public OrderConfirmationFragment() {
         // Required empty public constructor;
     }
 
@@ -33,7 +35,7 @@ public class SubmitOrder extends Fragment {
         if (intent.resolveActivity(getActivity().getPackageManager()) != null)
             startActivity(intent);
 
-        return inflater.inflate(R.layout.fragment_submit_order, container, false);
+        return inflater.inflate(R.layout.fragment_order_confirmation, container, false);
 
     }
 

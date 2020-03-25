@@ -139,6 +139,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public boolean verifyEmailForgotPassword(String emailAddress) {
+        String[] columns = {"user_name"};
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String selection = "user_name=?";
+        String[] selectionArgs = {emailAddress};
+
+        Cursor cursor = db.query(TABLE_ACCOUNT, columns, selection, selectionArgs, null, null, null);
+        int count = cursor.getCount();
+
+        cursor.close();
+
+        return count > 0;
+    }
+
     public boolean verifyAccount(String username, String password) {
         String[] columns = {"user_name"};
         SQLiteDatabase db = this.getWritableDatabase();
@@ -194,7 +209,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         //TODO: Fix this
         //contentValues.put("account_ID", account.getAccount_id());
-        contentValues.put("user_name", account.getName());
+        contentValues.put("user_name", account.getFirstName());
         contentValues.put("email", account.getEmail());
         contentValues.put("password", account.getPassword());
         contentValues.put("preferred_carrier", account.getDefaultCarrier());

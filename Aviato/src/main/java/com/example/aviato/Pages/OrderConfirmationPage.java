@@ -1,4 +1,4 @@
 package com.example.aviato.Pages;
 
-public class SubmitOrderPage {
+public class OrderConfirmationPage {
 }

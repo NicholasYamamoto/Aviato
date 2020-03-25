@@ -15,7 +15,7 @@ import com.example.aviato.R;
 
 public class SignUpPage extends AppCompatActivity {
     DatabaseHelper myDB;
-    EditText signupName, signupEmail, signupPassword;
+    EditText signupFirstName, signupEmailAddress, signupPassword;
     Spinner signupPreferredCarrier, signupDefaultDepart;
     Button addAccount;
 
@@ -23,9 +23,11 @@ public class SignUpPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_page);
+
         myDB = new DatabaseHelper(this);
-        signupName = findViewById(R.id.signup_id);
-        signupEmail = findViewById(R.id.signup_email);
+
+        signupFirstName = findViewById(R.id.signup_name);
+        signupEmailAddress = findViewById(R.id.signup_email);
         signupPassword = findViewById(R.id.signup_password);
         signupPreferredCarrier = findViewById(R.id.signup_preferred_carrier_spinner);
         signupDefaultDepart = findViewById(R.id.signup_default_depart_spinner);
@@ -36,22 +38,30 @@ public class SignUpPage extends AppCompatActivity {
     }
 
     public void addUser() {
-
         addAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if ((signupName.getText().toString().equals("")) && (signupPassword.getText().toString().equals(""))) {
+                if ((signupFirstName.getText().toString().equals("")) && (signupPassword.getText().toString().equals(""))) {
                     Toast.makeText(SignUpPage.this, "Username and Password fields can't left blank", Toast.LENGTH_SHORT).show();
-                } else if ((signupName.getText().toString().equals(""))) {
+                }
+
+                else if ((signupFirstName.getText().toString().equals(""))) {
                     Toast.makeText(SignUpPage.this, "Username cannot be left blank", Toast.LENGTH_SHORT).show();
-                } else if (signupEmail.getText().toString().equals("")) {
+                }
+
+                else if (signupEmailAddress.getText().toString().equals("")) {
                     Toast.makeText(SignUpPage.this, "Email Address cannot be left blank", Toast.LENGTH_SHORT).show();
-                } else if (signupPassword.getText().toString().equals("")) {
+                }
+
+                else if (signupPassword.getText().toString().equals("")) {
                     Toast.makeText(SignUpPage.this, "Password cannot be left blank", Toast.LENGTH_SHORT).show();
-                } else {
-                    AccountClass account = new AccountClass(signupName.getText().toString(),
-                            signupEmail.getText().toString(),
+                }
+
+                else {
+                    AccountClass account = new AccountClass(
+                            signupFirstName.getText().toString(),
+                            signupEmailAddress.getText().toString(),
                             signupPassword.getText().toString(),
                             signupPreferredCarrier.getSelectedItem().toString(),
                             signupDefaultDepart.getSelectedItem().toString());
@@ -65,9 +75,7 @@ public class SignUpPage extends AppCompatActivity {
                         finish();
                     } else
                         Toast.makeText(SignUpPage.this, "Please, Try again", Toast.LENGTH_SHORT).show();
-
                 }
-
             }
         });
     }

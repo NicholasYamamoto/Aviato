@@ -180,7 +180,9 @@ public class ChicagoAdapter extends ArrayAdapter<ChicagoClass> {
                     }
 
 
-                } else {
+                }
+
+                else {
                     Toast.makeText(getContext(), "Quantity value can't be zero or lesser!!!", Toast.LENGTH_SHORT).show();
 
                     int j = 0;

@@ -1,5 +1,11 @@
 package com.example.aviato.Classes;
 
+
+//TODO: This needs to be setup so it handles the first phases of the Trip creation:
+//      - Choosing a Destination City.
+//      - Selecting tourist destinations for the trip.
+//      Then, the rest of the functioanlity can be combined with the BookAFlightClass,
+//          which is essentially all of this minus the Tourist Destination selection
 public class PlanATripClass {
     private int city_ID;
     private String name;
