@@ -1,52 +1,51 @@
-package com.example.aviato.Pages;
-
-import android.database.Cursor;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.widget.ListView;
-
-import com.example.aviato.Adapters.OrderAdapter;
-import com.example.aviato.Classes.PastOrdersClass;
-import com.example.aviato.DatabaseHelper;
-import com.example.aviato.R;
-
-import java.util.ArrayList;
-
-public class ViewCartPage extends AppCompatActivity {
-
-    //TODO: This can probably be a Fragment to show the cart, rather than it's own page.
-    // The Checkout page can handle the functionality that this View Cart page would've
-    DatabaseHelper mydb;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_page);
-
-        ListView listView = findViewById(R.id.view_cart_page);
-        mydb = new DatabaseHelper(this);
-
-
-        ArrayList<PastOrdersClass> list = new ArrayList<PastOrdersClass>(); //use to store data from cursor
-        Cursor data = mydb.getOrderDetails();  //contain all data
-
-        if (data.getCount() == 0) {
-
-
-        }
-
-        else {
-            while (data.moveToNext()) {
-
-                list.add(new PastOrdersClass(data.getString(0), data.getString(1), data.getString(2), data.getString(3)));
-
-            }
-        }
-
-        OrderAdapter adapter = new OrderAdapter(getApplicationContext(), list);
-        listView.setAdapter(adapter);
-    }
-}
+//package com.example.aviato.Pages;
+//
+//import android.database.Cursor;
+//import android.os.Bundle;
+//import android.support.v7.app.AppCompatActivity;
+//import android.widget.ListView;
+//import android.widget.Toast;
+//
+//import com.example.aviato.Adapters.OrderAdapter;
+//import com.example.aviato.Classes.OrderClass;
+//import com.example.aviato.AppDatabaseHelper;
+//import com.example.aviato.R;
+//
+//import java.util.ArrayList;
+//
+//public class ViewCartPage extends AppCompatActivity {
+//
+//    //TODO: This can probably be a Fragment to show the cart, rather than it's own page.
+//    // The Checkout page can handle the functionality that this View Cart page would've
+//    AppDatabaseHelper appDatabaseHelper;
+//
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_checkout_page);
+//
+//        ListView listView = findViewById(R.id.checkout_page_lv);
+//        appDatabaseHelper = new AppDatabaseHelper(this);
+//
+//        ArrayList<OrderClass> list = new ArrayList<>(); //use to store data from cursor
+//        Cursor data = appDatabaseHelper.getOrderDetails();  //contain all data
+//
+//        if (data.getCount() == 0) {
+//            Toast.makeText(CheckoutPage.this, "No flights were found. Try your search again!", Toast.LENGTH_SHORT).show();
+//        }
+//
+//
+//        else {
+//            while (data.moveToNext()) {
+//
+//                list.add(data.getString());
+//            }
+//        }
+//
+//        OrderAdapter adapter = new OrderAdapter(getApplicationContext(), list);
+//        listView.setAdapter(adapter);
+//    }
+//}
 
 
 
@@ -55,7 +54,7 @@ public class ViewCartPage extends AppCompatActivity {
         order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Cursor res =   mydb.Get_OrderDetails();
+                Cursor res =   appDatabaseHelper.Get_OrderDetails();
                 if(res.getCount() == 0) {
                     showmessage("Error", "nothing found");
                     return;
@@ -79,7 +78,7 @@ public class ViewCartPage extends AppCompatActivity {
         delete.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            mydb.delete_all();
+            appDatabaseHelper.delete_all();
         }
     });
 

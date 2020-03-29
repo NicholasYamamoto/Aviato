@@ -2,17 +2,17 @@ package com.example.aviato.Classes;
 
 public class AccountClass {
     private int accountID;
+    private String firstName;
     private String emailAddress;
     private String password;
-    private String firstName;
     private String defaultCarrier;
     private String defaultDepart;
 
     public AccountClass(int accountID, String firstName, String emailAddress, String password, String defaultCarrier, String defaultDepart) {
         this.accountID = accountID;
+        this.firstName = firstName;
         this.emailAddress = emailAddress;
         this.password = password;
-        this.firstName = firstName;
         this.defaultCarrier = defaultCarrier;
         this.defaultDepart = defaultDepart;
     }

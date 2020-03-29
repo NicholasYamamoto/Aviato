@@ -2,18 +2,24 @@ package com.example.aviato.Pages;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.aviato.DatabaseHelper;
+import com.example.aviato.AppDatabaseHelper;
 import com.example.aviato.R;
+
+import static android.Manifest.permission.CALL_PHONE;
 
 public class ContactUsPage extends AppCompatActivity {
     Button call_us, email_us;
-    DatabaseHelper myDB;
+    AppDatabaseHelper appDatabaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,15 +29,22 @@ public class ContactUsPage extends AppCompatActivity {
         call_us = findViewById(R.id.callUsBtn);
         email_us = findViewById(R.id.emailUsBtn);
 
-        myDB = new DatabaseHelper(this);
+        appDatabaseHelper = new AppDatabaseHelper(this);
 
         call_us.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @SuppressLint("MissingPermission")
             @Override
             public void onClick(View v) {
                 Intent callIntent = new Intent(Intent.ACTION_CALL);
                 // Never gonna give you up, never gonna let you down...
                 callIntent.setData(Uri.parse("tel:17607067425"));
+
+                if (ContextCompat.checkSelfPermission(getApplicationContext(), CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+                    startActivity(callIntent);
+                } else {
+                    requestPermissions(new String[]{CALL_PHONE}, 1);
+                }
                 startActivity(callIntent);
             }
         });

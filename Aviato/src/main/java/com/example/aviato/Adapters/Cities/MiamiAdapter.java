@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.aviato.AppDatabaseHelper;
 import com.example.aviato.Classes.Cities.MiamiClass;
-import com.example.aviato.DatabaseHelper;
 import com.example.aviato.R;
 
 import java.util.ArrayList;
@@ -24,13 +24,13 @@ public class MiamiAdapter extends ArrayAdapter<MiamiClass> {
     String hold = "";
     int pos = 0, counter = 1;
     String[] order_details = new String[1000];
-    DatabaseHelper mydb;
+    AppDatabaseHelper appDatabaseHelper;
     String Number, Name, Quantity, Price = "";
 
 
     public MiamiAdapter(Activity context, ArrayList<MiamiClass> miamiItem) {
         super(context, 0, miamiItem);
-        this.mydb = new DatabaseHelper(context.getApplicationContext());
+        this.appDatabaseHelper = new AppDatabaseHelper(context.getApplicationContext());
     }
 
     @Override
@@ -98,7 +98,7 @@ public class MiamiAdapter extends ArrayAdapter<MiamiClass> {
                 pos = (Integer) view.getTag();
                 if (quantity != 0) { //if quan < 0 or equals to 0
                     if (pos == 0) {
-                        boolean isinserted = mydb.addToCart("American Airlines Arena Tour", String.valueOf(quantity), String.valueOf(550 * quantity));
+                        boolean isinserted = appDatabaseHelper.addTripToTable("American Airlines Arena Tour", String.valueOf(quantity), String.valueOf(550 * quantity));
                         if (isinserted) {
                             int price = 1; //price * quantity = total price
                             order_details[i] = "Id " + counter + " Tour price " + 150 * quantity + " ";
@@ -113,7 +113,7 @@ public class MiamiAdapter extends ArrayAdapter<MiamiClass> {
 
                     }
                     if (pos == 1) {
-                        boolean isinserted = mydb.addToCart("Bayfront Park Tour", String.valueOf(quantity), String.valueOf(550 * quantity));
+                        boolean isinserted = appDatabaseHelper.addTripToTable("Bayfront Park Tour", String.valueOf(quantity), String.valueOf(550 * quantity));
                         if (isinserted) {
                             int price = 1;
                             order_details[i] = "Id " + counter + " Tour price " + 550 * quantity + " ";
@@ -129,7 +129,7 @@ public class MiamiAdapter extends ArrayAdapter<MiamiClass> {
 
                     }
                     if (pos == 2) {
-                        boolean isinserted = mydb.addToCart("Miami Art District Tour", String.valueOf(quantity), String.valueOf(250 * quantity));
+                        boolean isinserted = appDatabaseHelper.addTripToTable("Miami Art District Tour", String.valueOf(quantity), String.valueOf(250 * quantity));
                         if (isinserted) {
                             int price = 1;
                             order_details[i] = "Id : " + counter + " Tour price " + 250 * quantity + " ";
@@ -146,7 +146,7 @@ public class MiamiAdapter extends ArrayAdapter<MiamiClass> {
                     }
                     if (pos == 3) {
 
-                        boolean isinserted = mydb.addToCart("Miami Seaquarium Tour", String.valueOf(quantity), String.valueOf(100 * quantity));
+                        boolean isinserted = appDatabaseHelper.addTripToTable("Miami Seaquarium Tour", String.valueOf(quantity), String.valueOf(100 * quantity));
                         if (isinserted) {
                             int price = 1;
                             order_details[i] = "Id " + counter + " Tour price " + 100 * quantity + " ";
@@ -163,7 +163,7 @@ public class MiamiAdapter extends ArrayAdapter<MiamiClass> {
                     }
                     if (pos == 4) {//duplicated to match the 5 items
 
-                        boolean isinserted = mydb.addToCart("Miami South Beach Tour", String.valueOf(quantity), String.valueOf(100 * quantity));
+                        boolean isinserted = appDatabaseHelper.addTripToTable("Miami South Beach Tour", String.valueOf(quantity), String.valueOf(100 * quantity));
                         if (isinserted) {
                             int price = 1;
                             order_details[i] = "Id " + counter + " Tour price " + 100 * quantity + " ";
@@ -198,7 +198,7 @@ public class MiamiAdapter extends ArrayAdapter<MiamiClass> {
 
 
 }
-                  /*         Cursor data =  mydb.Get_OrderDetails();
+                  /*         Cursor data =  appDatabaseHelper.Get_OrderDetails();
                             if(data != null) {
                                 Number = data.getString(0);
                                 Name = data.getString(1);

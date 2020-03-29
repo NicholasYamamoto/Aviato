@@ -5,6 +5,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/aviato_logo_background"
-    tools:context="com.example.aviato.Pages.SplashPage">
+    tools:context="com.example.aviato.Pages.SplashPage"
+    android:layout_gravity="center"
+    >
+
+    <Button
+        android:id="@+id/signin"
+        android:layout_width="150dp"
+        android:layout_height="55dp"
+        android:layout_margin="25dp"
+        android:background="@drawable/btns_lightblue"
+        android:text="Sign In"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/colorWhite"
+        android:hapticFeedbackEnabled="true"
+        android:stateListAnimator="@null"
+        />
+
+    <Button
+        android:id="@+id/signup"
+        android:layout_width="150dp"
+        android:layout_height="55dp"
+        android:layout_margin="25dp"
+        android:layout_toRightOf="@+id/signin"
+        android:background="@drawable/btns_lightblue"
+        android:text="Sign Up"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/colorWhite"
+        android:hapticFeedbackEnabled="true"
+        android:stateListAnimator="@null"
+        />
 
 </RelativeLayout>

@@ -8,14 +8,14 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.example.aviato.Adapters.Cities.NewYorkCityAdapter;
+import com.example.aviato.AppDatabaseHelper;
 import com.example.aviato.Classes.Cities.NewYorkCityClass;
-import com.example.aviato.DatabaseHelper;
 import com.example.aviato.R;
 
 import java.util.ArrayList;
 
 public class NewYorkCityFragment extends Fragment {
-    DatabaseHelper mydb;
+    AppDatabaseHelper appDatabaseHelper;
 
     public NewYorkCityFragment() {
         // Required empty public constructor
@@ -27,7 +27,7 @@ public class NewYorkCityFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_new_york_city, container, false);              //need to change fragment
-        this.mydb = new DatabaseHelper(getContext());
+        this.appDatabaseHelper = new AppDatabaseHelper(getContext());
         ArrayList<NewYorkCityClass> nycItem = new ArrayList<NewYorkCityClass>();
         nycItem.add(new NewYorkCityClass("Statue of\nLiberty", "$150", R.drawable.nyc_statue_of_liberty, "0"));
         nycItem.add(new NewYorkCityClass("Grand Central\nTerminal", "$550", R.drawable.nyc_grand_central_terminal, "0"));

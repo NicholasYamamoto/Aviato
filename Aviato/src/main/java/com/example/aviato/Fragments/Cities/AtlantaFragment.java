@@ -10,13 +10,13 @@ import android.widget.ListView;
 
 import com.example.aviato.Adapters.Cities.AtlantaAdapter;
 import com.example.aviato.Classes.Cities.AtlantaClass;
-import com.example.aviato.DatabaseHelper;
+import com.example.aviato.AppDatabaseHelper;
 import com.example.aviato.R;
 
 import java.util.ArrayList;
 
 public class AtlantaFragment extends Fragment {
-    DatabaseHelper mydb;
+    AppDatabaseHelper appDatabaseHelper;
 
     public AtlantaFragment() {
         // Required empty public constructor
@@ -29,7 +29,7 @@ public class AtlantaFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_atlanta, container, false);
-        this.mydb = new DatabaseHelper(getContext());
+        this.appDatabaseHelper = new AppDatabaseHelper(getContext());
         ArrayList<AtlantaClass> atlantaItem = new ArrayList<AtlantaClass>();
         atlantaItem.add(new AtlantaClass("Piedmont Park", "$150", R.drawable.atlanta_piedmont_park, "0"));
         atlantaItem.add(new AtlantaClass("Martin Luther King\nJr. National Museum", "$550", R.drawable.atlanta_mlk_national_museum, "0"));

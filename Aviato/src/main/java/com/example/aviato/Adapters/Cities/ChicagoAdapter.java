@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.aviato.AppDatabaseHelper;
 import com.example.aviato.Classes.Cities.ChicagoClass;
-import com.example.aviato.DatabaseHelper;
 import com.example.aviato.R;
 
 import java.util.ArrayList;
@@ -24,13 +24,13 @@ public class ChicagoAdapter extends ArrayAdapter<ChicagoClass> {
     String hold = "";
     int pos = 0, counter = 1;
     String[] order_details = new String[1000];
-    DatabaseHelper mydb;
+    AppDatabaseHelper appDatabaseHelper;
     String Number, Name, Quantity, Price = "";
 
 
     public ChicagoAdapter(Activity context, ArrayList<ChicagoClass> chicagoItem) {
         super(context, 0, chicagoItem);
-        this.mydb = new DatabaseHelper(context.getApplicationContext());
+        this.appDatabaseHelper = new AppDatabaseHelper(context.getApplicationContext());
     }
 
     @Override
@@ -98,7 +98,7 @@ public class ChicagoAdapter extends ArrayAdapter<ChicagoClass> {
                 pos = (Integer) view.getTag();
                 if (quantity != 0) { //if quan < 0 or equals to 0
                     if (pos == 0) {
-                        boolean isinserted = mydb.addToCart("Cloud Gate Tour", String.valueOf(quantity), String.valueOf(550 * quantity));
+                        boolean isinserted = appDatabaseHelper.addTripToTable("Cloud Gate Tour", String.valueOf(quantity), String.valueOf(550 * quantity));
                         if (isinserted) {
                             int price = 1; //price * quantity = total price
                             order_details[i] = "Id " + counter + " Tour price " + 150 * quantity + " ";
@@ -113,7 +113,7 @@ public class ChicagoAdapter extends ArrayAdapter<ChicagoClass> {
 
                     }
                     if (pos == 1) {
-                        boolean isinserted = mydb.addToCart("Art Institue of Chicago Tour", String.valueOf(quantity), String.valueOf(550 * quantity));
+                        boolean isinserted = appDatabaseHelper.addTripToTable("Art Institue of Chicago Tour", String.valueOf(quantity), String.valueOf(550 * quantity));
                         if (isinserted) {
                             int price = 1;
                             order_details[i] = "Id " + counter + " Tour price " + 550 * quantity + " ";
@@ -129,7 +129,7 @@ public class ChicagoAdapter extends ArrayAdapter<ChicagoClass> {
 
                     }
                     if (pos == 2) {
-                        boolean isinserted = mydb.addToCart("Buckingham Fountain Tour", String.valueOf(quantity), String.valueOf(250 * quantity));
+                        boolean isinserted = appDatabaseHelper.addTripToTable("Buckingham Fountain Tour", String.valueOf(quantity), String.valueOf(250 * quantity));
                         if (isinserted) {
                             int price = 1;
                             order_details[i] = "Id : " + counter + " Tour price " + 250 * quantity + " ";
@@ -146,7 +146,7 @@ public class ChicagoAdapter extends ArrayAdapter<ChicagoClass> {
                     }
                     if (pos == 3) {
 
-                        boolean isinserted = mydb.addToCart("Jackson Park Tour", String.valueOf(quantity), String.valueOf(100 * quantity));
+                        boolean isinserted = appDatabaseHelper.addTripToTable("Jackson Park Tour", String.valueOf(quantity), String.valueOf(100 * quantity));
                         if (isinserted) {
                             int price = 1;
                             order_details[i] = "Id " + counter + " Tour price " + 100 * quantity + " ";
@@ -163,7 +163,7 @@ public class ChicagoAdapter extends ArrayAdapter<ChicagoClass> {
                     }
                     if (pos == 4) {//duplicated to match the 5 items
 
-                        boolean isinserted = mydb.addToCart("Tribune Tower Tour", String.valueOf(quantity), String.valueOf(100 * quantity));
+                        boolean isinserted = appDatabaseHelper.addTripToTable("Tribune Tower Tour", String.valueOf(quantity), String.valueOf(100 * quantity));
                         if (isinserted) {
                             int price = 1;
                             order_details[i] = "Id " + counter + " Tour price " + 100 * quantity + " ";
@@ -200,7 +200,7 @@ public class ChicagoAdapter extends ArrayAdapter<ChicagoClass> {
 
 
 }
-                  /*         Cursor data =  mydb.Get_OrderDetails();
+                  /*         Cursor data =  appDatabaseHelper.Get_OrderDetails();
                             if(data != null) {
                                 Number = data.getString(0);
                                 Name = data.getString(1);

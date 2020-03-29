@@ -9,12 +9,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.aviato.AppDatabaseHelper;
 import com.example.aviato.Classes.AccountClass;
-import com.example.aviato.DatabaseHelper;
 import com.example.aviato.R;
 
 public class SignUpPage extends AppCompatActivity {
-    DatabaseHelper myDB;
+    AppDatabaseHelper appDatabaseHelper;
     EditText signupFirstName, signupEmailAddress, signupPassword;
     Spinner signupPreferredCarrier, signupDefaultDepart;
     Button addAccount;
@@ -24,7 +24,7 @@ public class SignUpPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_page);
 
-        myDB = new DatabaseHelper(this);
+        appDatabaseHelper = new AppDatabaseHelper(this);
 
         signupFirstName = findViewById(R.id.signup_name);
         signupEmailAddress = findViewById(R.id.signup_email);
@@ -43,11 +43,11 @@ public class SignUpPage extends AppCompatActivity {
             public void onClick(View view) {
 
                 if ((signupFirstName.getText().toString().equals("")) && (signupPassword.getText().toString().equals(""))) {
-                    Toast.makeText(SignUpPage.this, "Username and Password fields can't left blank", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpPage.this, "First Name and Password cannot be left blank", Toast.LENGTH_SHORT).show();
                 }
 
                 else if ((signupFirstName.getText().toString().equals(""))) {
-                    Toast.makeText(SignUpPage.this, "Username cannot be left blank", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpPage.this, "First Name cannot be left blank", Toast.LENGTH_SHORT).show();
                 }
 
                 else if (signupEmailAddress.getText().toString().equals("")) {
@@ -66,7 +66,7 @@ public class SignUpPage extends AppCompatActivity {
                             signupPreferredCarrier.getSelectedItem().toString(),
                             signupDefaultDepart.getSelectedItem().toString());
 
-                    boolean isInserted = myDB.addAccount(account);
+                    boolean isInserted = appDatabaseHelper.addAccountToTable(account);
 
                     if (isInserted) {
                         Toast.makeText(SignUpPage.this, "Account Created! Please Log In.", Toast.LENGTH_SHORT).show();
@@ -74,7 +74,7 @@ public class SignUpPage extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     } else
-                        Toast.makeText(SignUpPage.this, "Please, Try again", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignUpPage.this, "Something went wrong. Please try again.", Toast.LENGTH_SHORT).show();
                 }
             }
         });

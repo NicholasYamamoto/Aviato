@@ -56,7 +56,8 @@
 
     <item
         android:id="@+id/version_number"
-        android:title="Version: 1.0"
+        android:title="Version: 1.0.0"
         android:enabled="false"
-        />
+
+    />
 </menu>

@@ -8,14 +8,14 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.example.aviato.Adapters.Cities.LouisvilleAdapter;
+import com.example.aviato.AppDatabaseHelper;
 import com.example.aviato.Classes.Cities.LouisvilleClass;
-import com.example.aviato.DatabaseHelper;
 import com.example.aviato.R;
 
 import java.util.ArrayList;
 
 public class LouisvilleFragment extends Fragment {
-    DatabaseHelper mydb;
+    AppDatabaseHelper appDatabaseHelper;
 
     public LouisvilleFragment() {
         // Required empty public constructor
@@ -27,7 +27,7 @@ public class LouisvilleFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_louisville, container, false);
-        this.mydb = new DatabaseHelper(getContext());
+        this.appDatabaseHelper = new AppDatabaseHelper(getContext());
         ArrayList<LouisvilleClass> louisvilleItem = new ArrayList<LouisvilleClass>();                                     //remember to change drawables
         louisvilleItem.add(new LouisvilleClass("Franfort Trolley", "$150", R.drawable.louisville_frankfort_trolley, "0"));
         louisvilleItem.add(new LouisvilleClass("The Muhammad\nAli Center", "$550", R.drawable.louisville_muhammad_ali_center, "0"));

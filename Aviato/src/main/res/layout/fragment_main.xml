@@ -2,7 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/aviato_logo_background"
+    android:background="@color/colorAviatoDarkBlue"
     tools:context="com.example.aviato.Fragments.MainFragment">
-
 </RelativeLayout>

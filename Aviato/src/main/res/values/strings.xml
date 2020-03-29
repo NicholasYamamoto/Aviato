@@ -1,12 +1,11 @@
 <resources>
     <string name="app_name">Aviato</string>
-    <string name="title_activity_main">Home</string>
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="dialog_title">Are you sure you want to Logout?</string>
     <string name="dialog_popup"> Aviato </string>
+    <string name="text_contact_us_page">We\'re here for you, no matter where in the world you are.</string>
 
     <string-array name="airports_array">
         <item>Kansas City, MO - MCI</item>

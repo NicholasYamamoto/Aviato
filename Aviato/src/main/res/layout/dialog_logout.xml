@@ -37,6 +37,8 @@
             android:text="Ok"
             android:textColor="#FFFF"
             android:clickable="true"
+            android:hapticFeedbackEnabled="true"
+
             />
 
     </LinearLayout>

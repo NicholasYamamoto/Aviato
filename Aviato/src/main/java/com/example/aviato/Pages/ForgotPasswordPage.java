@@ -8,40 +8,36 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.aviato.DatabaseHelper;
+import com.example.aviato.AppDatabaseHelper;
 import com.example.aviato.MainActivity;
 import com.example.aviato.R;
 
 public class ForgotPasswordPage extends AppCompatActivity {
-
-    //TODO: Here will need to implement logic similar to the SignInPage, where
-    //      a check will need to be made to verify that the User can be found in the
-    //      Database.
-    //      All of this code will need to be replaced.
     Button forgotPasswordSubmitBtn;
     EditText forgotPasswordEmail;
-    DatabaseHelper myDB;
+    AppDatabaseHelper appDatabaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password_page);
 
-        myDB = new DatabaseHelper(this);
+        appDatabaseHelper = new AppDatabaseHelper(this);
 
         forgotPasswordEmail = findViewById(R.id.signin_email_address);
         forgotPasswordSubmitBtn = findViewById(R.id.forgotPasswordSubmitBtn);
 
-        myDB = new DatabaseHelper(this);
-
         forgotPasswordSubmitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean isExist = myDB.verifyEmailForgotPassword(forgotPasswordEmail.getText().toString());
+                boolean isExist = appDatabaseHelper.verifyEmailForgotPassword(forgotPasswordEmail.getText().toString());
                 //TODO: Edit this so it will do some logic like have users answer security questions before it gives the Password.
+                //      Might need to implement a column in the database for Security Questions and their answers in order
+                //      to successfully recover account and Login, since we don't have an email setup to send a Verification link
+                //      or anything. That's way too extra for this project.
                 if (isExist) {
                     Intent login = new Intent(getApplicationContext(), MainActivity.class);
-                    login.putExtra("user_name", forgotPasswordEmail.getText().toString());
+                    login.putExtra("email", forgotPasswordEmail.getText().toString());
                     startActivity(login);
                     finish();
                 }

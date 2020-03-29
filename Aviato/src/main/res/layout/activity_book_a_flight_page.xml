@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_gravity="center"
+    android:background="@color/colorWhite"
+    tools:context="com.example.aviato.Pages.BookAFlightPage"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/depart_and_destination_section"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:id="@+id/depart_from_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="From:"
+                android:textColor="@color/colorAviatoDarkBlue"
+                android:textSize="25sp"
+                android:hapticFeedbackEnabled="true"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/departingCitySpnr"
+                android:layout_width="200sp"
+                android:layout_height="70sp"
+                android:entries="@array/airports_array"
+                android:textColor="@color/colorWhite"
+                android:background="@color/colorWhite"
+                android:textColorHint="@color/colorWhite" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:id="@+id/arrive_at_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="To:"
+                android:textColor="@color/colorAviatoDarkBlue"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/destinationCitySpnr"
+                android:layout_width="200sp"
+                android:layout_height="70sp"
+                android:entries="@array/airports_array"
+                android:textColor="@color/colorWhite"
+                android:background="@color/colorWhite"
+                android:textColorHint="@color/colorWhite" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/depart_and_destination_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_alignBottom="@id/depart_and_destination_section" />
+
+    <LinearLayout
+        android:layout_centerInParent="true"
+        android:id="@+id/dates_section"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal"
+        android:layout_below="@+id/depart_and_destination_divider">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/depart_date_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Departing:"
+                android:textColor="@color/colorAviatoDarkBlue"
+                android:textSize="22sp"
+                android:hapticFeedbackEnabled="true"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:id="@+id/departDateTV"
+                android:text="2/20"
+                android:textSize="45dp"
+                android:layout_width="175sp"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:textColor="@color/colorBlack"
+                android:background="@color/colorWhite"
+                android:textColorHint="@color/colorWhite"
+                android:gravity="center_horizontal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/return_date_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Returning:"
+                android:textColor="@color/colorAviatoDarkBlue"
+                android:textSize="22sp"
+                android:hapticFeedbackEnabled="true"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:id="@+id/returnDateTV"
+                android:text="2/20"
+                android:textSize="45dp"
+                android:layout_width="175sp"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:textColor="@color/colorBlack"
+                android:background="@color/colorWhite"
+                android:textColorHint="@color/colorWhite"
+                android:gravity="center_horizontal" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/dates_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_alignBottom="@id/dates_section" />
+
+    <LinearLayout
+        android:layout_centerInParent="true"
+        android:id="@+id/passengers_section"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal"
+        android:layout_below="@+id/dates_divider">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/passengers_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Passengers:"
+                android:textColor="@color/colorAviatoDarkBlue"
+                android:textSize="30sp"
+                android:hapticFeedbackEnabled="true"
+                android:textStyle="bold"
+                android:padding="15sp"
+                android:layout_gravity="start" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="15dp">
+
+            <Button
+                android:id="@+id/flightRemovePassengerBtn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/icon_minus"
+                android:textColor="@color/colorAviatoDarkBlue"
+                android:hapticFeedbackEnabled="true"
+                android:layout_gravity="center"
+                android:stateListAnimator="@null"
+                >
+
+            </Button>
+
+            <TextView
+                android:id="@+id/flightPassengerCountTV"
+                android:text="1"
+                android:inputType="number"
+                android:textSize="45dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:background="@color/colorWhite"
+                android:textColorHint="@color/colorWhite"
+                android:gravity="center_horizontal" />
+            <Button
+                android:id="@+id/flightAddPassengerBtn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:background="@drawable/icon_plus"
+                android:hapticFeedbackEnabled="true"
+                android:stateListAnimator="@null"
+                android:textColor="@color/colorAviatoDarkBlue" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/passengers_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_alignBottom="@id/passengers_section" />
+
+    <Button
+        android:id="@+id/findAvailableFlightsBtn"
+        android:layout_width="340sp"
+        android:layout_height="55sp"
+        android:layout_below="@id/passengers_divider"
+        android:text="Find Flights"
+        android:layout_marginTop="50sp"
+        android:layout_marginBottom="25sp"
+        android:background="@drawable/btns_lightblue"
+        android:textColor="@color/colorWhite"
+        android:layout_centerHorizontal="true"
+        android:hapticFeedbackEnabled="true"
+        android:stateListAnimator="@null"
+
+        />
+
+    <Button
+        android:id="@+id/flightContinueToCheckoutBtn"
+        android:layout_width="340sp"
+        android:layout_height="55sp"
+        android:layout_below="@id/findAvailableFlightsBtn"
+        android:text="Checkout"
+        android:layout_marginTop="50sp"
+        android:layout_marginBottom="25sp"
+        android:background="@drawable/btns_lightblue"
+        android:textColor="@color/colorWhite"
+        android:layout_centerHorizontal="true"
+        android:hapticFeedbackEnabled="true"
+        android:stateListAnimator="@null"
+        />
+</RelativeLayout>

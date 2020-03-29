@@ -5,18 +5,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.aviato.DatabaseHelper;
+import com.example.aviato.AppDatabaseHelper;
 import com.example.aviato.R;
 
-public class AccountPage extends AppCompatActivity {
-    DatabaseHelper myDB;
+public class ViewProfilePage extends AppCompatActivity {
+    AppDatabaseHelper appDatabaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_page);
 
-        Intent intent = new Intent(getApplicationContext(), AccountPage.class);
+        Intent intent = new Intent(getApplicationContext(), ViewProfilePage.class);
         startActivity(intent);
         finish();
     }
@@ -26,7 +26,7 @@ public class AccountPage extends AppCompatActivity {
 //        details.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
-//                Cursor res = myDB.getData();
+//                Cursor res = appDatabaseHelper.getData();
 //                if(res.getCount() == 0) {
 //                    showMessage("Error", "nothing found");
 //                    return;

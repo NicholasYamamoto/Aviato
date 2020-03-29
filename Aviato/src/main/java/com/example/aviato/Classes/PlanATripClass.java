@@ -11,6 +11,12 @@ public class PlanATripClass {
     private String name;
     private String picFile;
 
+
+    /*
+     * @param city_ID the Primary Key identifier for the city selection in the Cities table
+     * @param name a String containing the City name
+     * @param picFile a Drawable of the selected City skyline
+     */
     public PlanATripClass(int city_ID, String name, String picFile) {
         this.city_ID = city_ID;
         this.name = name;

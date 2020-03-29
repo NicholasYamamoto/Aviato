@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/aviato_logo_background"
+    tools:context="com.example.aviato.Fragments.ViewProfileFragment"
+    android:layout_gravity="center"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/app_bar_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/contactUsMessageTxtVw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="100dp"
+        android:text="Replace this with a Profile picture/avatar and profile infomation and shit."
+        android:textColor="@color/colorWhite"
+        android:textSize="40dp">
+
+    </TextView>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/contactUsMessageTxtVw"
+        >
+
+        <Button
+            android:id="@+id/callUsBtn"
+            android:layout_width="150dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="200dp"
+            android:background="@drawable/btns_lightblue"
+            android:text="Call Us"
+            android:textColor="@color/colorWhite"
+
+            />
+
+        <Button
+            android:id="@+id/emailUsBtn"
+            android:layout_width="150dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/btns_lightblue"
+            android:text="Email Us"
+            android:textColor="@color/colorWhite"
+
+            />
+
+    </LinearLayout>
+
+</RelativeLayout>

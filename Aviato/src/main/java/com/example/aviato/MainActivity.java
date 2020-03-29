@@ -12,10 +12,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.aviato.Fragments.AboutUsFragment;
@@ -24,36 +24,37 @@ import com.example.aviato.Fragments.PastOrdersFragment;
 import com.example.aviato.Fragments.ViewProfileFragment;
 import com.example.aviato.Pages.BookAFlightPage;
 import com.example.aviato.Pages.ContactUsPage;
-import com.example.aviato.Pages.LoginOptionsPage;
-import com.example.aviato.Pages.PlanATripPage;
-import com.example.aviato.Pages.ViewCartPage;
+import com.example.aviato.Pages.SplashPage;
+
+//import com.example.aviato.Pages.PlanATripPage;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     NavigationView navigationView = null;
+    ImageView imageView;
     Toolbar toolbar = null;
     Button logout, cancel;
-    DatabaseHelper database;
+    AppDatabaseHelper database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        database = new DatabaseHelper(this);
+        database = new AppDatabaseHelper(this);
         Intent i = getIntent();
-        String firstName = i.getStringExtra("user_name");
+        String firstName = i.getStringExtra("first_name");
 
-        Toast welcomeMessage = Toast.makeText(getApplicationContext(), "Hello " + firstName + " , Welcome to Aviato.", Toast.LENGTH_LONG);
+        Toast welcomeMessage = Toast.makeText(getApplicationContext(), "Hello " + firstName + ", Welcome to Aviato.", Toast.LENGTH_LONG);
         welcomeMessage.setGravity(Gravity.CENTER_VERTICAL, Gravity.CENTER_HORIZONTAL, 350);
         welcomeMessage.show();
 
-        //DEFAULT FRAGMENT
+        // Home Screen Fragment
         MainFragment fragment = new MainFragment();
         FragmentTransaction fragmentTransaction =
                 getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.Fragment_container, fragment);
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.commit();
 
         toolbar = findViewById(R.id.toolbar);
@@ -76,35 +77,8 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         }
-
-        else {
+        else
             super.onBackPressed();
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        if (id == R.id.view_cart) {
-            Cursor check;
-            check = database.getOrderDetails() ;
-
-            Intent intent = new Intent(getApplicationContext(), ViewCartPage.class);
-            startActivity(intent);
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -117,7 +91,7 @@ public class MainActivity extends AppCompatActivity
             ViewProfileFragment fragment = new ViewProfileFragment();
             FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.Fragment_container, fragment);
+            fragmentTransaction.replace(R.id.fragment_container, fragment);
             fragmentTransaction.commit();
         }
 
@@ -130,11 +104,12 @@ public class MainActivity extends AppCompatActivity
                 PastOrdersFragment fragment = new PastOrdersFragment();
                 FragmentTransaction fragmentTransaction =
                         getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.Fragment_container, fragment);
+                fragmentTransaction.replace(R.id.fragment_container, fragment);
                 fragmentTransaction.commit();
 
             }
- else {
+
+            else {
                 Toast noOrdersMessage = Toast.makeText(getApplicationContext(), "No past orders found for this user.", Toast.LENGTH_LONG);
                 noOrdersMessage.setGravity(Gravity.CENTER_VERTICAL, Gravity.CENTER_HORIZONTAL, 350);
                 noOrdersMessage.show();
@@ -144,12 +119,11 @@ public class MainActivity extends AppCompatActivity
         else if (id == R.id.book_a_flight) {
             Intent intent = new Intent(getApplicationContext(), BookAFlightPage.class);
             startActivity(intent);
-
         }
 
         else if (id == R.id.plan_a_trip) {
-            Intent intent = new Intent(getApplicationContext(), PlanATripPage.class);
-            startActivity(intent);
+//            Intent intent = new Intent(getApplicationContext(), PlanATripPage.class);
+//            startActivity(intent);
 
         }
 
@@ -157,12 +131,13 @@ public class MainActivity extends AppCompatActivity
             AboutUsFragment fragment = new AboutUsFragment();
             FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.Fragment_container, fragment);
+            fragmentTransaction.replace(R.id.fragment_container, fragment);
             fragmentTransaction.commit();
 
         }
 
         else if (id == R.id.contact_us) {
+            System.out.println("HELLO WORLD!!!!!!!!");
             Intent intent = new Intent(getApplicationContext(), ContactUsPage.class);
             startActivity(intent);
         }
@@ -176,11 +151,12 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    /*
+     *  Open the Logout dialog box for Users to be able to log out of their accounts.
+     */
     public void openLogoutDialog() {
-
         final Dialog builder = new Dialog(this);
         builder.setContentView(R.layout.dialog_logout);
-        builder.setTitle(R.string.dialog_popup);
         builder.show();
         logout = builder.findViewById(R.id.logout_dialog_ok);
         cancel = builder.findViewById(R.id.logout_dialog_cancel);
@@ -194,7 +170,7 @@ public class MainActivity extends AppCompatActivity
                 logoutMessage.setGravity(Gravity.CENTER_VERTICAL, Gravity.CENTER_HORIZONTAL, 350);
                 logoutMessage.show();
 
-                Intent intent = new Intent(getApplicationContext(), LoginOptionsPage.class);
+                Intent intent = new Intent(getApplicationContext(), SplashPage.class);
                 startActivity(intent);
             }
         });

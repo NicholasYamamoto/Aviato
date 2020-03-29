@@ -16,7 +16,7 @@
         android:gravity="center_horizontal"
         android:text="Welcome aboard."
         android:textAlignment="center"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/colorWhite"
         android:textSize="30sp"
         android:textStyle="normal" />
 
@@ -25,52 +25,61 @@
         android:layout_width="340dp"
         android:layout_height="55dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="159dp"
+        android:layout_marginTop="160dp"
         android:background="@drawable/btns_darkgray"
         android:hint="Email Address"
         android:inputType="textEmailAddress"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#FFFFFF" />
+        android:textColor="@color/colorWhite"
+        android:textColorHint="@color/colorWhite"
+        android:imeOptions="actionNext" />
 
     <EditText
         android:id="@+id/signin_password"
         android:layout_width="340dp"
         android:layout_height="55dp"
-        android:layout_above="@+id/btn_add_account"
         android:layout_below="@id/signin_email_address"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:background="@drawable/btns_darkgray"
         android:hint="Password"
         android:inputType="textPassword"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#FFFFFF" />
+        android:textColor="@color/colorWhite"
+        android:textColorHint="@color/colorWhite"
+        android:imeOptions="actionDone"/>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+    </LinearLayout>
     <CheckBox
         android:id="@+id/rememberMeChkbx"
         android:text="Remember Me"
+        android:textSize="15sp"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="15dp"
+        android:layout_marginBottom="15dp"
         android:layout_above="@id/loginBtn"
         android:buttonTint="@color/colorWhite"
         android:textColor="@color/colorWhite"
-
         />
 
     <TextView
         android:id="@+id/forgotPasswordBtn"
-        android:text="Forgot Password?"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_above="@id/loginBtn"
         android:layout_alignParentRight="true"
         android:layout_marginRight="15dp"
-        android:layout_above="@id/loginBtn"
-        android:paddingBottom="10dp"
-        android:textColor="#FFFFFF"
-
-        />
+        android:layout_marginBottom="15dp"
+        android:text="Forgot Password?"
+        android:textSize="15sp"
+        android:textColor="@color/colorWhite" />
 
     <Button
         android:id="@+id/loginBtn"
@@ -79,9 +88,12 @@
         android:layout_alignParentBottom="true"
         android:text="Login"
         android:layout_marginBottom="150dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="15dp"
         android:background="@drawable/btns_lightblue"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/colorWhite"
+        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
+        android:stateListAnimator="@null"
+        android:hapticFeedbackEnabled="true"
         />
 </RelativeLayout>

@@ -13,8 +13,6 @@ public class AtlantaClass {
         Itemprice = iPrice;
         Itemimage = iImage;
         Itemquantity = iquantity;
-
-
     }
 
     public String getItemName() {
@@ -32,6 +30,4 @@ public class AtlantaClass {
     public String getItemquantity() {
         return Itemquantity;
     }
-
-
 }

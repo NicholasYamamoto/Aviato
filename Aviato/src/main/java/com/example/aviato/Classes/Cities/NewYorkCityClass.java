@@ -29,6 +29,4 @@ public class NewYorkCityClass {
     public String getItemquantity() {
         return Itemquantity;
     }
-
-
 }
