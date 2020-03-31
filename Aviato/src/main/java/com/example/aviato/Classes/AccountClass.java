@@ -25,12 +25,12 @@ public class AccountClass {
         this.defaultDepart = defaultDepart;
     }
 
-    public int getAccount_id() {
+    public int getAccountID() {
         return accountID;
     }
 
-    public void setAccount_id(int account_id) {
-        this.accountID = account_id;
+    public void setAccountID(int accountID) {
+        this.accountID = accountID;
     }
 
     public String getEmail() {

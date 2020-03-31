@@ -7,18 +7,18 @@ package com.example.aviato.Classes;
 //      Then, the rest of the functioanlity can be combined with the BookAFlightClass,
 //          which is essentially all of this minus the Tourist Destination selection
 public class PlanATripClass {
-    private int city_ID;
+    private int cityID;
     private String name;
     private String picFile;
 
 
     /*
-     * @param city_ID the Primary Key identifier for the city selection in the Cities table
+     * @param cityID the Primary Key identifier for the city selection in the Cities table
      * @param name a String containing the City name
      * @param picFile a Drawable of the selected City skyline
      */
-    public PlanATripClass(int city_ID, String name, String picFile) {
-        this.city_ID = city_ID;
+    public PlanATripClass(int cityID, String name, String picFile) {
+        this.cityID = cityID;
         this.name = name;
         this.picFile = picFile;
     }
@@ -28,12 +28,12 @@ public class PlanATripClass {
         this.picFile = picFile;
     }
 
-    public int getCity_ID() {
-        return city_ID;
+    public int getCityID() {
+        return cityID;
     }
 
-    public void setCity_ID(int city_ID) {
-        this.city_ID = city_ID;
+    public void setCityID(int cityID) {
+        this.cityID = cityID;
     }
 
     public String getName() {

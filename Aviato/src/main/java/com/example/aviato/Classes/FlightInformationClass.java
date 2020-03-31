@@ -99,11 +99,11 @@ public class FlightInformationClass {
         this.customerID = customerID;
     }
 
-    public String getCarrier_id() {
+    public String getCarrierID() {
         return carrier_name;
     }
 
-    public void setCarrier_id(String carrier_name) {
+    public void setCarrierID(String carrier_name) {
         this.carrier_name = carrier_name;
     }
 

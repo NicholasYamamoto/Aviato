@@ -1,11 +1,12 @@
 package com.example.aviato.Pages;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.ListView;
-import android.widget.RadioGroup;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.aviato.AppDatabaseHelper;
@@ -13,161 +14,115 @@ import com.example.aviato.R;
 
 //import com.example.aviato.Classes.OrderClass;
 
-public class CheckoutPage extends AppCompatActivity {
-
-    AppDatabaseHelper appDatabaseHelper;
     /*
         TODO:   These values used for Checkout will be populated by the Flight Information table,
-                after which it will call OrderConfirmationPage, which will handle inserting everythign
+                after which it will call OrderConfirmationPage, which will handle inserting everything
                 into the Orders table.
+                Populate these values from a Cursor object created from the Flight Information table
     */
 
-    // TODO: Maybe make this into one Widget like a ListView or something instead of individual TextViews?
-    //       Populate these values from a Cursor object created from the Flight Information table
-    TextView payment_method_tv, first_name_tv, last_name_tv,
-             street_address_tv, city_tv, phone_number_tv,
-             subtotal_tv, tax_tv, grand_total_tv;
+public class CheckoutPage extends AppCompatActivity {
+    AppDatabaseHelper appDatabaseHelper;
 
-    RadioGroup ticket_delivery_method_rg;
-    DatePicker credit_card_month, credit_card_year;
-    Button submit_order_btn, cancel_order_btn;
+    TextView tv_departing_city, tv_departing_date, tv_departing_time, tv_departing_gate,
+             tv_destination_city, tv_destination_date, tv_destination_time, tv_destination_gate,
+             tv_return_city, tv_return_date, tv_return_time, tv_return_gate,
+             tv_payment_method_card_number, tv_total;
+
+    EditText edt_payment_method_card_number, edt_payment_method_security_code;
+
+    Button btn_submit_order, btn_cancel_order;
+    Spinner spinner_payment_method_card_type, spinner_credit_card_month, spinner_credit_card_year;
+
+    String testString = "HELLO WORLD";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout_page);
 
-        ListView listView = findViewById(R.id.checkout_page_lv);
         appDatabaseHelper = new AppDatabaseHelper(this);
 
-//        ArrayList<OrderClass> list = new ArrayList<>(); // Use to store the Details of the order, as big as it needs to be
-//        Cursor data = appDatabaseHelper.getOrderDetails();  // Get all of the
-//
-//        if (data.getCount() == 0) {
-//            Toast.makeText(CheckoutPage.this, "No flights were found. Try your search again!", Toast.LENGTH_SHORT).show();
-//        }
-//
-//
-//        else {
-//            while (data.moveToNext()) {
-//
-//                list.add(data.getString());
-//            }
-//        }
-//
-//        OrderAdapter adapter = new OrderAdapter(getApplicationContext(), list);
-//        listView.setAdapter(adapter);
-//
-//
-//
-//
-//
-//
-//
-//
-//        ListView listView = findViewById(R.id.view_cart_page);
-//        appDatabaseHelper = new AppDatabaseHelper(this);
-//
-//
-//
-//
-//        if (data.getCount() == 0) {
-//            Toast.makeText(CheckoutPage.this, "No flights were found. Try your search again!", Toast.LENGTH_SHORT).show();
-//        }
-//
-//        else {
-//            while (data.moveToNext()) {
-//
-//                list.add(new PastOrdersClass(data.getString(0),
-//                        data.getString(1), data.getString(2),
-//                        data.getString(3)));
-//            }
-//        }
-//
-//        OrderAdapter adapter = new OrderAdapter(getApplicationContext(), list);
-//        listView.setAdapter(adapter);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+        // TODO: Edit this so it will set the text based on the query from
+        //       the Flight Information table
+        tv_departing_city = findViewById(R.id.tv_departing_city);
+        tv_departing_date = findViewById(R.id.tv_departing_date);
+        tv_departing_time = findViewById(R.id.tv_departing_time);
+        tv_departing_gate = findViewById(R.id.tv_departing_gate);
 
-//        payment_method_tv = findViewById(R.id.payment_method_);
+        tv_destination_city = findViewById(R.id.tv_destination_city);
+        tv_destination_date = findViewById(R.id.tv_destination_date);
+        tv_destination_time = findViewById(R.id.tv_destination_time);
+        tv_destination_gate = findViewById(R.id.tv_destination_gate);
+
+        tv_return_city = findViewById(R.id.tv_return_city);
+        tv_return_date = findViewById(R.id.tv_return_date);
+        tv_return_time = findViewById(R.id.tv_return_time);
+        tv_return_gate = findViewById(R.id.tv_return_gate);
+
+
+        tv_departing_city.setText(testString);
+        tv_departing_date.setText(testString);
+        tv_departing_time.setText(testString);
+        tv_departing_gate.setText(testString);
+
+        tv_destination_city.setText(testString);
+        tv_destination_date.setText(testString);
+        tv_destination_time.setText(testString);
+        tv_destination_gate.setText(testString);
+
+
+        tv_return_city.setText(testString);
+        tv_return_date.setText(testString);
+        tv_return_time.setText(testString);
+        tv_return_gate.setText(testString);
+
+         /*
+            Submits the Order and opens the OrderConfirmation page, where it will Insert all values
+            from the Flight Information table in to the Past Orders table using the unique
+            Order ID foreign key.
+         */
+        btn_submit_order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //TODO: Fix the Past Orders class to take in these parameters
+
+//                Intent i = getIntent();
+//                FlightInformationClass info;
 //
+//                info = i.getParcelableExtra("find_available_flights_cursor");
+//                PastOrdersClass order = new PastOrdersClass(
+//                        info.
+//            );
+
+
+//            boolean isInserted = appDatabaseHelper.addOrderToTable(order);
 //
-//        appDatabaseHelper = new AppDatabaseHelper(this);
-//
-//        flight_departing_date_tv.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                CalendarPickerViewFragment fragment = new CalendarPickerViewFragment();
-//                FragmentTransaction fragmentTransaction =
-//                        getSupportFragmentManager().beginTransaction();
-//                fragmentTransaction.replace(R.id.fragment_container, fragment);
-//                fragmentTransaction.commit();
-//            }});
-//
-//        flight_return_date_tv.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                CalendarPickerViewFragment fragment = new CalendarPickerViewFragment();
-//                FragmentTransaction fragmentTransaction =
-//                        getSupportFragmentManager().beginTransaction();
-//                fragmentTransaction.replace(R.id.fragment_container, fragment);
-//                fragmentTransaction.commit();
-//            }});
-//
-//        find_available_flights_btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                FindFlightsFragment fragment = new FindFlightsFragment();
-//                FragmentTransaction fragmentTransaction =
-//                        getSupportFragmentManager().beginTransaction();
-//                fragmentTransaction.replace(R.id.fragment_container, fragment);
-//                fragmentTransaction.commit();
-//            }});
-//
-//        flight_continue_to_checkout_btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(), CheckoutPage.class);
+//            if (isInserted) {
+//                Intent intent = new Intent(getApplicationContext(), OrderConfirmationPage.class);
 //                startActivity(intent);
 //                finish();
-//            }});
-//
-//        //searchFlights();
-//
-//    }
-//
-//
-//
-//
-//
-//
-//
-//    public void searchFlights() {
-//        find_available_flights_btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                FindFlightsFragment fragment = new FindFlightsFragment();
-//                FragmentTransaction fragmentTransaction =
-//                        getSupportFragmentManager().beginTransaction();
-//                fragmentTransaction.replace(R.id.fragment_container, fragment);
-//                fragmentTransaction.commit();
-//            }
-//        });
-//    }
+//            } else
+//                Toast.makeText(CheckoutPage.this, "Something went wrong. Please try again.", Toast.LENGTH_SHORT).show();
+        }
+    });
+
+
+
+         /*
+                Cancels the entire workflow and sends User back to the Splash page
+         */
+        btn_cancel_order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), SplashPage.class);
+                startActivity(intent);
+            }});
+
+    }
+
+
 
     /*
             TODO:
@@ -207,5 +162,6 @@ public class CheckoutPage extends AppCompatActivity {
 //                            Toast.makeText(CheckoutPage.this, "Something went wrong. Please try again.", Toast.LENGTH_SHORT).show();
 //                    }
 //                });
-    }
+
+
 }

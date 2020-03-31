@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:textSize="25sp"
             android:textAlignment="center"
-            android:text="Made with love from these talented engineers:"
+            android:text="Made with\u2764from these talented engineers:"
             android:textColor="@color/colorBlack"
             android:layout_gravity="center_horizontal"
             android:paddingBottom="50dp"

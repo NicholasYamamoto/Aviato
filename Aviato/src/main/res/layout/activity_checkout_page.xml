@@ -1,17 +1,623 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAviatoLogoBlue"
+    tools:context="com.example.aviato.Pages.CheckoutPage">
 
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
 
-<ListView xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:id="@+id/checkout_page_lv"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:paddingBottom="@dimen/activity_vertical_margin"
-android:paddingLeft="@dimen/activity_horizontal_margin"
-android:paddingRight="@dimen/activity_horizontal_margin"
-android:paddingTop="@dimen/activity_vertical_margin"
-android:clickable="true"
+    <TextView
+        android:id="@+id/tv_review_order_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="Review Your Order:"
+        android:textAlignment="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="40sp"
+        android:textStyle="normal"
+        android:gravity="center_horizontal" />
 
-tools:context="com.example.aviato.Pages.CheckoutPage">
+        <!--        Departing Information Section         -->
 
-</ListView>
+        <View
+        android:id="@+id/departing_info_view"
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        android:layout_below="@id/tv_review_order_label"
+        android:layout_marginHorizontal="10dp"
+        android:background="@android:drawable/dialog_holo_dark_frame"
+        android:layout_marginTop="10dp">
+    </View>
+
+    <TextView
+        android:id="@+id/tv_departing_city_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="10dp"
+        android:background="@color/colorRed"
+        android:text="Departing:"
+        android:layout_below="@id/tv_review_order_label"
+        android:textAlignment="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="30sp"
+        android:textStyle="normal"
+        android:gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/tv_departing_city"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5sp"
+        android:text="Kansas City - MCI"
+        android:layout_below="@id/tv_departing_city_label"
+        android:textAlignment="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="20sp"
+        android:textStyle="normal"
+        android:gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/tv_departing_date_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5sp"
+        android:text="On:"
+        android:layout_below="@id/tv_departing_city"
+        android:textAlignment="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="30sp"
+        android:textStyle="normal"
+        android:gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/tv_departing_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5sp"
+        android:text="April 10, 2020"
+        android:layout_below="@id/tv_departing_date_label"
+        android:textAlignment="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="20sp"
+        android:textStyle="normal"
+        android:gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/tv_departing_time_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5sp"
+        android:text="At:"
+        android:layout_below="@id/tv_departing_date"
+        android:textAlignment="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="30sp"
+        android:textStyle="normal"
+        android:gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/tv_departing_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5sp"
+        android:text="10:00PM"
+        android:layout_below="@id/tv_departing_time_label"
+        android:textAlignment="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="20sp"
+        android:textStyle="normal"
+        android:gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/tv_departing_gate_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5sp"
+        android:text="From Gate #:"
+        android:layout_below="@id/tv_departing_time"
+        android:textAlignment="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="30sp"
+        android:textStyle="normal"
+        android:gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/tv_departing_gate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5sp"
+        android:text="19"
+        android:layout_below="@id/tv_departing_gate_label"
+        android:textAlignment="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="20sp"
+        android:textStyle="normal"
+        android:gravity="center_horizontal" />
+
+<!--        Arrival Information Section         -->
+
+    <View
+        android:id="@+id/destination_info_view"
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        android:layout_below="@id/departing_info_view"
+        android:layout_marginHorizontal="10dp"
+        android:background="@android:drawable/dialog_holo_dark_frame"
+        android:layout_marginTop="10dp">
+    </View>
+
+    <TextView
+        android:id="@+id/tv_arrival_info_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Arriving:"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="10dp"
+        android:background="@color/colorYellow"
+        android:layout_below="@id/departing_info_view"
+        android:textAlignment="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="30sp"
+        android:textStyle="normal"
+        android:gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/tv_destination_city"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5sp"
+        android:text="Los Angeles - LAX"
+        android:layout_below="@id/tv_arrival_info_label"
+        android:textAlignment="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="20sp"
+        android:textStyle="normal"
+        android:gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/tv_destination_date_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5sp"
+        android:text="On:"
+        android:layout_below="@id/tv_destination_city"
+        android:textAlignment="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="30sp"
+        android:textStyle="normal"
+        android:gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/tv_destination_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5sp"
+        android:text="May 16, 2020"
+        android:layout_below="@id/tv_destination_date_label"
+        android:textAlignment="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="20sp"
+        android:textStyle="normal"
+        android:gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/tv_destination_time_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5sp"
+        android:text="At:"
+        android:layout_below="@id/tv_destination_date"
+        android:textAlignment="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="30sp"
+        android:textStyle="normal"
+        android:gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/tv_destination_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5sp"
+        android:text="12:30AM"
+        android:layout_below="@id/tv_destination_time_label"
+        android:textAlignment="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="20sp"
+        android:textStyle="normal"
+        android:gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/tv_destination_gate_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5sp"
+        android:text="At Gate #:"
+        android:layout_below="@id/tv_destination_time"
+        android:textAlignment="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="30sp"
+        android:textStyle="normal"
+        android:gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/tv_destination_gate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5sp"
+        android:text="19"
+        android:layout_below="@id/tv_destination_gate_label"
+        android:textAlignment="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="20sp"
+        android:textStyle="normal"
+        android:gravity="center_horizontal" />
+
+<!--        Return Information Section         -->
+
+        <View
+            android:id="@+id/return_info_view"
+            android:layout_width="match_parent"
+            android:layout_height="320dp"
+            android:layout_below="@id/tv_destination_gate"
+            android:layout_marginHorizontal="10dp"
+            android:background="@android:drawable/dialog_holo_dark_frame"
+            android:layout_marginTop="10dp">
+        </View>
+
+        <TextView
+            android:id="@+id/tv_return_info_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Returning:"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="10dp"
+            android:background="@color/colorGreen"
+            android:layout_below="@id/tv_destination_gate"
+            android:textAlignment="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="30sp"
+            android:textStyle="normal"
+            android:gravity="center_horizontal" />
+
+        <TextView
+            android:id="@+id/tv_return_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5sp"
+            android:text="Kansas CIty - MCI"
+            android:layout_below="@id/tv_return_info_label"
+            android:textAlignment="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp"
+            android:textStyle="normal"
+            android:gravity="center_horizontal" />
+
+        <TextView
+            android:id="@+id/tv_return_date_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5sp"
+            android:text="On:"
+            android:layout_below="@id/tv_return_city"
+            android:textAlignment="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="30sp"
+            android:textStyle="normal"
+            android:gravity="center_horizontal" />
+
+        <TextView
+            android:id="@+id/tv_return_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5sp"
+            android:text="May 16, 2020"
+            android:layout_below="@id/tv_return_date_label"
+            android:textAlignment="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp"
+            android:textStyle="normal"
+            android:gravity="center_horizontal" />
+
+        <TextView
+            android:id="@+id/tv_return_time_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5sp"
+            android:text="At:"
+            android:layout_below="@id/tv_return_date"
+            android:textAlignment="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="30sp"
+            android:textStyle="normal"
+            android:gravity="center_horizontal" />
+
+        <TextView
+            android:id="@+id/tv_return_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5sp"
+            android:text="2:35PM"
+            android:layout_below="@id/tv_return_time_label"
+            android:textAlignment="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp"
+            android:textStyle="normal"
+            android:gravity="center_horizontal" />
+
+        <TextView
+            android:id="@+id/tv_return_gate_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5sp"
+            android:text="At Gate #:"
+            android:layout_below="@id/tv_return_time"
+            android:textAlignment="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="30sp"
+            android:textStyle="normal"
+            android:gravity="center_horizontal" />
+
+        <TextView
+            android:id="@+id/tv_return_gate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5sp"
+            android:text="19"
+            android:layout_below="@id/tv_return_gate_label"
+            android:textAlignment="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp"
+            android:textStyle="normal"
+            android:gravity="center_horizontal" />
+
+<!--        Payment Method Section         -->
+
+        <View
+            android:id="@+id/payment_method_view"
+            android:layout_width="match_parent"
+            android:layout_height="470dp"
+            android:layout_below="@id/tv_return_gate"
+            android:layout_marginHorizontal="10dp"
+            android:background="@android:drawable/dialog_holo_dark_frame"
+            android:layout_marginTop="10dp">
+        </View>
+
+        <TextView
+            android:id="@+id/tv_payment_info_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Payment Method:"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="10dp"
+            android:background="@color/colorPrimary"
+            android:layout_below="@id/tv_return_gate"
+            android:textAlignment="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="30sp"
+            android:textStyle="normal"
+            android:gravity="center_horizontal" />
+
+        <TextView
+            android:id="@+id/tv_card_type_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5sp"
+            android:text="Card Type:"
+            android:layout_below="@id/tv_payment_info_label"
+            android:textAlignment="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp"
+            android:textStyle="normal"
+            android:gravity="center_horizontal" />
+
+        <Spinner
+            android:id="@+id/spinner_payment_method_card_type"
+            android:layout_width="340sp"
+            android:layout_height="55sp"
+            android:layout_marginTop="5sp"
+            android:layout_below="@id/tv_card_type_label"
+            android:gravity="center_horizontal"
+            android:textAlignment="center"
+            android:layout_centerHorizontal="true"
+            android:entries="@array/payment_method_card_types_array"
+            android:textColor="@color/colorWhite"
+            android:background="@color/colorWhite"
+            android:textColorHint="@color/colorWhite"/>
+
+        <TextView
+            android:id="@+id/tv_card_number_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5sp"
+            android:text="Credit Card #:"
+            android:layout_below="@id/spinner_payment_method_card_type"
+            android:textAlignment="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp"
+            android:textStyle="normal"
+            android:gravity="center_horizontal" />
+
+        <EditText
+            android:id="@+id/et_payment_method_card_number"
+            android:layout_width="340sp"
+            android:layout_height="55sp"
+            android:layout_below="@+id/tv_card_number_label"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10sp"
+            android:layout_marginBottom="10sp"
+            android:background="@drawable/btns_darkgray"
+            android:hint="Card #"
+            android:inputType="numberPassword"
+            android:textColor="@color/colorWhite"
+            android:textColorHint="@color/colorWhite"
+            />
+
+        <TextView
+            android:id="@+id/tv_expiration_date_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5sp"
+            android:text="Expiration Date:"
+            android:layout_below="@id/et_payment_method_card_number"
+            android:textAlignment="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp"
+            android:textStyle="normal"
+            android:gravity="center_horizontal" />
+
+        <LinearLayout
+            android:id="@+id/payment_method_expiration_date_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="5sp"
+            android:gravity="center"
+            android:layout_below="@+id/tv_expiration_date_label">
+
+            <Spinner
+                android:id="@+id/spinner_credit_card_month"
+                android:layout_width="100sp"
+                android:layout_height="55sp"
+                android:layout_marginTop="5sp"
+                android:layout_marginHorizontal="5sp"
+                android:gravity="center_horizontal"
+                android:textAlignment="center"
+                android:entries="@array/payment_method_expiration_months_array"
+                android:textColor="@color/colorWhite"
+                android:background="@color/colorWhite"
+                android:textColorHint="@color/colorWhite"/>
+
+            <Spinner
+                android:id="@+id/spinner_credit_card_year"
+                android:layout_width="100sp"
+                android:layout_height="55sp"
+                android:layout_marginTop="5sp"
+                android:layout_marginHorizontal="5sp"
+                android:gravity="center_horizontal"
+                android:textAlignment="center"
+                android:entries="@array/payment_method_expiration_years_array"
+                android:textColor="@color/colorWhite"
+                android:background="@color/colorWhite"
+                android:textColorHint="@color/colorWhite"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_payment_method_security_code_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5sp"
+            android:text="Security Code (CVV):"
+            android:layout_below="@id/payment_method_expiration_date_group"
+            android:textAlignment="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp"
+            android:textStyle="normal"
+            android:gravity="center_horizontal" />
+
+        <EditText
+            android:id="@+id/et_payment_method_security_code"
+            android:layout_width="340sp"
+            android:layout_height="55sp"
+            android:layout_below="@+id/tv_payment_method_security_code_label"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10sp"
+            android:layout_marginBottom="10sp"
+            android:background="@drawable/btns_darkgray"
+            android:hint="CVV #"
+            android:inputType="number"
+            android:textColor="@color/colorWhite"
+            android:textColorHint="@color/colorWhite"
+            />
+
+<!--        Order Total Section         -->
+
+        <View
+            android:id="@+id/total_info_view"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_below="@id/payment_method_view"
+            android:layout_marginHorizontal="10dp"
+            android:background="@android:drawable/dialog_holo_dark_frame"
+            android:layout_marginTop="10dp">
+        </View>
+
+        <LinearLayout
+            android:id="@+id/order_total_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="5sp"
+            android:gravity="center"
+            android:layout_below="@+id/et_payment_method_security_code">
+
+            <TextView
+                android:id="@+id/tv_total_label"
+                android:layout_width="wrap_content"
+                android:layout_height="55sp"
+                android:layout_marginTop="30sp"
+                android:layout_marginHorizontal="5sp"
+                android:gravity="center_horizontal"
+                android:text="Total:"
+                android:textSize="30sp"
+                android:textAlignment="center"
+                android:entries="@array/payment_method_expiration_months_array"
+                android:textColor="@color/colorWhite"
+                android:textColorHint="@color/colorWhite"/>
+
+            <TextView
+                android:id="@+id/tv_total"
+                android:layout_width="wrap_content"
+                android:layout_height="55sp"
+                android:layout_marginTop="30sp"
+                android:layout_marginHorizontal="5sp"
+                android:gravity="center_horizontal"
+                android:text="$117.69"
+                android:inputType="numberDecimal"
+                android:textSize="30sp"
+                android:textAlignment="center"
+                android:entries="@array/payment_method_expiration_months_array"
+                android:textColor="@color/colorWhite"
+                android:textColorHint="@color/colorWhite"/>
+
+        </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_submit_order"
+        android:layout_width="340sp"
+        android:layout_height="55sp"
+        android:layout_below="@+id/total_info_view"
+        android:text="Place Order"
+        android:textSize="20sp"
+        android:textColor="@color/colorWhite"
+        android:layout_marginTop="25sp"
+        android:layout_marginBottom="5sp"
+        android:background="@drawable/btns_lightblue"
+        android:layout_centerHorizontal="true"
+        android:hapticFeedbackEnabled="true"
+        android:stateListAnimator="@null"
+        />
+
+    <Button
+        android:id="@+id/btn_cancel_order"
+        android:layout_width="340sp"
+        android:layout_height="55sp"
+        android:layout_below="@+id/btn_submit_order"
+        android:text="Cancel Order"
+        android:textSize="20sp"
+        android:textColor="@color/colorWhite"
+        android:layout_marginTop="5sp"
+        android:layout_marginBottom="25sp"
+        android:background="@drawable/btns_red"
+        android:layout_centerHorizontal="true"
+        android:hapticFeedbackEnabled="true"
+        android:stateListAnimator="@null"
+        />
+
+    </RelativeLayout>
+</ScrollView>

@@ -10,7 +10,6 @@ import com.example.aviato.Classes.AccountClass;
 import com.example.aviato.Classes.FlightInformationClass;
 
 public class AppDatabaseHelper extends SQLiteOpenHelper {
-    private static final String TAG = "AppDatabaseHelper";
     private static final int DATABASE_VERSION = 3;
     private static final String DATABASE_NAME = "aviato.db";
     private static final String TABLE_ACCOUNT = "account";
@@ -24,8 +23,8 @@ public class AppDatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_ACCOUNT_FIRST_NAME = "first_name";
     private static final String COL_ACCOUNT_USERNAME = "email";
     private static final String COL_ACCOUNT_PASSWORD = "password";
-    private static final String COL_ACCOUNT_DEPART = "default_departure";
-    private static final String COL_ACCOUNT_CARRIER = "preferred_carrier";
+    private static final String COL_ACCOUNT_DEFAULT_DEPART = "default_departure";
+    private static final String COL_ACCOUNT_PREFERRED_CARRIER = "preferred_carrier";
 
     /* Trip table columns */
     private static final String COL_TRIP_ID = "trip_id";
@@ -81,14 +80,35 @@ public class AppDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         //Create Account Table
         String CREATE_TABLE_ACCOUNT = "CREATE TABLE " + TABLE_ACCOUNT + " (" +
-                COL_ACCOUNT_PASSWORD + " TEXT, " +
-                COL_ACCOUNT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                COL_ACCOUNT_FIRST_NAME + " TEXT, " +
-                COL_ACCOUNT_CARRIER + " TEXT," +
-                COL_ACCOUNT_USERNAME + " TEXT," +
-                COL_ACCOUNT_DEPART + " TEXT)";
+                COL_ACCOUNT_USERNAME + " TEXT ," +
+                COL_ACCOUNT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT)";
+//                COL_ACCOUNT_FIRST_NAME + " TEXT, " +
+//                COL_ACCOUNT_USERNAME + " TEXT," +
+//                COL_ACCOUNT_USERNAME + " TEXT)";
+//                COL_ACCOUNT_PASSWORD + " TEXT, " +
+//                COL_ACCOUNT_DEFAULT_DEPART + " TEXT," +
+//                COL_ACCOUNT_PREFERRED_CARRIER + " TEXT)";
+
+        System.out.println("CREATING THE ACCOUNT TABLE.");
 
         sqLiteDatabase.execSQL(CREATE_TABLE_ACCOUNT);
 
@@ -195,7 +215,7 @@ public class AppDatabaseHelper extends SQLiteOpenHelper {
         return check != -1;
     }
 
-    //Adds Flight Information to the database and returns a Boolean true if insert was successful or false if insert failed
+    // Adds Flight Information to the database and returns a Boolean true if insert was successful or false if insert failed
     public boolean addFlightInformationToTable(FlightInformationClass flight) {
         long status;
 
@@ -203,7 +223,7 @@ public class AppDatabaseHelper extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
 
         contentValues.put("COL_FLIGHT_INFO_CUSTOMER_ID_FK", flight.getCustomerID());
-        contentValues.put("COL_FLIGHT_INFO_CARRIER_NAME", flight.getCarrier_id());
+        contentValues.put("COL_FLIGHT_INFO_CARRIER_NAME", flight.getCarrierID());
         contentValues.put("COL_FLIGHT_INFO_DEPART_DATE", flight.getDepartDate());
         contentValues.put("COL_FLIGHT_INFO_DEPART_CITY", flight.getDepartingCity());
         contentValues.put("COL_FLIGHT_INFO_DEPART_TIME", flight.getDepartingTime());
@@ -230,12 +250,17 @@ public class AppDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
-        contentValues.put("account_ID", account.getAccount_id());
-        contentValues.put("first_name", account.getFirstName());
+        // TODO: THIS WORKS. I don't know how, but it does.
+        //      Use this as an example for the Inserting of values for the other tables
         contentValues.put("email", account.getEmail());
-        contentValues.put("password", account.getPassword());
-        contentValues.put("preferred_carrier", account.getDefaultCarrier());
-        contentValues.put("default_departure", account.getDefaultDepart());
+
+
+//        contentValues.put("account_id", account.getAccountID());
+//        contentValues.put("first_name", account.getFirstName());
+//        contentValues.put("email", account.getEmail());
+//        contentValues.put("password", account.getPassword());
+//        contentValues.put("default_departure", account.getDefaultCarrier());
+//        contentValues.put("preferred_carrier", account.getDefaultDepart());
 
         System.out.println(contentValues.toString());
 

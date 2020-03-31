@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#00BCD4</color>
+    <color name="colorAviatoLogoBlue">#36538b</color>
     <color name="colorAviatoDarkBlue">#2D4075</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorRed">#CA0000</color>
+    <color name="colorYellow">#BAA916</color>
+    <color name="colorGreen">#007C11</color>
     <color name="colorWhite">#FFFF</color>
     <color name="colorBlack">#000000</color>
+
+
 
 </resources>

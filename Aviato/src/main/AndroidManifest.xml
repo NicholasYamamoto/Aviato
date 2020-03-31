@@ -28,10 +28,7 @@
         <activity android:name="com.example.aviato.Pages.BookAFlightPage" />
         <activity android:name="com.example.aviato.Pages.PlanATripPage" />
 
-        <activity android:name="com.example.aviato.Pages.ContactUsPage" />
-
         <activity android:name="com.example.aviato.Pages.CheckoutPage" />
-        <activity android:name="com.example.aviato.Pages.ReviewOrderPage" />
         <activity android:name="com.example.aviato.Pages.OrderConfirmationPage" />
 
         <activity

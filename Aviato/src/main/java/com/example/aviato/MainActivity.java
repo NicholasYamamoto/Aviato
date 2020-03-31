@@ -19,11 +19,11 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.aviato.Fragments.AboutUsFragment;
+import com.example.aviato.Fragments.ContactUsFragment;
 import com.example.aviato.Fragments.MainFragment;
 import com.example.aviato.Fragments.PastOrdersFragment;
 import com.example.aviato.Fragments.ViewProfileFragment;
 import com.example.aviato.Pages.BookAFlightPage;
-import com.example.aviato.Pages.ContactUsPage;
 import com.example.aviato.Pages.SplashPage;
 
 //import com.example.aviato.Pages.PlanATripPage;
@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
 
         navigationView = findViewById(R.id.nav_view);
         navigationView.setItemIconTintList(null);
@@ -133,13 +134,19 @@ public class MainActivity extends AppCompatActivity
                     getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, fragment);
             fragmentTransaction.commit();
-
         }
 
         else if (id == R.id.contact_us) {
-            System.out.println("HELLO WORLD!!!!!!!!");
-            Intent intent = new Intent(getApplicationContext(), ContactUsPage.class);
-            startActivity(intent);
+
+            ContactUsFragment fragment = new ContactUsFragment();
+            FragmentTransaction fragmentTransaction =
+                    getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, fragment);
+            fragmentTransaction.commit();
+
+
+//            Intent intent = new Intent(getApplicationContext(), ContactUsPage.class);
+//            startActivity(intent);
         }
 
         else if (id == R.id.log_out) {
@@ -181,6 +188,5 @@ public class MainActivity extends AppCompatActivity
                 builder.dismiss();
             }
         });
-
     }
 }

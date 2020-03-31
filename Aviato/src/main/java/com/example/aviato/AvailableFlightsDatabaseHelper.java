@@ -130,7 +130,7 @@ public class AvailableFlightsDatabaseHelper extends SQLiteOpenHelper {
 //        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 //        ContentValues contentValues = new ContentValues();
 //
-//        contentValues.put("account_ID", order.getAccount_id());
+//        contentValues.put("accountID", order.getAccountID());
 //        contentValues.put("first_name", order.getFirstName());
 //        contentValues.put("email", order.getEmail());
 //        contentValues.put("password", order.getPassword());

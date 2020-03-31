@@ -1,29 +1,23 @@
 package com.example.aviato.Pages;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.database.Cursor;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.support.annotation.RequiresApi;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.aviato.AppDatabaseHelper;
 import com.example.aviato.AvailableFlightsDatabaseHelper;
-import com.example.aviato.Fragments.CalendarPickerViewFragment;
 import com.example.aviato.R;
-import com.squareup.timessquare.CalendarPickerView;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
+import java.util.Locale;
 
 public class BookAFlightPage extends AppCompatActivity {
     AppDatabaseHelper appDatabaseHelper;
@@ -31,17 +25,15 @@ public class BookAFlightPage extends AppCompatActivity {
 
     Spinner flight_departing_city_spinner, flight_destination_city_spinner;
     TextView flight_passenger_count_tv, flight_departing_date_tv, flight_return_date_tv;
-    CalendarPickerView datePicker;
     Button flight_add_passenger_btn, flight_remove_passenger_btn, find_available_flights_btn, flight_continue_to_checkout_btn;
 
-    String tripDepartDate, tripReturnDate;
+    final Calendar departDateCalendar = Calendar.getInstance();
+    final Calendar returnDateCalendar = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_a_flight_page);
-
-        initializeCalendarPickerView();
 
         flight_departing_city_spinner = findViewById(R.id.departingCitySpnr);
         flight_destination_city_spinner = findViewById(R.id.destinationCitySpnr);
@@ -65,36 +57,36 @@ public class BookAFlightPage extends AppCompatActivity {
 
         appDatabaseHelper = new AppDatabaseHelper(this);
 
+        DatePickerDialog.OnDateSetListener departDate = (view, year, monthOfYear, dayOfMonth) -> {
+            departDateCalendar.set(Calendar.YEAR, year);
+            departDateCalendar.set(Calendar.MONTH, monthOfYear);
+            departDateCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            updateDepartDateLabel();
+        };
+
+        DatePickerDialog.OnDateSetListener returnDate= (view, year, monthOfYear, dayOfMonth) -> {
+            returnDateCalendar.set(Calendar.YEAR, year);
+            returnDateCalendar.set(Calendar.MONTH, monthOfYear);
+            returnDateCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            updateReturnDateLabel();
+        };
+
+        //TODO: Change this so the DatePicker can be used to select a date and return it as a String
         flight_departing_date_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CalendarPickerViewFragment fragment = new CalendarPickerViewFragment();
-                FragmentTransaction fragmentTransaction =
-                        getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container, fragment);
-                fragmentTransaction.commit();
+                new DatePickerDialog(BookAFlightPage.this, departDate, departDateCalendar
+                        .get(Calendar.YEAR), departDateCalendar.get(Calendar.MONTH),
+                        departDateCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }});
-
+        // TODO: Same as above
         flight_return_date_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CalendarPickerViewFragment fragment = new CalendarPickerViewFragment();
-                FragmentTransaction fragmentTransaction =
-                        getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container, fragment);
-                fragmentTransaction.commit();
+                new DatePickerDialog(BookAFlightPage.this, returnDate, returnDateCalendar
+                        .get(Calendar.YEAR), returnDateCalendar.get(Calendar.MONTH),
+                        returnDateCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }});
-
-        //TODO: Might not need to have any functionality for the second TextView for the date
-//        flight_departing_date_tv.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                CalendarPickerViewFragment fragment = new CalendarPickerViewFragment();
-//                FragmentTransaction fragmentTransaction =
-//                        getSupportFragmentManager().beginTransaction();
-//                fragmentTransaction.replace(R.id.fragment_container, fragment);
-//                fragmentTransaction.commit();
-//            }});
 
         flight_add_passenger_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,73 +111,34 @@ public class BookAFlightPage extends AppCompatActivity {
         find_available_flights_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Cursor searchParameters = availableFlightsDatabaseHelper.getAvailableFlights(
-                                        flight_departing_date_tv.getText().toString(),
-                                        flight_departing_city_spinner.getSelectedItem().toString(),
-                                        flight_destination_city_spinner.getSelectedItem().toString(),
-                                        flight_return_date_tv.getText().toString()
-                );
+//                Cursor searchParameters = availableFlightsDatabaseHelper.getAvailableFlights(
+//                                        flight_departing_date_tv.getText().toString(),
+//                                        flight_departing_city_spinner.getSelectedItem().toString(),
+//                                        flight_destination_city_spinner.getSelectedItem().toString(),
+//                                        flight_return_date_tv.getText().toString()
+//                );
+
+                Toast.makeText(BookAFlightPage.this, "YOU SHOULD SEE THIS", Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(getApplicationContext(), FindFlightsPage.class);
-                intent.putExtra("find_available_flights_cursor", (Parcelable) searchParameters);
+                //intent.putExtra("find_available_flights_cursor", (Parcelable) searchParameters);
                 startActivity(intent);
             }});
     }
 
-    private void initializeCalendarPickerView() {
-        // TODO: Watch those Youtube tutorials and figure out how to use to
-        //       extract the date from the Date Picker
 
-        Date today = new Date();
-        Calendar nextYear = Calendar.getInstance();
-        nextYear.add(Calendar.YEAR, 1);
+    private void updateDepartDateLabel() {
+        String myFormat = "MM/dd";
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
-        datePicker = findViewById(R.id.calendar_grid);
-
-        datePicker.init(today, nextYear.getTime())
-                .inMode(CalendarPickerView.SelectionMode.RANGE)
-                .withSelectedDate(today);
-
-        List<Date> tripDuration = datePicker.getSelectedDates();
-
-        flight_departing_date_tv.setText(tripDuration.get(0).toString());
-        flight_return_date_tv.setText(tripDuration.get(tripDuration.size() - 1).toString());
-
-
-        datePicker.setOnDateSelectedListener(new CalendarPickerView.OnDateSelectedListener() {
-            @Override
-            public void onDateSelected(Date date) {
-                Calendar calSelected = Calendar.getInstance();
-                calSelected.setTime(date);
-
-//                String selectedDate = "" + calSelected.get(Calendar.DAY_OF_MONTH)
-//                        + " " + (calSelected.get(Calendar.MONTH) + 1)
-//                        + " " + calSelected.get(Calendar.YEAR);
-            }
-
-            @Override
-            public void onDateUnselected(Date date) {
-            }
-        });
+        flight_departing_date_tv.setText(sdf.format(departDateCalendar.getTime()));
     }
 
+    private void updateReturnDateLabel() {
+        String myFormat = "MM/dd";
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
-    /*
-     *      Generate a random Ticket Number using a Lambda function
-     */
-    @RequiresApi(api = Build.VERSION_CODES.N)
-
-    public String generateTicketNumber() {
-        int leftLimit = 48; // numeral '0'
-        int rightLimit = 122; // letter 'z'
-        int targetStringLength = 6;
-        Random random = new Random();
-
-        return random.ints(leftLimit, rightLimit + 1)
-                .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
-                .limit(targetStringLength)
-                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-                .toString();
+        flight_return_date_tv.setText(sdf.format(returnDateCalendar.getTime()));
     }
 
 }

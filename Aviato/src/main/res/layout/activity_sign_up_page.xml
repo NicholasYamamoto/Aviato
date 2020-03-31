@@ -34,6 +34,7 @@
         android:textColor="@color/colorWhite"
         android:textColorHint="@color/colorWhite"
         />
+
     <EditText
         android:id="@+id/signup_email"
         android:layout_width="340sp"
@@ -67,8 +68,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/signup_password"
-        android:layout_marginTop="80sp"
-        android:text="Preferred Airline"
+        android:layout_marginTop="125sp"
+        android:text="Preferred Airline:"
         android:textAlignment="center"
         android:textColor="@color/colorWhite"
         android:textSize="20sp"
@@ -84,16 +85,19 @@
         android:layout_below="@+id/tv_preferred_carrier_label"
         android:layout_centerHorizontal="true"
         android:entries="@array/carriers_array"
+        android:textAlignment="center"
+
         android:textColor="@color/colorWhite"
         android:background="@color/colorWhite"
-        android:textColorHint="@color/colorWhite"/>
+        android:textColorHint="@color/colorWhite"
+        android:gravity="center_horizontal" />
 
     <TextView
         android:id="@+id/tv_default_depart_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/signup_preferred_carrier_spinner"
-        android:text="My Closest Airport"
+        android:text="My Closest Airport:"
         android:textAlignment="center"
         android:textColor="@color/colorWhite"
         android:textSize="20sp"
@@ -110,9 +114,10 @@
         android:layout_centerHorizontal="true"
         android:entries="@array/airports_array"
         android:textColor="@color/colorWhite"
+        android:textAlignment="center"
         android:background="@color/colorWhite"
-        android:textColorHint="@color/colorWhite" />
-
+        android:textColorHint="@color/colorWhite"
+        android:gravity="center_horizontal" />
 
     <Button
         android:id="@+id/btn_add_account"
@@ -120,6 +125,7 @@
         android:layout_height="55sp"
         android:layout_alignParentBottom="true"
         android:text="Confirm"
+        android:textSize="20dp"
         android:layout_marginTop="10sp"
         android:layout_marginBottom="25sp"
         android:background="@drawable/btns_lightblue"

@@ -31,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="From:"
-                android:textColor="@color/colorAviatoDarkBlue"
+                android:textColor="@color/colorAviatoLogoBlue"
                 android:textSize="25sp"
                 android:hapticFeedbackEnabled="true"
                 android:textStyle="bold" />
@@ -58,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="To:"
-                android:textColor="@color/colorAviatoDarkBlue"
+                android:textColor="@color/colorAviatoLogoBlue"
                 android:textSize="25sp"
                 android:textStyle="bold" />
 
@@ -101,7 +101,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Departing:"
-                android:textColor="@color/colorAviatoDarkBlue"
+                android:textColor="@color/colorAviatoLogoBlue"
                 android:textSize="22sp"
                 android:hapticFeedbackEnabled="true"
                 android:textStyle="bold"
@@ -109,8 +109,8 @@
 
             <TextView
                 android:id="@+id/departDateTV"
-                android:text="2/20"
                 android:textSize="45dp"
+                android:text="..."
                 android:layout_width="175sp"
                 android:layout_height="wrap_content"
                 android:clickable="true"
@@ -131,7 +131,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Returning:"
-                android:textColor="@color/colorAviatoDarkBlue"
+                android:textColor="@color/colorAviatoLogoBlue"
                 android:textSize="22sp"
                 android:hapticFeedbackEnabled="true"
                 android:textStyle="bold"
@@ -139,7 +139,7 @@
 
             <TextView
                 android:id="@+id/returnDateTV"
-                android:text="2/20"
+                android:text="..."
                 android:textSize="45dp"
                 android:layout_width="175sp"
                 android:layout_height="wrap_content"
@@ -180,7 +180,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Passengers:"
-                android:textColor="@color/colorAviatoDarkBlue"
+                android:textColor="@color/colorAviatoLogoBlue"
                 android:textSize="30sp"
                 android:hapticFeedbackEnabled="true"
                 android:textStyle="bold"
@@ -196,10 +196,10 @@
 
             <Button
                 android:id="@+id/flightRemovePassengerBtn"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="35dp"
+                android:layout_height="30dp"
                 android:background="@drawable/icon_minus"
-                android:textColor="@color/colorAviatoDarkBlue"
+                android:textColor="@color/colorAviatoLogoBlue"
                 android:hapticFeedbackEnabled="true"
                 android:layout_gravity="center"
                 android:stateListAnimator="@null"
@@ -222,13 +222,13 @@
                 android:gravity="center_horizontal" />
             <Button
                 android:id="@+id/flightAddPassengerBtn"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="35dp"
+                android:layout_height="30dp"
                 android:layout_gravity="center"
                 android:background="@drawable/icon_plus"
                 android:hapticFeedbackEnabled="true"
                 android:stateListAnimator="@null"
-                android:textColor="@color/colorAviatoDarkBlue" />
+                android:textColor="@color/colorAviatoLogoBlue" />
         </LinearLayout>
     </LinearLayout>
 
