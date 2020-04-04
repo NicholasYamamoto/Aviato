@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.aviato.DatabaseHelper;
 import com.example.aviato.MainActivity;
@@ -45,21 +44,21 @@ public class SignInPage extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean isExist = myDB.verifyAccount(signinEmail.getText().toString(),
-                        signinPassword.getText().toString());
-                if (isExist) {
+//                boolean isExist = myDB.verifyAccount(signinEmail.getText().toString(),
+//                        signinPassword.getText().toString());
+//                if (isExist) {
                     Intent login = new Intent(getApplicationContext(), MainActivity.class);
                     login.putExtra("user_name", signinEmail.getText().toString());
                     startActivity(login);
                     finish();
-                }
-                
-                else {
-                    signinPassword.setText(null);
-                    Toast.makeText(SignInPage.this, "Log In Failed. Please Try Again.", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getApplicationContext(), SignInPage.class);
-                    startActivity(intent);
-                }
+//                }
+//
+//                else {
+//                    signinPassword.setText(null);
+//                    Toast.makeText(SignInPage.this, "Log In Failed. Please Try Again.", Toast.LENGTH_SHORT).show();
+//                    Intent intent = new Intent(getApplicationContext(), SignInPage.class);
+//                    startActivity(intent);
+//                }
             }
         });
     }
