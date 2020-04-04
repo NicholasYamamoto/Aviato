@@ -17,6 +17,11 @@
         <item>New York, NY - JFK</item>
     </string-array>
 
+    <string-array name="flight_type_array">
+        <item>Economy</item>
+        <item>First Class</item>
+    </string-array>
+
     <string-array name="carriers_array">
         <item>Southwest Airlines</item>
         <item>Delta Air Lines</item>

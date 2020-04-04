@@ -5,11 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.aviato.AppDatabaseHelper;
+import com.example.aviato.DatabaseHelper;
 import com.example.aviato.R;
 
 public class ViewProfilePage extends AppCompatActivity {
-    AppDatabaseHelper appDatabaseHelper;
+    DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +26,7 @@ public class ViewProfilePage extends AppCompatActivity {
 //        details.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
-//                Cursor res = appDatabaseHelper.getData();
+//                Cursor res = databaseHelper.getData();
 //                if(res.getCount() == 0) {
 //                    showMessage("Error", "nothing found");
 //                    return;

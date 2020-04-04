@@ -8,12 +8,12 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
-import com.example.aviato.AppDatabaseHelper;
+import com.example.aviato.DatabaseHelper;
 import com.example.aviato.R;
 
 public class SplashPage extends AppCompatActivity {
     Button sign_in, sign_up;
-    AppDatabaseHelper appDatabaseHelper;
+    DatabaseHelper databaseHelper;
     Animation anim_slide_down;
 
     @Override
@@ -28,7 +28,7 @@ public class SplashPage extends AppCompatActivity {
         sign_in.setAnimation(anim_slide_down);
         sign_up.setAnimation(anim_slide_down);
 
-        appDatabaseHelper = new AppDatabaseHelper(this);
+        databaseHelper = new DatabaseHelper(this);
 
         sign_in.setOnClickListener(new View.OnClickListener() {
             @Override

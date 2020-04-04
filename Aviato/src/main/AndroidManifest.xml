@@ -34,7 +34,6 @@
         <activity
             android:name="com.example.aviato.MainActivity"
             android:theme="@style/AppTheme" />
-        <activity android:name=".Pages.FindFlightsPage" />
     </application>
 
 

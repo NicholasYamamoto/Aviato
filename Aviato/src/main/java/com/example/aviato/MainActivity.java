@@ -2,7 +2,6 @@ package com.example.aviato;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
@@ -21,7 +20,6 @@ import android.widget.Toast;
 import com.example.aviato.Fragments.AboutUsFragment;
 import com.example.aviato.Fragments.ContactUsFragment;
 import com.example.aviato.Fragments.MainFragment;
-import com.example.aviato.Fragments.PastOrdersFragment;
 import com.example.aviato.Fragments.ViewProfileFragment;
 import com.example.aviato.Pages.BookAFlightPage;
 import com.example.aviato.Pages.SplashPage;
@@ -35,14 +33,14 @@ public class MainActivity extends AppCompatActivity
     ImageView imageView;
     Toolbar toolbar = null;
     Button logout, cancel;
-    AppDatabaseHelper database;
+    DatabaseHelper databaseInstance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        database = new AppDatabaseHelper(this);
+        databaseInstance = new DatabaseHelper(this);
         Intent i = getIntent();
         String firstName = i.getStringExtra("first_name");
 
@@ -98,23 +96,23 @@ public class MainActivity extends AppCompatActivity
 
         else if (id == R.id.past_orders) {
 
-            Cursor check;
-            check = database.getOrderDetails();
+            Intent intent = new Intent(getApplicationContext(), ItineraryActivity.class);
+            startActivity(intent);
 
-            if (check != null && check.getCount() > 0) {
-                PastOrdersFragment fragment = new PastOrdersFragment();
-                FragmentTransaction fragmentTransaction =
-                        getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container, fragment);
-                fragmentTransaction.commit();
-
-            }
-
-            else {
-                Toast noOrdersMessage = Toast.makeText(getApplicationContext(), "No past orders found for this user.", Toast.LENGTH_LONG);
-                noOrdersMessage.setGravity(Gravity.CENTER_VERTICAL, Gravity.CENTER_HORIZONTAL, 350);
-                noOrdersMessage.show();
-            }
+//            if (check != null && check.getCount() > 0) {
+//                PastOrdersFragment fragment = new PastOrdersFragment();
+//                FragmentTransaction fragmentTransaction =
+//                        getSupportFragmentManager().beginTransaction();
+//                fragmentTransaction.replace(R.id.fragment_container, fragment);
+//                fragmentTransaction.commit();
+//
+//            }
+//
+//            else {
+//                Toast noOrdersMessage = Toast.makeText(getApplicationContext(), "No past orders found for this user.", Toast.LENGTH_LONG);
+//                noOrdersMessage.setGravity(Gravity.CENTER_VERTICAL, Gravity.CENTER_HORIZONTAL, 350);
+//                noOrdersMessage.show();
+//            }
         }
 
         else if (id == R.id.book_a_flight) {
@@ -171,7 +169,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
 
-                database.deleteAll();
+                databaseInstance.deleteAll();
 
                 Toast logoutMessage = Toast.makeText(getApplicationContext(), "Successfully Logged Out!.", Toast.LENGTH_LONG);
                 logoutMessage.setGravity(Gravity.CENTER_VERTICAL, Gravity.CENTER_HORIZONTAL, 350);

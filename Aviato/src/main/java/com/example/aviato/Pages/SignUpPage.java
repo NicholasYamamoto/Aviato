@@ -9,12 +9,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.aviato.AppDatabaseHelper;
+import com.example.aviato.DatabaseHelper;
 import com.example.aviato.Classes.AccountClass;
 import com.example.aviato.R;
 
 public class SignUpPage extends AppCompatActivity {
-    AppDatabaseHelper appDatabaseHelper;
+    DatabaseHelper databaseHelper;
     EditText signupFirstName, signupEmailAddress, signupPassword;
     Spinner signupPreferredCarrier, signupDefaultDepart;
     Button addAccount;
@@ -24,7 +24,7 @@ public class SignUpPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_page);
 
-        appDatabaseHelper = new AppDatabaseHelper(this);
+        databaseHelper = new DatabaseHelper(this);
 
         signupFirstName = findViewById(R.id.signup_name);
         signupEmailAddress = findViewById(R.id.signup_email);
@@ -66,7 +66,7 @@ public class SignUpPage extends AppCompatActivity {
                             signupPreferredCarrier.getSelectedItem().toString(),
                             signupDefaultDepart.getSelectedItem().toString());
 
-                    boolean isInserted = appDatabaseHelper.addAccountToTable(account);
+                    boolean isInserted = databaseHelper.addAccountToTable(account);
 
                     if (isInserted) {
                         Toast.makeText(SignUpPage.this, "Account Created! Please Log In.", Toast.LENGTH_SHORT).show();

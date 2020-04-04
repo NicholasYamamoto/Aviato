@@ -102,7 +102,7 @@
         android:gravity="center_horizontal" />
 
     <TextView
-        android:id="@+id/tv_departing_time"
+        android:id="@+id/tv_departing_time_list_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5sp"
@@ -120,7 +120,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5sp"
         android:text="From Gate #:"
-        android:layout_below="@id/tv_departing_time"
+        android:layout_below="@id/tv_departing_time_list_layout"
         android:textAlignment="center"
         android:textColor="@color/colorWhite"
         android:textSize="30sp"
@@ -444,7 +444,7 @@
             android:gravity="center_horizontal" />
 
         <EditText
-            android:id="@+id/et_payment_method_card_number"
+            android:id="@+id/edt_payment_method_card_number"
             android:layout_width="340sp"
             android:layout_height="55sp"
             android:layout_below="@+id/tv_card_number_label"
@@ -464,7 +464,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5sp"
             android:text="Expiration Date:"
-            android:layout_below="@id/et_payment_method_card_number"
+            android:layout_below="@id/edt_payment_method_card_number"
             android:textAlignment="center"
             android:textColor="@color/colorWhite"
             android:textSize="20sp"
@@ -521,7 +521,7 @@
             android:gravity="center_horizontal" />
 
         <EditText
-            android:id="@+id/et_payment_method_security_code"
+            android:id="@+id/edt_payment_method_security_code"
             android:layout_width="340sp"
             android:layout_height="55sp"
             android:layout_below="@+id/tv_payment_method_security_code_label"
@@ -535,38 +535,90 @@
             android:textColorHint="@color/colorWhite"
             />
 
-<!--        Order Total Section         -->
+<!--        Order Details Section         -->
+
 
         <View
-            android:id="@+id/total_info_view"
+            android:id="@+id/order_details_view"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_below="@id/payment_method_view"
+            android:layout_height="200dp"
             android:layout_marginHorizontal="10dp"
-            android:background="@android:drawable/dialog_holo_dark_frame"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/payment_method_view"
+            android:background="@android:drawable/dialog_holo_dark_frame">
+
         </View>
+
+        <TextView
+            android:id="@+id/tv_order_details_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Order Details:"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="10dp"
+            android:background="@color/colorPink"
+            android:layout_below="@id/payment_method_view"
+            android:textAlignment="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="30sp"
+            android:textStyle="normal"
+            android:gravity="center_horizontal" />
+
+        <LinearLayout
+            android:id="@+id/passenger_count_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="20sp"
+            android:layout_below="@id/tv_order_details_label"
+            >
+
+            <TextView
+                android:id="@+id/tv_passenger_count_label"
+                android:layout_width="wrap_content"
+                android:layout_height="55sp"
+                android:gravity="center_horizontal"
+                android:layout_marginLeft="10sp"
+                android:text="Passengers:"
+                android:textSize="30sp"
+                android:textAlignment="center"
+                android:textColor="@color/colorWhite"
+                android:textColorHint="@color/colorWhite"/>
+
+            <TextView
+                android:id="@+id/tv_passenger_count"
+                android:layout_width="wrap_content"
+                android:layout_height="55sp"
+                android:layout_marginHorizontal="5sp"
+                android:gravity="center_horizontal"
+                android:text="1"
+                android:textAlignment="center"
+                android:textColor="@color/colorWhite"
+                android:textColorHint="@color/colorWhite"
+                android:textSize="30sp" />
+
+        </LinearLayout>
+
 
         <LinearLayout
             android:id="@+id/order_total_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_margin="5sp"
-            android:gravity="center"
-            android:layout_below="@+id/et_payment_method_security_code">
+            android:gravity="center_horizontal"
+            android:layout_below="@id/passenger_count_group"
+            >
 
             <TextView
                 android:id="@+id/tv_total_label"
                 android:layout_width="wrap_content"
                 android:layout_height="55sp"
-                android:layout_marginTop="30sp"
                 android:layout_marginHorizontal="5sp"
                 android:gravity="center_horizontal"
                 android:text="Total:"
                 android:textSize="30sp"
                 android:textAlignment="center"
-                android:entries="@array/payment_method_expiration_months_array"
                 android:textColor="@color/colorWhite"
                 android:textColorHint="@color/colorWhite"/>
 
@@ -574,50 +626,75 @@
                 android:id="@+id/tv_total"
                 android:layout_width="wrap_content"
                 android:layout_height="55sp"
-                android:layout_marginTop="30sp"
                 android:layout_marginHorizontal="5sp"
                 android:gravity="center_horizontal"
                 android:text="$117.69"
-                android:inputType="numberDecimal"
                 android:textSize="30sp"
                 android:textAlignment="center"
-                android:entries="@array/payment_method_expiration_months_array"
                 android:textColor="@color/colorWhite"
                 android:textColorHint="@color/colorWhite"/>
 
         </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_submit_order"
-        android:layout_width="340sp"
-        android:layout_height="55sp"
-        android:layout_below="@+id/total_info_view"
-        android:text="Place Order"
-        android:textSize="20sp"
-        android:textColor="@color/colorWhite"
-        android:layout_marginTop="25sp"
-        android:layout_marginBottom="5sp"
-        android:background="@drawable/btns_lightblue"
-        android:layout_centerHorizontal="true"
-        android:hapticFeedbackEnabled="true"
-        android:stateListAnimator="@null"
-        />
 
-    <Button
-        android:id="@+id/btn_cancel_order"
-        android:layout_width="340sp"
-        android:layout_height="55sp"
-        android:layout_below="@+id/btn_submit_order"
-        android:text="Cancel Order"
-        android:textSize="20sp"
-        android:textColor="@color/colorWhite"
-        android:layout_marginTop="5sp"
-        android:layout_marginBottom="25sp"
-        android:background="@drawable/btns_red"
-        android:layout_centerHorizontal="true"
-        android:hapticFeedbackEnabled="true"
-        android:stateListAnimator="@null"
-        />
+
+        <LinearLayout
+            android:id="@+id/order_confirm_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_below="@id/order_details_view">
+
+<!--            <Button-->
+<!--                android:id="@+id/btn_review_trip_details"-->
+<!--                android:layout_width="340sp"-->
+<!--                android:layout_height="55sp"-->
+<!--                android:text="Review Trip Details"-->
+<!--                android:textSize="20sp"-->
+<!--                android:textColor="@color/colorWhite"-->
+<!--                android:layout_marginTop="25sp"-->
+<!--                android:layout_marginBottom="5sp"-->
+<!--                android:background="@drawable/btns_lightblue"-->
+<!--                android:hapticFeedbackEnabled="true"-->
+<!--                android:stateListAnimator="@null"-->
+<!--                />-->
+
+            <Button
+                android:id="@+id/btn_submit_order"
+                android:layout_width="340sp"
+                android:layout_height="55sp"
+                android:layout_below="@+id/order_details_view"
+                android:text="Place Order"
+                android:textSize="20sp"
+                android:textColor="@color/colorWhite"
+                android:layout_marginTop="5sp"
+                android:layout_marginBottom="5sp"
+                android:background="@drawable/btns_lightblue"
+                android:layout_centerHorizontal="true"
+                android:hapticFeedbackEnabled="true"
+                android:stateListAnimator="@null"
+                />
+
+            <Button
+                android:id="@+id/btn_cancel_order"
+                android:layout_width="340sp"
+                android:layout_height="55sp"
+                android:layout_below="@+id/btn_submit_order"
+                android:text="Cancel Order"
+                android:textSize="20sp"
+                android:textColor="@color/colorWhite"
+                android:layout_marginTop="5sp"
+                android:layout_marginBottom="25sp"
+                android:background="@drawable/btns_red"
+                android:layout_centerHorizontal="true"
+                android:hapticFeedbackEnabled="true"
+                android:stateListAnimator="@null"
+                />
+
+        </LinearLayout>
+
+
 
     </RelativeLayout>
 </ScrollView>

@@ -44,6 +44,7 @@
                 android:textColor="@color/colorWhite"
                 android:background="@color/colorWhite"
                 android:textColorHint="@color/colorWhite" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -239,11 +240,60 @@
         android:background="@android:color/darker_gray"
         android:layout_alignBottom="@id/passengers_section" />
 
+    <LinearLayout
+        android:layout_centerInParent="true"
+        android:id="@+id/flight_type_section"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal"
+        android:layout_below="@+id/passengers_divider">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/flight_type_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:hapticFeedbackEnabled="true"
+            android:text="Flight Class:"
+            android:textColor="@color/colorAviatoLogoBlue"
+            android:textSize="22sp"
+            android:textStyle="bold"/>
+
+        <Spinner
+            android:id="@+id/flightTypeSpnr"
+            android:layout_width="200sp"
+            android:layout_height="70sp"
+            android:layout_margin="10dp"
+            android:entries="@array/flight_type_array"
+            android:textColor="@color/colorWhite"
+            android:background="@color/colorWhite"
+            android:textAlignment="center"
+            android:textColorHint="@color/colorWhite"
+            android:layout_gravity="center_horizontal" />
+
+    </LinearLayout>
+</LinearLayout>
+
+    <View
+        android:id="@+id/flight_type_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_alignBottom="@id/flight_type_section" />
+
     <Button
         android:id="@+id/findAvailableFlightsBtn"
         android:layout_width="340sp"
         android:layout_height="55sp"
-        android:layout_below="@id/passengers_divider"
+        android:layout_below="@id/flight_type_divider"
         android:text="Find Flights"
         android:layout_marginTop="50sp"
         android:layout_marginBottom="25sp"
@@ -255,18 +305,4 @@
 
         />
 
-    <Button
-        android:id="@+id/flightContinueToCheckoutBtn"
-        android:layout_width="340sp"
-        android:layout_height="55sp"
-        android:layout_below="@id/findAvailableFlightsBtn"
-        android:text="Checkout"
-        android:layout_marginTop="50sp"
-        android:layout_marginBottom="25sp"
-        android:background="@drawable/btns_lightblue"
-        android:textColor="@color/colorWhite"
-        android:layout_centerHorizontal="true"
-        android:hapticFeedbackEnabled="true"
-        android:stateListAnimator="@null"
-        />
 </RelativeLayout>

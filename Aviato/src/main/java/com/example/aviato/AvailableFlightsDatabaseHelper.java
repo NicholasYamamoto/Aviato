@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class AvailableFlightsDatabaseHelper extends SQLiteOpenHelper {
-    private static final String TAG = "AppDatabaseHelper";
+    private static final String TAG = "DatabaseHelper";
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "available_flights.db";
     private static final String TABLE_AVAILABLE_FLIGHTS = "available_flights";
@@ -137,7 +137,7 @@ public class AvailableFlightsDatabaseHelper extends SQLiteOpenHelper {
 //
 //        System.out.println(contentValues.toString());
 //
-//        status = sqLiteDatabase.insert(AppDatabaseHelper.TABLE_ORDERS, null, contentValues);
+//        status = sqLiteDatabase.insert(DatabaseHelper.TABLE_ORDERS, null, contentValues);
 //
 //        return status != -1;
 //    }

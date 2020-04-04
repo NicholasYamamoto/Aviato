@@ -8,7 +8,9 @@
     <color name="colorGreen">#007C11</color>
     <color name="colorWhite">#FFFF</color>
     <color name="colorBlack">#000000</color>
+    <color name="colorPink">#EAA6BD</color>
+    <color name="colorLightGray">#EEEEEE</color>
 
-
+    <color name="primaryBlue">#283593</color>
 
 </resources>

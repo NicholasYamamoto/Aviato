@@ -9,13 +9,13 @@ import android.widget.ListView;
 
 import com.example.aviato.Adapters.Cities.HoustonAdapter;
 import com.example.aviato.Classes.Cities.HoustonClass;
-import com.example.aviato.AppDatabaseHelper;
+import com.example.aviato.DatabaseHelper;
 import com.example.aviato.R;
 
 import java.util.ArrayList;
 
 public class HoustonFragment extends Fragment {
-    AppDatabaseHelper appDatabaseHelper;
+    DatabaseHelper databaseHelper;
 
     public HoustonFragment() {
         // Required empty public constructor
@@ -27,7 +27,7 @@ public class HoustonFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_houston, container, false);
-        this.appDatabaseHelper = new AppDatabaseHelper(getContext());
+        this.databaseHelper = new DatabaseHelper(getContext());
         ArrayList<HoustonClass> houstonItem = new ArrayList<HoustonClass>();
         houstonItem.add(new HoustonClass("Houston Space\nCenter", "$150", R.drawable.houston_space_center, "0"));
         houstonItem.add(new HoustonClass("Hermann Square", "$550", R.drawable.houston_hermann_square, "0"));

@@ -4,7 +4,7 @@ package com.example.aviato.Classes.Cities;
 public class LouisvilleClass {
 
     public String Itemquantity;
-    private String Itemname;
+    String Itemname;
     private String Itemprice;
     private int Itemimage;
 

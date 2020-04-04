@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.example.aviato.Adapters.Cities.ChicagoAdapter;
-import com.example.aviato.AppDatabaseHelper;
+import com.example.aviato.DatabaseHelper;
 import com.example.aviato.Classes.Cities.ChicagoClass;
 import com.example.aviato.R;
 
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 
 public class ChicagoFragment extends Fragment {
-    AppDatabaseHelper appDatabaseHelper;
+    DatabaseHelper databaseHelper;
 
     public ChicagoFragment() {
         // Required empty public constructor
@@ -29,7 +29,7 @@ public class ChicagoFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_chicago, container, false);
-        this.appDatabaseHelper = new AppDatabaseHelper(getContext());
+        this.databaseHelper = new DatabaseHelper(getContext());
         ArrayList<ChicagoClass> chicagoItem = new ArrayList<ChicagoClass>();
         chicagoItem.add(new ChicagoClass("Cloud Gate", "$150", R.drawable.chicago_cloud_gate, "0"));
         chicagoItem.add(new ChicagoClass("The Art Institute\nof Chicago", "$550", R.drawable.chicago_art_institute_chicago, "0"));

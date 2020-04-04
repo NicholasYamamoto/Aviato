@@ -1,18 +1,20 @@
 package com.example.aviato.Pages;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.aviato.AppDatabaseHelper;
-import com.example.aviato.AvailableFlightsDatabaseHelper;
+import com.example.aviato.DatabaseHelper;
 import com.example.aviato.R;
 
 import java.text.SimpleDateFormat;
@@ -20,15 +22,27 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class BookAFlightPage extends AppCompatActivity {
-    AppDatabaseHelper appDatabaseHelper;
-    AvailableFlightsDatabaseHelper availableFlightsDatabaseHelper;
 
-    Spinner flight_departing_city_spinner, flight_destination_city_spinner;
+    DatabaseHelper databaseHelper;
+    SharedPreferences sharedPreferences;
+    Cursor cursor;
+    Intent intent;
+
+    String departureDate, returnDate;
+
+    int passengerCount = 1;
+    int year, month, day;
+
+    //date picker dialog
+    DatePickerDialog departingDateDialog;
+    DatePickerDialog returnDateDialog;
+
+    Spinner flight_departing_city_spinner, flight_destination_city_spinner, flight_type_spinner;
     TextView flight_passenger_count_tv, flight_departing_date_tv, flight_return_date_tv;
-    Button flight_add_passenger_btn, flight_remove_passenger_btn, find_available_flights_btn, flight_continue_to_checkout_btn;
-
+    Button flight_add_passenger_btn, flight_remove_passenger_btn, find_available_flights_btn;
     final Calendar departDateCalendar = Calendar.getInstance();
     final Calendar returnDateCalendar = Calendar.getInstance();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,55 +67,34 @@ public class BookAFlightPage extends AppCompatActivity {
 
         find_available_flights_btn = findViewById(R.id.findAvailableFlightsBtn);
 
-        flight_continue_to_checkout_btn = findViewById(R.id.flightContinueToCheckoutBtn);
+        databaseHelper = new DatabaseHelper(this);
 
-        appDatabaseHelper = new AppDatabaseHelper(this);
-
-        DatePickerDialog.OnDateSetListener departDate = (view, year, monthOfYear, dayOfMonth) -> {
-            departDateCalendar.set(Calendar.YEAR, year);
-            departDateCalendar.set(Calendar.MONTH, monthOfYear);
-            departDateCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            updateDepartDateLabel();
-        };
-
-        DatePickerDialog.OnDateSetListener returnDate= (view, year, monthOfYear, dayOfMonth) -> {
-            returnDateCalendar.set(Calendar.YEAR, year);
-            returnDateCalendar.set(Calendar.MONTH, monthOfYear);
-            returnDateCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            updateReturnDateLabel();
-        };
-
-        //TODO: Change this so the DatePicker can be used to select a date and return it as a String
         flight_departing_date_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new DatePickerDialog(BookAFlightPage.this, departDate, departDateCalendar
-                        .get(Calendar.YEAR), departDateCalendar.get(Calendar.MONTH),
-                        departDateCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                datePickerDialog(1).show();
             }});
-        // TODO: Same as above
+
         flight_return_date_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new DatePickerDialog(BookAFlightPage.this, returnDate, returnDateCalendar
-                        .get(Calendar.YEAR), returnDateCalendar.get(Calendar.MONTH),
-                        returnDateCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                datePickerDialog(2).show();
             }});
 
         flight_add_passenger_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int number = Integer.parseInt(flight_passenger_count_tv.getText().toString());
-                flight_passenger_count_tv.setText(String.valueOf(number + 1));
+                passengerCount = Integer.parseInt(flight_passenger_count_tv.getText().toString());
+                flight_passenger_count_tv.setText(String.valueOf(passengerCount + 1));
             }});
 
         flight_remove_passenger_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int currentPassengers = Integer.parseInt(flight_passenger_count_tv.getText().toString());
-                if(currentPassengers == 0);
+                passengerCount = Integer.parseInt(flight_passenger_count_tv.getText().toString());
+                if(passengerCount == 0);
                 else
-                    flight_passenger_count_tv.setText(String.valueOf(currentPassengers - 1));
+                    flight_passenger_count_tv.setText(String.valueOf(passengerCount - 1));
             }});
 
         /*
@@ -111,21 +104,80 @@ public class BookAFlightPage extends AppCompatActivity {
         find_available_flights_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Cursor searchParameters = availableFlightsDatabaseHelper.getAvailableFlights(
-//                                        flight_departing_date_tv.getText().toString(),
-//                                        flight_departing_city_spinner.getSelectedItem().toString(),
-//                                        flight_destination_city_spinner.getSelectedItem().toString(),
-//                                        flight_return_date_tv.getText().toString()
-//                );
-
-                Toast.makeText(BookAFlightPage.this, "YOU SHOULD SEE THIS", Toast.LENGTH_SHORT).show();
-
-                Intent intent = new Intent(getApplicationContext(), FindFlightsPage.class);
-                //intent.putExtra("find_available_flights_cursor", (Parcelable) searchParameters);
-                startActivity(intent);
+                searchAvailableFlights();
             }});
     }
 
+    /*
+        Returns a list of Available Flights based on search parameters and displays to ListView
+    */
+    public void searchAvailableFlights() {
+        intent = new Intent(getApplicationContext(), DepartingFlightsPage.class);
+
+        sharedPreferences = getSharedPreferences("PREFS", Context.MODE_PRIVATE);
+        getApplicationContext().getSharedPreferences("PREFS", 0).edit().clear().commit();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putString("departing_city", flight_departing_city_spinner.getSelectedItem().toString());
+        editor.putString("destination_city", flight_destination_city_spinner.getSelectedItem().toString());
+        editor.putString("departure_date", departureDate);
+        editor.putString("return_date", returnDate);
+        editor.putString("flight_type", flight_type_spinner.getSelectedItem().toString());
+
+        editor.putString("flight_type", btnOneWayClass.getText().toString());
+        editor.putInt("passenger_count", passengerCount);
+
+        editor.commit();
+
+        startActivity(intent);
+    }
+
+    public DatePickerDialog datePickerDialog(int datePickerID) {
+        switch (datePickerID) {
+            case 1:
+                if (departingDateDialog == null) {
+                    departingDateDialog = new DatePickerDialog(this, getDepartureDatePickerListener(), year, month, day);
+                }
+                departingDateDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                return departingDateDialog;
+
+            case 2:
+                if (returnDateDialog == null) {
+                    returnDateDialog = new DatePickerDialog(this, getReturnDatePickerListener(), year, month, day);
+                }
+                returnDateDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                return returnDateDialog;
+        }
+        return null;
+    }
+
+    public DatePickerDialog.OnDateSetListener getDepartureDatePickerListener() {
+        return new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int startYear, int startMonth, int startDay) {
+                departDateCalendar.set(Calendar.YEAR, startYear);
+                departDateCalendar.set(Calendar.MONTH, startMonth);
+                departDateCalendar.set(Calendar.DAY_OF_MONTH, startDay);
+                departureDate = startYear + "-" + (startMonth + 1) + "-" + startDay;
+
+                updateDepartDateLabel();
+            }
+        };
+    }
+
+    public DatePickerDialog.OnDateSetListener getReturnDatePickerListener() {
+        return new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int startYear, int startMonth, int startDay) {
+                returnDateCalendar.set(Calendar.YEAR, startYear);
+                returnDateCalendar.set(Calendar.MONTH, startMonth);
+                returnDateCalendar.set(Calendar.DAY_OF_MONTH, startDay);
+                returnDate = startYear + "-" + (startMonth + 1) + "-" + startDay;
+
+                updateReturnDateLabel();
+            }
+        };
+    }
 
     private void updateDepartDateLabel() {
         String myFormat = "MM/dd";

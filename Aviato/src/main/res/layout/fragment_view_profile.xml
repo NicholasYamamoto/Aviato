@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/colorBlack"
-    tools:context="com.example.aviato.Fragments.FindFlightsFragment"
+    tools:context="com.example.aviato.Fragments.ViewProfileFragment"
     android:layout_gravity="center"
     android:orientation="vertical">
 

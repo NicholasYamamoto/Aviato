@@ -7,31 +7,31 @@
 //import android.widget.Toast;
 //
 //import com.example.aviato.Classes.PlanATripClass;
-//import com.example.aviato.AppDatabaseHelper;
+//import com.example.aviato.DatabaseHelper;
 //import com.example.aviato.MainActivity;
 //import com.example.aviato.R;
 //
 //public class PlanATripPage extends AppCompatActivity {
 //
-//    AppDatabaseHelper appDatabaseHelper;
+//    DatabaseHelper databaseHelper;
 //
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_plan_a_trip_page);
 //
-//        appDatabaseHelper = new AppDatabaseHelper(this);
+//        databaseHelper = new DatabaseHelper(this);
 //
 //        PlanATripClass trip = new PlanATripClass(
 //                city_ID,
 //                cityName,
 //                cityPicture);
-//        boolean isInserted = appDatabaseHelper.addFlightInformation(trip);
+//        boolean isInserted = databaseHelper.addFlightInformation(trip);
 //
 //        forgotPasswordSubmitBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                boolean isExist = appDatabaseHelper.verifyEmailForgotPassword(forgotPasswordEmail.getText().toString());
+//                boolean isExist = databaseHelper.verifyEmailForgotPassword(forgotPasswordEmail.getText().toString());
 //                //TODO: Edit this so it will do some logic like have users answer security questions before it gives the Password.
 //                if (isExist) {
 //                    Intent login = new Intent(getApplicationContext(), MainActivity.class);

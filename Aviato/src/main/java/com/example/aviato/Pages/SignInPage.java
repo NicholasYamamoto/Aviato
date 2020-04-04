@@ -11,12 +11,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.aviato.AppDatabaseHelper;
+import com.example.aviato.DatabaseHelper;
 import com.example.aviato.MainActivity;
 import com.example.aviato.R;
 
 public class SignInPage extends AppCompatActivity {
-    AppDatabaseHelper appDatabaseHelper;
+    DatabaseHelper databaseHelper;
     EditText signinEmail, signinPassword;
     TextView forgotPassword;
     Button loginBtn;
@@ -30,7 +30,7 @@ public class SignInPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in_page);
 
-        appDatabaseHelper = new AppDatabaseHelper(this);
+        databaseHelper = new DatabaseHelper(this);
 
         signinEmail = findViewById(R.id.signin_email_address);
         signinPassword = findViewById(R.id.signin_password);
@@ -59,7 +59,7 @@ public class SignInPage extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean isExist = appDatabaseHelper.verifyAccount(signinEmail.getText().toString(),
+                boolean isExist = databaseHelper.verifyAccount(signinEmail.getText().toString(),
                         signinPassword.getText().toString());
                 if (isExist) {
                     if (rememberMe.isChecked()) {

@@ -8,21 +8,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.aviato.AppDatabaseHelper;
+import com.example.aviato.DatabaseHelper;
 import com.example.aviato.MainActivity;
 import com.example.aviato.R;
 
 public class ForgotPasswordPage extends AppCompatActivity {
     Button forgotPasswordSubmitBtn;
     EditText forgotPasswordEmail;
-    AppDatabaseHelper appDatabaseHelper;
+    DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password_page);
 
-        appDatabaseHelper = new AppDatabaseHelper(this);
+        databaseHelper = new DatabaseHelper(this);
 
         forgotPasswordEmail = findViewById(R.id.signin_email_address);
         forgotPasswordSubmitBtn = findViewById(R.id.forgotPasswordSubmitBtn);
@@ -30,7 +30,7 @@ public class ForgotPasswordPage extends AppCompatActivity {
         forgotPasswordSubmitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean isExist = appDatabaseHelper.verifyEmailForgotPassword(forgotPasswordEmail.getText().toString());
+                boolean isExist = databaseHelper.verifyEmailForgotPassword(forgotPasswordEmail.getText().toString());
                 //TODO: Edit this so it will do some logic like have users answer security questions before it gives the Password.
                 //      Might need to implement a column in the database for Security Questions and their answers in order
                 //      to successfully recover account and Login, since we don't have an email setup to send a Verification link

@@ -21,7 +21,7 @@ public class FindFlightsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.activity_find_flights, container, false);
+        View view = inflater.inflate(R.layout.activity_available_departing_flights, container, false);
 
         return view;
     }

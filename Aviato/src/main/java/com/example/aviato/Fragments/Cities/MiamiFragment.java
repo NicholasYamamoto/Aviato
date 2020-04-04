@@ -8,14 +8,14 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.example.aviato.Adapters.Cities.MiamiAdapter;
-import com.example.aviato.AppDatabaseHelper;
+import com.example.aviato.DatabaseHelper;
 import com.example.aviato.Classes.Cities.MiamiClass;
 import com.example.aviato.R;
 
 import java.util.ArrayList;
 
 public class MiamiFragment extends Fragment {
-    AppDatabaseHelper appDatabaseHelper;
+    DatabaseHelper databaseHelper;
 
     public MiamiFragment() {
         // Required empty public constructor
@@ -27,7 +27,7 @@ public class MiamiFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_miami, container, false);
-        this.appDatabaseHelper = new AppDatabaseHelper(getContext());
+        this.databaseHelper = new DatabaseHelper(getContext());
         ArrayList<MiamiClass> miamiItem = new ArrayList<>();
         miamiItem.add(new MiamiClass("American Airlines\nArena", "$150", R.drawable.miami_american_airlines_arena, "0"));
         miamiItem.add(new MiamiClass("Bayfront Park", "$550", R.drawable.miami_bayfront_park, "0"));
