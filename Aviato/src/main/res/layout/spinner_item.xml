@@ -2,6 +2,6 @@
     android:id="@android:id/text1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:textSize="18sp"
     android:padding="10dp"
-    android:textColor="@color/colorBlack" />
+    android:textColor="@color/colorBlack"
+    android:textSize="18sp" />

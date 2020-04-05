@@ -6,6 +6,7 @@ public class PastOrdersClass {
     public PastOrdersClass(String orderNumber) {
         this.orderNumber = orderNumber;
     }
+
     public String getOrderNumber() {
         return orderNumber;
     }

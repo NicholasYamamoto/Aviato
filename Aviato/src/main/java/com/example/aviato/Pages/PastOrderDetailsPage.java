@@ -1,9 +1,6 @@
 package com.example.aviato.Pages;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,16 +8,16 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.aviato.DatabaseHelper;
 import com.example.aviato.R;
 
 public class PastOrderDetailsPage extends AppCompatActivity {
 
-     SQLiteOpenHelper databaseHelper;
+    SQLiteOpenHelper databaseHelper;
     private SQLiteDatabase databaseInstance;
     private Cursor cursor;
     private int flightID;
@@ -49,32 +46,39 @@ public class PastOrderDetailsPage extends AppCompatActivity {
     private TextView timeStamp;
     private int clientID;
 
+    /*
+Calculate the Grand Total of the Order
+*/
+    public static Double calculateGrandTotal(double singleTicketCost, int numTraveller) {
+        return singleTicketCost * numTraveller;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_past_order_details_page);
 
         intent = getIntent();
-        flightID = intent.getIntExtra("FLIGHT_ID",0);
-        clientID =clientID();
+        flightID = intent.getIntExtra("FLIGHT_ID", 0);
+        clientID = clientID();
 
         fName = findViewById(R.id.txtFName);
-        cCard = findViewById(R.id.tv_past_order_credit_card_number);
-        timeStamp = findViewById(R.id.tv_past_order_timestamp);
+        cCard = findViewById(R.id.txt_past_order_credit_card_number);
+        timeStamp = findViewById(R.id.txt_past_order_timestamp);
 
-        airline =  findViewById(R.id.tv_past_order_airline_carrier);
-        flightNo =  findViewById(R.id.tv_past_order_flight_number);
-        origin =  findViewById(R.id.tv_past_order_departing_city);
-        destination =  findViewById(R.id.tv_past_order_destination_city);
-        departureDate =  findViewById(R.id.tv_past_order_departing_date);
-        arrivalDate =  findViewById(R.id.tv_past_order_arrival_date);
-        departureTime =  findViewById(R.id.tv_past_order_departure_time);
-        arrivalTime =  findViewById(R.id.tv_past_order_arrival_time);
-        flightDuration =  findViewById(R.id.tv_past_order_flight_duration);
-        flightClass =  findViewById(R.id.tv_past_order_flight_type);
-        traveller = findViewById(R.id.tv_past_order_passenger_count);
-        subtotal =  findViewById(R.id.tv_past_order_subtotal);
-        grandTotal =  findViewById(R.id.tv_past_order_grand_total);
+        airline = findViewById(R.id.txt_past_order_airline_carrier);
+        flightNo = findViewById(R.id.txt_past_order_flight_number);
+        origin = findViewById(R.id.txt_past_order_departing_city);
+        destination = findViewById(R.id.txt_past_order_destination_city);
+        departureDate = findViewById(R.id.txt_past_order_departing_date);
+        arrivalDate = findViewById(R.id.txt_past_order_arrival_date);
+        departureTime = findViewById(R.id.txt_past_order_departure_time);
+        arrivalTime = findViewById(R.id.txt_past_order_arrival_time);
+        flightDuration = findViewById(R.id.txt_past_order_flight_duration);
+        flightClass = findViewById(R.id.txt_past_order_flight_type);
+        traveller = findViewById(R.id.txt_past_order_passenger_count);
+        subtotal = findViewById(R.id.txt_past_order_subtotal);
+        grandTotal = findViewById(R.id.txt_past_order_grand_total);
 
         displaySelectedFlightInfo(flightID);
 
@@ -84,16 +88,6 @@ public class PastOrderDetailsPage extends AppCompatActivity {
         subtotal.setText("$" + singleTicketCost);
         grandTotal.setText("$" + totalTicketCost);
 
-        btnCancelFlight = findViewById(R.id.btnCancelFlight) ;
-
-        btnCancelFlight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                cancelFlightAlert().show();
-
-            }
-        });
     }
 
     public void displaySelectedFlightInfo(int id) {
@@ -121,80 +115,24 @@ public class PastOrderDetailsPage extends AppCompatActivity {
             }
 
             cursor = DatabaseHelper.selectClientJoinAccount(databaseInstance, clientID);
-            if(cursor != null && cursor.getCount() == 1){
+            if (cursor != null && cursor.getCount() == 1) {
                 cursor.moveToFirst();
 
-                fName.setText(HelperUtilities.capitalize(cursor.getString(0)) + " " + HelperUtilities.capitalize(cursor.getString(1)));
-                cCard.setText(HelperUtilities.maskCardNumber(cursor.getString(3)));
+                fName.setText(DatabaseHelper.capitalizeString(cursor.getString(0)) + " " + DatabaseHelper.capitalizeString(cursor.getString(1)));
+                cCard.setText(cursor.getString(3));
             }
 
-        } catch (SQLiteException ex) {
-
+        } catch (SQLiteException e) {
+            System.out.println("PAST ORDERS DETAILS PAGE - Display Selected Flights ERROR");
+            System.out.println(e.toString());
+            Toast.makeText(getApplicationContext(), "Error: Database is Unavailable.", Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void cancelFlight(){
-        try{
-
-            databaseHelper = new DatabaseHelper(getApplicationContext());
-            databaseInstance = databaseHelper.getWritableDatabase();
-
-            clientID =clientID();
-
-            cursor = DatabaseHelper.selectItinerary(databaseInstance, flightID, clientID);
-
-            if (cursor != null && cursor.getCount() > 0) {
-                cursor.moveToFirst();
-                itineraryID = cursor.getInt(0);
-
-                // Toast.makeText(getApplicationContext(), String.valueOf(itineraryID), Toast.LENGTH_SHORT).show();
-            }
-
-            DatabaseHelper.deleteItinerary(databaseInstance, itineraryID);
-
-        }catch(SQLiteException e){
-
-        }
-    }
-
-    public Dialog cancelFlightAlert() {
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Are you sure you want to cancel your flight? ")
-                .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        cancelFlight();
-                        Intent intent = new Intent(getApplicationContext(), ItineraryActivity.class);
-                        startActivity(intent);
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-
-
-                    }
-                });
-
-        return builder.create();
-    }
 
     public int clientID() {
-        LoginActivity.sharedPreferences = getSharedPreferences(LoginActivity.MY_PREFERENCES, Context.MODE_PRIVATE);
-        clientID = LoginActivity.sharedPreferences.getInt(LoginActivity.CLIENT_ID, 0);
+        SignInPage.sharedPreferences = getSharedPreferences(SignInPage.MY_PREFERENCES, Context.MODE_PRIVATE);
+        clientID = SignInPage.sharedPreferences.getInt(SignInPage.CLIENT_ID, 0);
         return clientID;
     }
-
-    /*
-Calculate the Grand Total of the Order
-*/
-    public static Double calculateGrandTotal(double singleTicketCost,  int numTraveller){
-        return singleTicketCost * numTraveller;
-    }
-
-
-
-
 }

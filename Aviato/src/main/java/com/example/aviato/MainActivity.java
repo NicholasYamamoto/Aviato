@@ -10,19 +10,18 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.aviato.Fragments.AboutUsFragment;
-import com.example.aviato.Fragments.ContactUsFragment;
+import com.example.aviato.Pages.AboutUsPage;
+import com.example.aviato.Pages.ContactUsPage;
 import com.example.aviato.Fragments.MainFragment;
-import com.example.aviato.Fragments.ViewProfileFragment;
 import com.example.aviato.Pages.BookAFlightPage;
-import com.example.aviato.Pages.SplashPage;
+import com.example.aviato.Pages.PastOrdersPage;
+import com.example.aviato.Pages.SignInPage;
 
 //import com.example.aviato.Pages.PlanATripPage;
 
@@ -42,11 +41,7 @@ public class MainActivity extends AppCompatActivity
 
         databaseInstance = new DatabaseHelper(this);
         Intent i = getIntent();
-        String firstName = i.getStringExtra("first_name");
-
-        Toast welcomeMessage = Toast.makeText(getApplicationContext(), "Hello " + firstName + ", Welcome to Aviato.", Toast.LENGTH_LONG);
-        welcomeMessage.setGravity(Gravity.CENTER_VERTICAL, Gravity.CENTER_HORIZONTAL, 350);
-        welcomeMessage.show();
+        Toast.makeText(getApplicationContext(), "Hello " + i.getStringExtra("email") + ", Welcome to Aviato.", Toast.LENGTH_LONG).show();
 
         // Home Screen Fragment
         MainFragment fragment = new MainFragment();
@@ -75,8 +70,7 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        }
-        else
+        } else
             super.onBackPressed();
     }
 
@@ -87,32 +81,16 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.view_profile) {
-            ViewProfileFragment fragment = new ViewProfileFragment();
-            FragmentTransaction fragmentTransaction =
-                    getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container, fragment);
-            fragmentTransaction.commit();
+//            ViewProfileFragment fragment = new ViewProfileFragment();
+//            FragmentTransaction fragmentTransaction =
+//                    getSupportFragmentManager().beginTransaction();
+//            fragmentTransaction.replace(R.id.fragment_container, fragment);
+//            fragmentTransaction.commit();
         }
 
         else if (id == R.id.past_orders) {
-
-            Intent intent = new Intent(getApplicationContext(), ItineraryActivity.class);
+            Intent intent = new Intent(getApplicationContext(), PastOrdersPage.class);
             startActivity(intent);
-
-//            if (check != null && check.getCount() > 0) {
-//                PastOrdersFragment fragment = new PastOrdersFragment();
-//                FragmentTransaction fragmentTransaction =
-//                        getSupportFragmentManager().beginTransaction();
-//                fragmentTransaction.replace(R.id.fragment_container, fragment);
-//                fragmentTransaction.commit();
-//
-//            }
-//
-//            else {
-//                Toast noOrdersMessage = Toast.makeText(getApplicationContext(), "No past orders found for this user.", Toast.LENGTH_LONG);
-//                noOrdersMessage.setGravity(Gravity.CENTER_VERTICAL, Gravity.CENTER_HORIZONTAL, 350);
-//                noOrdersMessage.show();
-//            }
         }
 
         else if (id == R.id.book_a_flight) {
@@ -123,28 +101,16 @@ public class MainActivity extends AppCompatActivity
         else if (id == R.id.plan_a_trip) {
 //            Intent intent = new Intent(getApplicationContext(), PlanATripPage.class);
 //            startActivity(intent);
-
         }
 
         else if (id == R.id.about_us) {
-            AboutUsFragment fragment = new AboutUsFragment();
-            FragmentTransaction fragmentTransaction =
-                    getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container, fragment);
-            fragmentTransaction.commit();
+            Intent intent = new Intent(getApplicationContext(), AboutUsPage.class);
+            startActivity(intent);
         }
 
         else if (id == R.id.contact_us) {
-
-            ContactUsFragment fragment = new ContactUsFragment();
-            FragmentTransaction fragmentTransaction =
-                    getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container, fragment);
-            fragmentTransaction.commit();
-
-
-//            Intent intent = new Intent(getApplicationContext(), ContactUsPage.class);
-//            startActivity(intent);
+            Intent intent = new Intent(getApplicationContext(), ContactUsPage.class);
+            startActivity(intent);
         }
 
         else if (id == R.id.log_out) {
@@ -169,14 +135,11 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
 
-                databaseInstance.deleteAll();
-
-                Toast logoutMessage = Toast.makeText(getApplicationContext(), "Successfully Logged Out!.", Toast.LENGTH_LONG);
-                logoutMessage.setGravity(Gravity.CENTER_VERTICAL, Gravity.CENTER_HORIZONTAL, 350);
-                logoutMessage.show();
-
-                Intent intent = new Intent(getApplicationContext(), SplashPage.class);
+                getApplicationContext().getSharedPreferences(SignInPage.MY_PREFERENCES, 0).edit().clear().apply();
+                Intent intent = new Intent(getApplicationContext(), SignInPage.class);
+                Toast.makeText(getApplicationContext(), "Successfully Logged Out!", Toast.LENGTH_LONG).show();
                 startActivity(intent);
+                finish();
             }
         });
 

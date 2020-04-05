@@ -2,29 +2,15 @@ package com.example.aviato.Classes;
 
 public class AccountClass {
     private int accountID;
-    private String firstName;
-    private String emailAddress;
+    private String email;
     private String password;
-    private String defaultCarrier;
-    private String defaultDepart;
 
-    public AccountClass(int accountID, String firstName, String emailAddress, String password, String defaultCarrier, String defaultDepart) {
-        this.accountID = accountID;
-        this.firstName = firstName;
-        this.emailAddress = emailAddress;
-        this.password = password;
-        this.defaultCarrier = defaultCarrier;
-        this.defaultDepart = defaultDepart;
+    public AccountClass(){
     }
 
-    public AccountClass(String firstName, String emailAddress, String password, String defaultCarrier, String defaultDepart) {
-        this.firstName = firstName;
-        this.emailAddress = emailAddress;
-        this.password = password;
-        this.defaultCarrier = defaultCarrier;
-        this.defaultDepart = defaultDepart;
+    public AccountClass(String email){
+        this.email = email;
     }
-
     public int getAccountID() {
         return accountID;
     }
@@ -34,11 +20,11 @@ public class AccountClass {
     }
 
     public String getEmail() {
-        return emailAddress;
+        return email;
     }
 
     public void setEmail(String email) {
-        this.emailAddress = email;
+        this.email = email;
     }
 
     public String getPassword() {
@@ -49,28 +35,21 @@ public class AccountClass {
         this.password = password;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getDefaultCarrier() {
-        return defaultCarrier;
-    }
-
-    public void setDefaultCarrier(String defaultCarrier) {
-        this.defaultCarrier = defaultCarrier;
-    }
-
-    public String getDefaultDepart() {
-        return defaultDepart;
-    }
-
-    public void setDefaultDepart(String defaultDepart) {
-        this.defaultDepart = defaultDepart;
-    }
-
+//    public String getDefaultCarrier() {
+//        return defaultCarrier;
+//    }
+//
+//    public void setDefaultCarrier(String defaultCarrier) {
+//        this.defaultCarrier = defaultCarrier;
+//    }
+//
+//    public String getDefaultDepart() {
+//        return defaultDepart;
+//    }
+//
+//    public void setDefaultDepart(String defaultDepart) {
+//        this.defaultDepart = defaultDepart;
+//    }
 }
+
+

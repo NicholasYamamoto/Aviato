@@ -8,27 +8,281 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "aviato.db";
-    private static final int DATABASE_VERSION = 1;
-
+    private static final int DB_VERSION = 4;
     private static final String TABLE_ACCOUNT = "ACCOUNT";
     private static final String TABLE_FLIGHT_INFO = "FLIGHT_INFO";
     private static final String TABLE_TRIP = "TRIP";
-    private static final String TABLE_ORDERS = "PAST_ORDERS";
+    private static final String TABLE_PAST_ORDERS = "PAST_ORDERS";
     private static final String TABLE_AIRLINES = "AIRLINE";
     private static final String TABLE_FLIGHT_TYPE = "FLIGHT_TYPE";
     private static final String TABLE_SEATS = "SEAT";
     private static final String TABLE_CLIENTS = "CLIENT";
 
     public DatabaseHelper(Context context) {
-        super(context, DB_NAME, null, DATABASE_VERSION);
+        super(context, DB_NAME, null, DB_VERSION);
+    }
+
+    public static void insertClient(SQLiteDatabase databaseInstance, String firstName, String lastName, String phone, String creditCard) {
+        ContentValues clientValues = new ContentValues();
+        clientValues.put("FIRST_NAME", capitalizeString(firstName.toLowerCase()));
+        clientValues.put("LAST_NAME", capitalizeString(lastName.toLowerCase()));
+        clientValues.put("PHONE", phone);
+        clientValues.put("CREDIT_CARD_NUMBER", creditCard);
+        databaseInstance.insert(TABLE_CLIENTS, null, clientValues);
+    }
+
+    public static void insertAccount(SQLiteDatabase databaseInstance, String email, String password, int clientID) {
+        ContentValues accountValues = new ContentValues();
+        accountValues.put("EMAIL", email);
+        accountValues.put("PASSWORD", password);
+        accountValues.put("ACCOUNT_CLIENT", clientID);
+        databaseInstance.insert(TABLE_ACCOUNT, null, accountValues);
+    }
+
+    public static void insertOrder(SQLiteDatabase databaseInstance, int flightID, int clientID, int traveller) {
+        ContentValues orderValues = new ContentValues();
+        orderValues.put("ORDER_FLIGHT", flightID);
+        orderValues.put("ORDER_CLIENT", clientID);
+        orderValues.put("PASSENGER", traveller);
+        databaseInstance.insert(TABLE_PAST_ORDERS, null, orderValues);
+    }
+
+    /* TODO: This needs to be tested to see if I can change the order of the
+            elements in the Cursor WITHOUT having to change the order of the
+            INNER JOINS.
+            This pattern will need to be applied EVERYWHERE
+    */
+    public static Cursor selectFlight(SQLiteDatabase databaseInstance, String departingCity, String destinationCity,
+                                      String departingDate, String flightType) {
+        return databaseInstance.rawQuery("SELECT " + TABLE_FLIGHT_INFO + "._id, " + "FLIGHT_NUMBER, DEPARTING_CITY, DEPARTING_DATE, DEPARTING_TIME, DESTINATION_CITY, " +
+                "DESTINATION_DATE, DESTINATION_TIME, AIRLINE_CARRIER, SEAT_NUMBER, FLIGHT_DURATION, FLIGHT_TYPE, PRICE " +
+                "FROM " + TABLE_FLIGHT_INFO + " " +
+                "INNER JOIN " + TABLE_AIRLINES + " " +
+                "ON " + TABLE_FLIGHT_INFO + ".FLIGHT_AIRLINE = " + TABLE_AIRLINES + "._id " +
+                "INNER JOIN " + TABLE_SEATS + " " +
+                "ON " + TABLE_SEATS + ".SEAT_FLIGHT = " + TABLE_FLIGHT_INFO + "._id " +
+                "INNER JOIN " + TABLE_FLIGHT_TYPE + " " +
+                "ON " + TABLE_SEATS + ".SEAT_FLIGHTCLASS = " + TABLE_FLIGHT_TYPE + "._id " +
+                "WHERE DEPARTING_CITY = '" + departingCity +
+                "' AND DESTINATION_CITY = '" + destinationCity +
+                "' AND DEPARTING_DATE = '" + departingDate +
+                "' AND FLIGHT_TYPE = '" + flightType +
+                "' AND " + TABLE_SEATS + ".STATUS = 0 ", null);
+    }
+
+//    public static Cursor selectFlight(SQLiteDatabase databaseInstance, String departingCity, String destinationCity,
+//                                      String departingDate, String flightType) {
+//        return databaseInstance.rawQuery("SELECT " + TABLE_FLIGHT_INFO + "._id, FLIGHT_NUMBER, DEPARTING_CITY, DESTINATION_CITY, DEPARTING_DATE, DESTINATION_DATE, DEPARTING_TIME, " +
+//                " DESTINATION_TIME, FLIGHT_DURATION, PRICE, AIRLINE_CARRIER, SEAT_NUMBER, FLIGHT_TYPE " +
+//                "FROM " + TABLE_FLIGHT_INFO + " " +
+//                "JOIN " + TABLE_AIRLINES + " " +
+//                "ON " + TABLE_FLIGHT_INFO + ".FLIGHT_AIRLINE " +
+//                "JOIN " + TABLE_SEATS + " " +
+//                "ON " + TABLE_FLIGHT_INFO + "._id = " + TABLE_SEATS + ".SEAT_FLIGHT " +
+//                "INNER JOIN " + TABLE_FLIGHT_TYPE + " " +
+//                "ON " + TABLE_SEATS + ".SEAT_FLIGHTCLASS = " + TABLE_FLIGHT_TYPE + "._id " +
+//                "WHERE DEPARTING_CITY = '" + departingCity +
+//                "' AND DESTINATION_CITY = '" + destinationCity +
+//                "' AND DEPARTING_DATE = '" + departingDate +
+//                "' AND FLIGHT_TYPE = '" + flightType +
+//                "' AND " + TABLE_SEATS + ".STATUS = 0 ", null);
+//    }
+
+
+  //THIS IS THE ORIGINAL IMPLEMENTATION
+    public static Cursor getFlightDetails(SQLiteDatabase databaseInstance, int flightID) {
+        return databaseInstance.rawQuery("SELECT " + TABLE_FLIGHT_INFO + "._id, " + "FLIGHT_NUMBER, DEPARTING_CITY, DESTINATION_CITY, DEPARTING_DATE, DESTINATION_DATE, DEPARTING_TIME, " +
+                " DESTINATION_TIME, FLIGHT_DURATION, PRICE, AIRLINE_CARRIER, SEAT_NUMBER, FLIGHT_TYPE " +
+                "FROM " + TABLE_FLIGHT_INFO + " " +
+                "INNER JOIN " + TABLE_AIRLINES + " " +
+                "ON " + TABLE_FLIGHT_INFO + ".FLIGHT_AIRLINE = " + TABLE_AIRLINES + "._id " +
+                "INNER JOIN " + TABLE_SEATS + " " +
+                "ON " + TABLE_SEATS + ".SEAT_FLIGHT = " + TABLE_FLIGHT_INFO + "._id " +
+                "INNER JOIN " + TABLE_FLIGHT_TYPE + " " +
+                "ON " + TABLE_SEATS + ".SEAT_FLIGHTCLASS = " + TABLE_FLIGHT_TYPE + "._id " +
+                "WHERE " + TABLE_FLIGHT_INFO + "._id = '" + flightID + "'", null);
+    }
+
+    public static Cursor getPastOrderDetails(SQLiteDatabase databaseInstance, int flightID) {
+        return databaseInstance.rawQuery("SELECT " + TABLE_FLIGHT_INFO + "._id, FLIGHT_NUMBER, DEPARTING_CITY, DESTINATION_CITY, DEPARTING_DATE, DESTINATION_DATE, DEPARTING_TIME, " +
+                " DESTINATION_TIME, FLIGHT_DURATION, PRICE, AIRLINE_CARRIER, SEAT_NUMBER, FLIGHT_TYPE, PASSENGER, TIMESTAMP " +
+                "FROM " + TABLE_FLIGHT_INFO + " " +
+                "INNER JOIN " + TABLE_AIRLINES + " " +
+                "ON " + TABLE_FLIGHT_INFO + ".FLIGHT_AIRLINE = " + TABLE_AIRLINES + "._id " +
+                "INNER JOIN " + TABLE_SEATS + " " +
+                "ON " + TABLE_SEATS + ".SEAT_FLIGHT = " + TABLE_FLIGHT_INFO + "._id " +
+                "INNER JOIN " + TABLE_FLIGHT_TYPE + " " +
+                "ON " + TABLE_SEATS + ".SEAT_FLIGHTCLASS = " + TABLE_FLIGHT_TYPE + "._id " +
+                "JOIN " + TABLE_PAST_ORDERS + " " +
+                "ON " + TABLE_PAST_ORDERS + ".ORDER_FLIGHT = " + TABLE_FLIGHT_INFO + "._id " +
+                "WHERE " + TABLE_FLIGHT_INFO + "._id = '" + flightID + "'", null);
+    }
+
+    public static Cursor selectOrder(SQLiteDatabase databaseInstance, int clientID) {
+        return databaseInstance.rawQuery("SELECT " + TABLE_FLIGHT_INFO + "._id, FLIGHT_NUMBER, DEPARTING_CITY, DESTINATION_CITY, DEPARTING_DATE, DESTINATION_DATE, DEPARTING_TIME, " +
+                " DESTINATION_TIME, FLIGHT_DURATION, PRICE, AIRLINE_CARRIER, SEAT_NUMBER, FLIGHT_TYPE " +
+                "FROM " + TABLE_FLIGHT_INFO + " " +
+                "INNER JOIN " + TABLE_AIRLINES + " " +
+                "ON " + TABLE_FLIGHT_INFO + ".FLIGHT_AIRLINE = " + TABLE_AIRLINES + "._id " +
+                "INNER JOIN " + TABLE_PAST_ORDERS + " " +
+                "ON " + TABLE_FLIGHT_INFO + "._id " + TABLE_PAST_ORDERS + ".ORDER_FLIGHT " +
+                "INNER JOIN " + TABLE_SEATS + " " +
+                "ON " + TABLE_SEATS + ".SEAT_FLIGHT = " + TABLE_FLIGHT_INFO + "._id " +
+                "INNER JOIN " + TABLE_FLIGHT_TYPE + " " +
+                "ON " + TABLE_SEATS + ".SEAT_FLIGHTCLASS = " + TABLE_FLIGHT_TYPE + "._id " +
+                "WHERE " + TABLE_PAST_ORDERS + ".ORDER_CLIENT = " + clientID, null);
+    }
+
+    public static void deleteOrder(SQLiteDatabase databaseInstance, int itineraryID) {
+        databaseInstance.delete(TABLE_PAST_ORDERS, " _id = ? ", new String[]{String.valueOf(itineraryID)});
+    }
+
+    public static Cursor selectOrder(SQLiteDatabase databaseInstance, int flightID, int clientID) {
+        return databaseInstance.query(TABLE_PAST_ORDERS, null, " ORDER_FLIGHT = ? AND ORDER_CLIENT = ?",
+                new String[]{String.valueOf(flightID), String.valueOf(clientID)}, null, null, null, null);
+    }
+
+    public static Cursor login(SQLiteDatabase databaseInstance, String email, String password) {
+        return databaseInstance.query(TABLE_ACCOUNT, new String[]{"_id", "EMAIL", "PASSWORD", "ACCOUNT_CLIENT"},
+                "EMAIL = ? AND PASSWORD = ? ", new String[]{email, password},
+                null, null, null, null);
+    }
+
+    public static void deleteAccount(SQLiteDatabase databaseInstance, String clientID) {
+        databaseInstance.delete(TABLE_CLIENTS, "_id = ? ", new String[]{clientID});
+        databaseInstance.delete(TABLE_ACCOUNT, "_id = ? ", new String[]{clientID});
+        databaseInstance.delete(TABLE_PAST_ORDERS, "_id = ? ", new String[]{clientID});
+    }
+
+    public static void updateClientImage(SQLiteDatabase databaseInstance, byte[] image, String id) {
+        ContentValues clientValues = new ContentValues();
+        clientValues.put("IMAGE", image);
+        databaseInstance.update(TABLE_CLIENTS, clientValues, " _id = ? ", new String[]{id});
+    }
+
+    public static void updatePassword(SQLiteDatabase databaseInstance, String password, String id) {
+        ContentValues accountValues = new ContentValues();
+        accountValues.put("PASSWORD", password);
+        databaseInstance.update(TABLE_ACCOUNT, accountValues, " _id = ? ", new String[]{id});
+    }
+
+    public static Cursor selectImage(SQLiteDatabase databaseInstance, int clientID) {
+        return databaseInstance.query(TABLE_CLIENTS, new String[]{"IMAGE"}, "_id = ? ",
+                new String[]{Integer.toString(clientID)}, null, null,
+                null, null);
+    }
+
+    public static Cursor selectClientPassword(SQLiteDatabase databaseInstance, int clientID) {
+        return databaseInstance.query(TABLE_ACCOUNT, new String[]{"PASSWORD"}, "_id = ? ",
+                new String[]{Integer.toString(clientID)}, null, null,
+                null, null);
+    }
+
+    public static void updateClient(SQLiteDatabase databaseInstance, String firstName, String lastName,
+                                    String phone, String creditCard, int clientID) {
+        ContentValues clientValues = new ContentValues();
+        clientValues.put("FIRST_NAME", capitalizeString(firstName.toLowerCase()));
+        clientValues.put("LAST_NAME", capitalizeString(lastName.toLowerCase()));
+        clientValues.put("PHONE", phone);
+        clientValues.put("CREDIT_CARD_NUMBER", creditCard);
+        databaseInstance.update(TABLE_CLIENTS, clientValues, "_id = ?", new String[]{String.valueOf(clientID)});
+    }
+
+    public static void updateAccount(SQLiteDatabase databaseInstance, String email, int clientID) {
+        ContentValues accountValues = new ContentValues();
+        accountValues.put("EMAIL", email);
+        databaseInstance.update(TABLE_ACCOUNT, accountValues, " ACCOUNT_CLIENT = ?",
+                new String[]{String.valueOf(clientID)});
+    }
+
+    public static Cursor selectClientID(SQLiteDatabase databaseInstance, String firstName, String lastName,
+                                        String phone, String creditCard) {
+        return databaseInstance.query(TABLE_CLIENTS, new String[]{"_id"},
+                "FIRST_NAME = ? AND LAST_NAME = ? AND PHONE = ? AND CREDIT_CARD_NUMBER = ? ",
+                new String[]{firstName, lastName, phone, creditCard},
+                null, null, null, null);
+    }
+
+    public static Cursor selectClientJoinAccount(SQLiteDatabase databaseInstance, int clientID) {
+        return databaseInstance.rawQuery("SELECT FIRST_NAME, LAST_NAME, PHONE, CREDIT_CARD_NUMBER, EMAIL FROM " + TABLE_CLIENTS + " " +
+                "JOIN " + TABLE_ACCOUNT + " " +
+                "ON " + TABLE_CLIENTS + "._id = " + TABLE_ACCOUNT + ".ACCOUNT_CLIENT " +
+                "WHERE " + TABLE_CLIENTS + "._id = '" + clientID + "'", null);
+    }
+
+    public static Cursor selectClient(SQLiteDatabase databaseInstance, int clientID) {
+        return databaseInstance.query(TABLE_CLIENTS, null, " _id = ? ",
+                new String[]{String.valueOf(clientID)}, null, null, null, null);
+    }
+
+    public static Cursor selectAccount(SQLiteDatabase databaseInstance, String email) {
+        return databaseInstance.query(TABLE_ACCOUNT, null, " EMAIL = ? ",
+                new String[]{email}, null, null, null, null);
+    }
+
+    public static String capitalizeString(String str) {
+        return str.length() == 0 ? str : str.substring(0, 1).toUpperCase() + str.substring(1);
+    }
+
+    public static String filterString(String input) {
+        if (!containsSpecialChars(input)) {
+            return (input);
+        }
+        StringBuilder sb = new StringBuilder(input.length());
+        char c;
+
+        for (int i = 0; i < input.length(); i++) {
+            c = input.charAt(i);
+            switch (c) {
+                case '<':
+                    sb.append("&lt;");
+                    break;
+                case '>':
+                    sb.append("&gt;");
+                    break;
+                case '"':
+                    sb.append("&quot;");
+                    break;
+                case '\'':
+                    sb.append("&apos;");
+                    break;
+                case '&':
+                    sb.append("&amp;");
+                    break;
+                default:
+                    sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
+
+    private static boolean containsSpecialChars(String input) {
+
+        Pattern regexSpecialChars = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
+        Matcher inputStr = regexSpecialChars.matcher(input);
+        boolean hasSpecialChars = inputStr.find();
+
+        return hasSpecialChars;
     }
 
     @Override
     public void onCreate(SQLiteDatabase databaseInstance) {
-        updateDatabase(databaseInstance, 0, DATABASE_VERSION);
+//        // Create Database tables
+//        System.out.println("HELLO BITCH");
+//        databaseInstance.execSQL(createAirlinesTable());
+//        databaseInstance.execSQL(createFlightInfoTable());
+//        databaseInstance.execSQL(createSeatTable());
+//        databaseInstance.execSQL(createFlightTypeTable());
+//        databaseInstance.execSQL(createClientTable());
+//        databaseInstance.execSQL(createAccountTable());
+//        databaseInstance.execSQL(createPastOrdersTable());
+        updateDatabase(databaseInstance, 0, DB_VERSION);
     }
 
     //requires API level 16 and above
@@ -50,13 +304,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         databaseInstance.execSQL("DROP TABLE IF EXISTS " + TABLE_FLIGHT_TYPE);
         databaseInstance.execSQL("DROP TABLE IF EXISTS " + TABLE_CLIENTS);
         databaseInstance.execSQL("DROP TABLE IF EXISTS " + TABLE_ACCOUNT);
-        databaseInstance.execSQL("DROP TABLE IF EXISTS " + "ITINERARY");
+        databaseInstance.execSQL("DROP TABLE IF EXISTS " + TABLE_PAST_ORDERS);
 
         updateDatabase(databaseInstance, oldVersion, newVersion);
     }
 
     private void updateDatabase(SQLiteDatabase databaseInstance, int oldVersion, int newVersion) {
-        if (oldVersion < 1) {
             // Create Database tables
             databaseInstance.execSQL(createAirlinesTable());
             databaseInstance.execSQL(createFlightInfoTable());
@@ -64,7 +317,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             databaseInstance.execSQL(createFlightTypeTable());
             databaseInstance.execSQL(createClientTable());
             databaseInstance.execSQL(createAccountTable());
-            databaseInstance.execSQL(createItinerary());
+            databaseInstance.execSQL(createPastOrdersTable());
 
             // Populate test data
             // TODO: Replace all of these inserts with data from an external file,
@@ -158,7 +411,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
             databaseInstance.execSQL(updateFlight());
             databaseInstance.execSQL(updateSeatNumber());
-        }
     }
 
     public String createAirlinesTable() {
@@ -170,13 +422,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public String createFlightInfoTable() {
         return "CREATE TABLE " + TABLE_FLIGHT_INFO + " (" +
                 "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "FLIGHTNUMBER INTEGER, " +
+                "FLIGHT_NUMBER INTEGER, " +
                 "DEPARTING_CITY TEXT COLLATE NOCASE, " +
                 "DESTINATION_CITY TEXT COLLATE NOCASE, " +
-                "DEPARTURE_DATE DATE, " +
+                "DEPARTING_DATE DATE, " +
                 "DESTINATION_DATE DATE, " +
-                "DEPARTURE_TIME TIME, " +
-                "ARRIVAL_TIME TIME, " +
+                "DEPARTING_TIME TIME, " +
+                "DESTINATION_TIME TIME, " +
                 "FLIGHT_DURATION TIME, " +
                 "PRICE REAL, " +
                 "FLIGHT_AIRLINE INTEGER, " +
@@ -186,12 +438,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public String createSeatTable() {
         return "CREATE TABLE " + TABLE_SEATS + " (" +
                 "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "SEATNUMBER INTEGER, " +
+                "SEAT_NUMBER INTEGER, " +
                 "SEAT_FLIGHT INTEGER, " +
                 "STATUS INTEGER, " +
-                "SEAT_FLIGHTTYPE INTEGER, " +
+                "SEAT_FLIGHT_TYPE INTEGER, " +
                 "FOREIGN KEY(SEAT_FLIGHT) REFERENCES " + TABLE_FLIGHT_INFO + "(_id)," +
-                "FOREIGN KEY(SEAT_FLIGHTTYPE) REFERENCES " + TABLE_FLIGHT_TYPE + "(_id));";
+                "FOREIGN KEY(SEAT_FLIGHT_TYPE) REFERENCES " + TABLE_FLIGHT_TYPE + "(_id));";
     }
 
     public String createFlightTypeTable() {
@@ -203,10 +455,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public String createClientTable() {
         return "CREATE TABLE " + TABLE_CLIENTS + " (" +
                 "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "FIRSTNAME TEXT COLLATE NOCASE, " +
-                "LASTNAME TEXT COLLATE NOCASE, " +
+                "FIRST_NAME TEXT COLLATE NOCASE, " +
+                "LAST_NAME TEXT COLLATE NOCASE, " +
                 "PHONE TEXT, " +
-                "CREDITCARD TEXT, " +
+                "CREDIT_CARD_NUMBER TEXT, " +
                 "IMAGE BLOB);";
     }
 
@@ -219,24 +471,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "FOREIGN KEY (ACCOUNT_CLIENT) REFERENCES " + TABLE_CLIENTS + "(_id));";
     }
 
-    public String createItinerary() {
-        return "CREATE TABLE ITINERARY (" +
+    public String createPastOrdersTable() {
+        return "CREATE TABLE " +  TABLE_PAST_ORDERS + " (" +
                 "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "TIMESTAMP DATETIME DEFAULT (STRFTIME('%Y-%m-%d  %H:%M', 'NOW','localtime')), " +
-                "ITINERARY_CLIENT INTEGER, " +
-                "ITINERARY_FLIGHT INTEGER, " +
+                "ORDER_CLIENT INTEGER, " +
+                "ORDER_FLIGHT INTEGER, " +
                 "PASSENGER INTEGER, " +
-                "FOREIGN KEY(ITINERARY_CLIENT) REFERENCES " + TABLE_CLIENTS + "(_id), " +
-                "FOREIGN KEY(ITINERARY_FLIGHT) REFERENCES " + TABLE_FLIGHT_INFO + "(_id));";
+                "FOREIGN KEY(ORDER_CLIENT) REFERENCES " + TABLE_CLIENTS + "(_id), " +
+                "FOREIGN KEY(ORDER_FLIGHT) REFERENCES " + TABLE_FLIGHT_INFO + "(_id));";
     }
 
     public String updateFlight() {
-        return "UPDATE "+ TABLE_FLIGHT_INFO + " SET FLIGHT_DURATION = ((strftime('%s',ARRIVAL_TIME) - strftime('%s', DEPARTURE_TIME)) / 60)/60, " +
-                "FLIGHTNUMBER = _id + 10000";
+        return "UPDATE " + TABLE_FLIGHT_INFO + " SET FLIGHT_DURATION = ((strftime('%s',DESTINATION_TIME) - strftime('%s', DEPARTING_TIME)) / 60)/60, " +
+                "FLIGHT_NUMBER = _id + 10000";
     }
 
-    public String updateSeatNumber(){
-        return "UPDATE "+ TABLE_SEATS + " SET SEATNUMBER = _id + 100";
+    public String updateSeatNumber() {
+        return "UPDATE " + TABLE_SEATS + " SET SEAT_NUMBER = _id + 100";
     }
 
     public void insertAirline(SQLiteDatabase databaseInstance, String airlineName) {
@@ -245,215 +497,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         databaseInstance.insert(TABLE_AIRLINES, null, airlineValues);
     }
 
-    public void insertFlight(SQLiteDatabase db, String departing_city, String destination, String departureDate, String arrivalDate, String departureTime, String arrivalTime, Double price, int airlineID) {
+    public void insertFlight(SQLiteDatabase databaseInstance, String departing_city, String destination, String departingDate, String destinationDate, String departingTime, String destinationTime, Double price, int airlineID) {
         ContentValues flightValues = new ContentValues();
         flightValues.put("DEPARTING_CITY", departing_city);
         flightValues.put("DESTINATION_CITY", destination);
-        flightValues.put("DEPARTURE_DATE", departureDate);
-        flightValues.put("ARRIVAL_DATE", arrivalDate);
-        flightValues.put("DEPARTURE_TIME", departureTime);
-        flightValues.put("ARRIVAL_TIME", arrivalTime);
+        flightValues.put("DEPARTING_DATE", departingDate);
+        flightValues.put("DESTINATION_DATE", destinationDate);
+        flightValues.put("DEPARTING_TIME", departingTime);
+        flightValues.put("DESTINATION_TIME", destinationTime);
         flightValues.put("PRICE", price);
         flightValues.put("FLIGHT_AIRLINE", airlineID);
-        db.insert(TABLE_FLIGHT_INFO, null, flightValues);
+        databaseInstance.insert(TABLE_FLIGHT_INFO, null, flightValues);
     }
 
-    public void insertSeat(SQLiteDatabase db, int status, int flightID, int flightTypeID) {
+    public void insertSeat(SQLiteDatabase databaseInstance, int status, int flightID, int flightTypeID) {
         ContentValues seatValues = new ContentValues();
         seatValues.put("STATUS", status);
         seatValues.put("SEAT_FLIGHT", flightID);
         seatValues.put("SEAT_FLIGHTCLASS", flightTypeID);
-        db.insert(TABLE_SEATS, null, seatValues);
+        databaseInstance.insert(TABLE_SEATS, null, seatValues);
     }
 
-    public void insertFlightType(SQLiteDatabase db, String flightType) {
+    public void insertFlightType(SQLiteDatabase databaseInstance, String flightType) {
         ContentValues flightClassValues = new ContentValues();
         flightClassValues.put("FLIGHT_TYPE", flightType);
-        db.insert(TABLE_FLIGHT_TYPE, null, flightClassValues);
-    }
-
-    public static void insertClient(SQLiteDatabase db, String firstName, String lastName, String phone, String creditCard) {
-        ContentValues clientValues = new ContentValues();
-        clientValues.put("FIRSTNAME", capitalize(firstName.toLowerCase()));
-        clientValues.put("LASTNAME", capitalize(lastName.toLowerCase()));
-        clientValues.put("PHONE", phone);
-        clientValues.put("CREDITCARD", creditCard);
-        db.insert(TABLE_CLIENTS, null, clientValues);
-    }
-
-    public static void insertAccount(SQLiteDatabase db, String email, String password, int clientID) {
-        ContentValues accountValues = new ContentValues();
-        accountValues.put("EMAIL", email);
-        accountValues.put("PASSWORD", password);
-        accountValues.put("ACCOUNT_CLIENT", clientID);
-        db.insert(TABLE_ACCOUNT, null, accountValues);
-    }
-
-    public static void insertItinerary(SQLiteDatabase db, int flightID, int clientID, int traveller) {
-        ContentValues itineraryValues = new ContentValues();
-        itineraryValues.put("ITINERARY_FLIGHT", flightID);
-        itineraryValues.put("ITINERARY_CLIENT", clientID);
-        itineraryValues.put("PASSENGER", traveller);
-        db.insert("ITINERARY", null, itineraryValues);
-    }
-
-    public static Cursor selectFlight(SQLiteDatabase db, int flightID) {
-        return db.rawQuery("SELECT " + TABLE_FLIGHT_INFO + "._id, " + "FLIGHTNUMBER, DEPARTING_CITY, DESTINATION_CITY, DEPARTURE_DATE, ARRIVAL_DATE, DEPARTURE_TIME, " +
-                " ARRIVAL_TIME, FLIGHT_DURATION, PRICE, AIRLINE_CARRIER, SEATNUMBER, FLIGHT_TYPE " +
-                "FROM " + TABLE_FLIGHT_INFO + " " +
-                "INNER JOIN " + TABLE_AIRLINES + " " +
-                "ON " + TABLE_FLIGHT_INFO + ".FLIGHT_AIRLINE = " + TABLE_AIRLINES + "._id "+
-                "INNER JOIN " + TABLE_SEATS + " " +
-                "ON " + TABLE_SEATS + ".SEAT_FLIGHT = " + TABLE_FLIGHT_INFO + "._id " +
-                "INNER JOIN " + TABLE_FLIGHT_TYPE + " " +
-                "ON " + TABLE_SEATS + ".SEAT_FLIGHTCLASS = " + TABLE_FLIGHT_TYPE + "._id " +
-                "WHERE " + TABLE_FLIGHT_INFO + "._id = '" + flightID + "'", null);
-    }
-
-    public static Cursor getPastOrderDetails(SQLiteDatabase db, int flightID) {
-        return db.rawQuery("SELECT FLIGHT._id, FLIGHTNUMBER, DEPARTING_CITY, DESTINATION_CITY, DEPARTURE_DATE, ARRIVAL_DATE, DEPARTURE_TIME, " +
-                " ARRIVAL_TIME, FLIGHT_DURATION, PRICE, AIRLINE_CARRIER, SEATNUMBER, FLIGHT_TYPE, PASSENGER, TIMESTAMP " +
-                "FROM " + TABLE_FLIGHT_INFO + " " +
-                "INNER JOIN " + TABLE_AIRLINES + " " +
-                "ON " + TABLE_FLIGHT_INFO + ".FLIGHT_AIRLINE = " + TABLE_AIRLINES + "._id "+
-                "INNER JOIN " + TABLE_SEATS + " " +
-                "ON " + TABLE_SEATS + ".SEAT_FLIGHT = " + TABLE_FLIGHT_INFO + "._id " +
-                "INNER JOIN " + TABLE_FLIGHT_TYPE + " " +
-                "ON " + TABLE_SEATS + ".SEAT_FLIGHTCLASS = " + TABLE_FLIGHT_TYPE + "._id " +
-                "JOIN ITINERARY " +
-                "ON ITINERARY.ITINERARY_FLIGHT = " + TABLE_FLIGHT_INFO + "._id " +
-                "WHERE " + TABLE_FLIGHT_INFO + "._id = '" + flightID + "'", null);
-    }
-
-    public static Cursor selectFlight(SQLiteDatabase databaseInstance, String departingCity, String destinationCity,
-                                      String departureDate, String flightType) {
-        return databaseInstance.rawQuery("SELECT FLIGHT._id, FLIGHTNUMBER, DEPARTING_CITY, DESTINATION_CITY, DEPARTURE_DATE, ARRIVAL_DATE, DEPARTURE_TIME, " +
-                " ARRIVAL_TIME, FLIGHT_DURATION, PRICE, AIRLINE_CARRIER, SEATNUMBER, FLIGHT_TYPE " +
-                "FROM " + TABLE_FLIGHT_INFO + " " +
-                "JOIN " + TABLE_AIRLINES + " " +
-                "ON " + TABLE_FLIGHT_INFO + ".FLIGHT_AIRLINE " +
-                "JOIN " + TABLE_SEATS + " " +
-                "ON " + TABLE_FLIGHT_INFO + "._id = " + TABLE_SEATS + ".SEAT_FLIGHT " +
-                "INNER JOIN " + TABLE_FLIGHT_TYPE + " " +
-                "ON " + TABLE_SEATS + ".SEAT_FLIGHTCLASS = " + TABLE_FLIGHT_TYPE + "._id " +
-                "WHERE DEPARTING_CITY = '" + departingCity +
-                "' AND DESTINATION_CITY = '" + destinationCity +
-                "' AND DEPARTURE_DATE = '" + departureDate +
-                "' AND FLIGHT_TYPE = '" + flightType +
-                "' AND SEAT.STATUS = 0 ", null);
-    }
-
-    public static Cursor selectItinerary(SQLiteDatabase databaseInstance, int clientID) {
-        return databaseInstance.rawQuery("SELECT " + TABLE_FLIGHT_INFO + "._id, FLIGHTNUMBER, DEPARTING_CITY, DESTINATION_CITY, DEPARTURE_DATE, ARRIVAL_DATE, DEPARTURE_TIME, " +
-                " ARRIVAL_TIME, FLIGHT_DURATION, PRICE, AIRLINE_CARRIER, SEATNUMBER, FLIGHT_TYPE " +
-                "FROM " + TABLE_FLIGHT_INFO + " " +
-                "INNER JOIN " + TABLE_AIRLINES + " " +
-                "ON " + TABLE_FLIGHT_INFO + ".FLIGHT_AIRLINE = " + TABLE_AIRLINES + "._id "+
-                "INNER JOIN ITINERARY " +
-                "ON " + TABLE_FLIGHT_INFO + "._id = ITINERARY.ITINERARY_FLIGHT " +
-                "INNER JOIN " + TABLE_SEATS + " " +
-                "ON " + TABLE_SEATS + ".SEAT_FLIGHT = " + TABLE_FLIGHT_INFO + "._id " +
-                "INNER JOIN " + TABLE_FLIGHT_TYPE + " " +
-                "ON " + TABLE_SEATS + ".SEAT_FLIGHTCLASS = " + TABLE_FLIGHT_TYPE + "._id " +
-                "WHERE ITINERARY.ITINERARY_CLIENT = " + clientID, null);
-    }
-
-    public static void deleteItinerary(SQLiteDatabase db, int itineraryID) {
-        db.delete("ITINERARY", " _id = ? ", new String[]{String.valueOf(itineraryID)});
-    }
-
-    public static Cursor selectItinerary(SQLiteDatabase db, int flightID, int clientID) {
-        return db.query("ITINERARY", null, " ITINERARY_FLIGHT = ? AND ITINERARY_CLIENT = ?",
-                new String[]{String.valueOf(flightID), String.valueOf(clientID)}, null, null, null, null);
-    }
-
-    public static Cursor login(SQLiteDatabase db, String email, String password) {
-        return db.query(TABLE_ACCOUNT, new String[]{"_id", "EMAIL", "PASSWORD", "ACCOUNT_CLIENT"},
-                "EMAIL = ? AND PASSWORD = ? ", new String[]{email, password},
-                null, null, null, null);
-    }
-
-    public static void deleteAccount(SQLiteDatabase db, String clientID) {
-        db.delete(TABLE_CLIENTS, "_id = ? ", new String[]{clientID});
-        db.delete(TABLE_ACCOUNT, "_id = ? ", new String[]{clientID});
-        db.delete("ITINERARY", "_id = ? ", new String[]{clientID});
-    }
-
-    public static void updateClientImage(SQLiteDatabase db, byte[] image, String id) {
-        ContentValues employeeValues = new ContentValues();
-        employeeValues.put("IMAGE", image);
-        db.update(TABLE_CLIENTS, employeeValues, " _id = ? ", new String[]{id});
-    }
-
-    public static void updatePassword(SQLiteDatabase db, String password, String id) {
-        ContentValues clientValues = new ContentValues();
-        clientValues.put("PASSWORD", password);
-        db.update(TABLE_ACCOUNT, clientValues, " _id = ? ", new String[]{id});
-    }
-
-    public static Cursor selectImage(SQLiteDatabase db, int clientID) {
-        return db.query(TABLE_CLIENTS, new String[]{"IMAGE"}, "_id = ? ",
-                new String[]{Integer.toString(clientID)}, null, null,
-                null, null);
-    }
-
-
-    public static Cursor selectClientPassword(SQLiteDatabase db, int clientID) {
-        return db.query(TABLE_ACCOUNT, new String[]{"PASSWORD"}, "_id = ? ",
-                new String[]{Integer.toString(clientID)}, null, null,
-                null, null);
-    }
-
-    public static void updateClient(SQLiteDatabase db, String firstName, String lastName,
-                                    String phone, String creditCard, int clientID) {
-        ContentValues clientValues = new ContentValues();
-        clientValues.put("FIRSTNAME", capitalize(firstName.toLowerCase()));
-        clientValues.put("LASTNAME", capitalize(lastName.toLowerCase()));
-        clientValues.put("PHONE", phone);
-        clientValues.put("CREDITCARD", creditCard);
-        db.update(TABLE_CLIENTS, clientValues, "_id = ?", new String[]{String.valueOf(clientID)});
-    }
-
-    public static void updateAccount(SQLiteDatabase db, String email, int clientID) {
-        ContentValues accountValues = new ContentValues();
-        accountValues.put("EMAIL", email);
-        db.update(TABLE_ACCOUNT, accountValues, " ACCOUNT_CLIENT = ?",
-                new String[]{String.valueOf(clientID)});
-    }
-
-    public static Cursor selectClientID(SQLiteDatabase db, String firstName, String lastName,
-                                        String phone, String creditCard) {
-        return db.query(TABLE_CLIENTS, new String[]{"_id"},
-                "FIRSTNAME = ? AND LASTNAME = ? AND PHONE = ? AND CREDITCARD = ? ",
-                new String[]{firstName, lastName, phone, creditCard},
-                null, null, null, null);
-    }
-
-    public static Cursor selectClientJoinAccount(SQLiteDatabase db, int clientID) {
-        return db.rawQuery("SELECT FIRSTNAME, LASTNAME, PHONE, CREDITCARD, EMAIL FROM " + TABLE_CLIENTS + " " +
-                "JOIN " + TABLE_ACCOUNT + " " +
-                "ON " + TABLE_CLIENTS + "._id = " + TABLE_ACCOUNT + ".ACCOUNT_CLIENT " +
-                "WHERE " + TABLE_CLIENTS + "._id = '" + clientID + "'", null);
-    }
-
-    public static Cursor selectClient(SQLiteDatabase db, int clientID) {
-        return db.query(TABLE_CLIENTS, null, " _id = ? ",
-                new String[]{String.valueOf(clientID)}, null, null, null, null);
-    }
-
-    public static Cursor selectAccount(SQLiteDatabase db, String email) {
-        return db.query(TABLE_ACCOUNT, null, " EMAIL = ? ",
-                new String[]{email}, null, null, null, null);
-    }
-
-    public static final String[] CITIES = new String[] {
-            "Toronto", "Ottawa", "Edmonton", "Winnipeg", "Victoria",
-            "Fredericton", "St. John's", "Halifax", "Charlottetown",
-            "Quebec City", "Regina", "Yellowknife", "Iqaluit", "Whitehorse", "New York", "Boston", "Los Angeles",
-            "Montreal"
-    };
-
-    public static String capitalize(String str) {
-        return str.length() == 0 ? str : str.substring(0, 1).toUpperCase() + str.substring(1);
+        databaseInstance.insert(TABLE_FLIGHT_TYPE, null, flightClassValues);
     }
 }

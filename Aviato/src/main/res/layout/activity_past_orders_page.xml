@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pastOrdersContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/pastOrdersContainer"
+    android:background="@color/colorLightGray"
     android:orientation="vertical"
     android:padding="15dp"
-    android:background="@color/colorLightGray"
     tools:context=".Pages.PastOrdersPage">
 
     <ListView
@@ -14,15 +14,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:divider="@color/colorLightGray"
-        android:dividerHeight="10dp"/>
+        android:dividerHeight="10dp" />
 
     <TextView
-        android:id="@+id/tv_past_orders_message"
+        android:id="@+id/txt_past_orders_message"
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:background="@drawable/bgrounded"
         android:padding="15dp"
-        android:textSize="18sp"
-        android:text="You have not booked a flight before!" />
+        android:text="You have not booked a flight before!"
+        android:textSize="18sp" />
 
 </LinearLayout>

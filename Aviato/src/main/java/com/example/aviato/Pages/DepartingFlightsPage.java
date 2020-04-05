@@ -55,7 +55,7 @@ public class DepartingFlightsPage extends AppCompatActivity {
 
         availableDepartingFlightsList = findViewById(R.id.lv_available_departing_flights);
 
-        flightUnavailableMessage = findViewById(R.id.tv_no_available_departing_flights);
+        flightUnavailableMessage = findViewById(R.id.txt_no_available_departing_flights);
 
         flightUnavailableMessage.setVisibility(View.INVISIBLE);
 
@@ -73,15 +73,14 @@ public class DepartingFlightsPage extends AppCompatActivity {
             if (cursor != null && cursor.getCount() > 0) {
 
                 CursorAdapter listAdapter = new SimpleCursorAdapter(getApplicationContext(),
-                        R.layout.custom_list_view,
+                        R.layout.custom_search_list_view,
                         cursor,
-                        new String[]{"DEPARTING_TIME", "ARRIVAL_TIME", "PRICE", "AIRLINE_CARRIER", "FLIGHT_DURATION", "FLIGHT_TYPE"},
-                        new int[]{R.id.tv_departing_time_list_layout, R.id.tv_arrival_time_list_layout, R.id.tv_price_list_layout, R.id.tv_airline_carrier_list_layout, R.id.tv_travel_time_list_layout, R.id.tv_flight_type_list_layout},//map the contents of NAME col to text in ListView
+                        new String[]{"DEPARTING_TIME", "DESTINATION_TIME", "PRICE", "AIRLINE_CARRIER", "FLIGHT_DURATION", "FLIGHT_TYPE"},
+                        new int[]{R.id.txt_departing_time_list_layout, R.id.txt_arrival_time_list_layout, R.id.txt_price_list_layout, R.id.txt_airline_carrier_list_layout, R.id.txt_travel_time_list_layout, R.id.txt_flight_type_list_layout},//map the contents of NAME col to text in ListView
                         0);
 
                 availableDepartingFlightsList.setAdapter(listAdapter);
-            }
-            else
+            } else
                 flightUnavailable = true;
 
             cursor = DatabaseHelper.selectFlight(databaseInstance, destination_city, departing_city,
@@ -89,11 +88,10 @@ public class DepartingFlightsPage extends AppCompatActivity {
 
             if (cursor != null && cursor.getCount() > 0) {
                 // Do nothing
-            }
-            else
+            } else
                 flightUnavailable = true;
 
-            if(flightUnavailable == true)
+            if (flightUnavailable == true)
                 flightUnavailableMessage.setVisibility(View.VISIBLE);
 
             availableDepartingFlightsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -109,7 +107,7 @@ public class DepartingFlightsPage extends AppCompatActivity {
                     editor.remove("departing_flight_ID");
                     editor.putInt("departing_flight_ID", departingFlightID);
 
-                    editor.commit();
+                    editor.apply();
 
                     startActivity(intent);
                     finish();
@@ -117,7 +115,8 @@ public class DepartingFlightsPage extends AppCompatActivity {
             });
 
         } catch (SQLiteException e) {
-            Toast.makeText(getApplicationContext(), "There was an error loading the database.", Toast.LENGTH_SHORT).show();
-        }
+            System.out.println("DEPARTING FLIGHTS PAGE ERROR");
+            System.out.println(e.toString());
+            Toast.makeText(getApplicationContext(), "Error: Database is Unavailable.", Toast.LENGTH_SHORT).show();        }
     }
 }

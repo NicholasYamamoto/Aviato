@@ -1,82 +1,107 @@
 package com.example.aviato.Pages;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.aviato.DatabaseHelper;
-import com.example.aviato.Classes.AccountClass;
 import com.example.aviato.R;
 
+
 public class SignUpPage extends AppCompatActivity {
-    DatabaseHelper databaseHelper;
-    EditText signupFirstName, signupEmailAddress, signupPassword;
-    Spinner signupPreferredCarrier, signupDefaultDepart;
+
+    EditText signupFirstName, signupEmailAddress, signupCreditCardNumber,
+            signupPhoneNumber, signupPassword;
     Button addAccount;
+    private int clientID;
+    private SQLiteOpenHelper databaseHelper;
+    private SQLiteDatabase databaseInstance;
+    private Cursor cursor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_page);
 
-        databaseHelper = new DatabaseHelper(this);
-
-        signupFirstName = findViewById(R.id.signup_name);
-        signupEmailAddress = findViewById(R.id.signup_email);
-        signupPassword = findViewById(R.id.signup_password);
-        signupPreferredCarrier = findViewById(R.id.signup_preferred_carrier_spinner);
-        signupDefaultDepart = findViewById(R.id.signup_default_depart_spinner);
         addAccount = findViewById(R.id.btn_add_account);
 
-        addUser();
+        signupFirstName = findViewById(R.id.edt_signup_first_name);
+        signupEmailAddress = findViewById(R.id.edt_signup_email_address);
+        signupPassword = findViewById(R.id.edt_signup_password);
+        signupPhoneNumber = findViewById(R.id.edt_signup_phone_number);
+        signupCreditCardNumber = findViewById(R.id.edt_signup_phone_number);
 
-    }
-
-    public void addUser() {
         addAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if ((signupFirstName.getText().toString().equals("")) && (signupPassword.getText().toString().equals(""))) {
-                    Toast.makeText(SignUpPage.this, "First Name and Password cannot be left blank", Toast.LENGTH_SHORT).show();
-                }
-
-                else if ((signupFirstName.getText().toString().equals(""))) {
-                    Toast.makeText(SignUpPage.this, "First Name cannot be left blank", Toast.LENGTH_SHORT).show();
-                }
-
-                else if (signupEmailAddress.getText().toString().equals("")) {
-                    Toast.makeText(SignUpPage.this, "Email Address cannot be left blank", Toast.LENGTH_SHORT).show();
-                }
-
-                else if (signupPassword.getText().toString().equals("")) {
-                    Toast.makeText(SignUpPage.this, "Password cannot be left blank", Toast.LENGTH_SHORT).show();
-                }
-
-                else {
-                    AccountClass account = new AccountClass(
-                            signupFirstName.getText().toString(),
-                            signupEmailAddress.getText().toString(),
-                            signupPassword.getText().toString(),
-                            signupPreferredCarrier.getSelectedItem().toString(),
-                            signupDefaultDepart.getSelectedItem().toString());
-
-                    boolean isInserted = databaseHelper.addAccountToTable(account);
-
-                    if (isInserted) {
-                        Toast.makeText(SignUpPage.this, "Account Created! Please Log In.", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getApplicationContext(), SignInPage.class);
-                        startActivity(intent);
-                        finish();
-                    } else
-                        Toast.makeText(SignUpPage.this, "Something went wrong. Please try again.", Toast.LENGTH_SHORT).show();
-                }
+                registerAccount();
             }
         });
+
+    }
+
+    public void registerAccount() {
+        try {
+            databaseHelper = new DatabaseHelper(getApplicationContext());
+            databaseInstance = databaseHelper.getWritableDatabase();
+
+            cursor = DatabaseHelper.selectAccount(databaseInstance, DatabaseHelper.filterString(signupEmailAddress.getText().toString()));
+
+            if (cursor != null && cursor.getCount() > 0)
+                Toast.makeText(SignUpPage.this, "Error: AccountClass Already Exists.", Toast.LENGTH_SHORT).show();
+
+            else {
+                DatabaseHelper.insertClient(databaseInstance,
+                        signupFirstName.getText().toString(),
+                        signupEmailAddress.getText().toString(),
+                        signupPhoneNumber.getText().toString(),
+                        signupCreditCardNumber.getText().toString());
+
+                cursor = DatabaseHelper.selectClientID(databaseInstance,
+                        signupFirstName.getText().toString(),
+                        signupEmailAddress.getText().toString(),
+                        signupPhoneNumber.getText().toString(),
+                        signupCreditCardNumber.getText().toString());
+
+                if (cursor != null && cursor.getCount() == 1) {
+                    cursor.moveToFirst();
+
+                    DatabaseHelper.insertAccount(databaseInstance,
+                            signupEmailAddress.getText().toString(),
+                            signupPassword.getText().toString(),
+                            cursor.getInt(0));
+
+                    // Display the Sign In Page if account creation is successful
+                    Intent intent = new Intent(getApplicationContext(), SignInPage.class);
+                    Toast.makeText(SignUpPage.this, "Account Created! Please Log In.", Toast.LENGTH_SHORT).show();
+                    startActivity(intent);
+                    finish();
+                }
+            }
+
+        } catch (SQLiteException e) {
+            System.out.println("SIGN UP PAGE - Account Creation ERROR");
+            System.out.println(e.toString());
+            Toast.makeText(getApplicationContext(), "Error: Database is Unavailable.", Toast.LENGTH_SHORT).show();        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        try {
+            cursor.close();
+            databaseInstance.close();
+        } catch (Exception ex) {
+            Toast.makeText(getApplicationContext(), "Error: Failed to Close Database/Cursor.", Toast.LENGTH_SHORT).show();
+        }
     }
 }

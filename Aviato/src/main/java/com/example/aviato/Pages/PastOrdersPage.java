@@ -13,23 +13,20 @@ import android.widget.AdapterView;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.aviato.DatabaseHelper;
 import com.example.aviato.R;
 
-
 public class PastOrdersPage extends AppCompatActivity {
 
     private SQLiteOpenHelper databaseHelper;
-    private SQLiteDatabase db;
+    private SQLiteDatabase databaseInstance;
     private Cursor cursor;
     private int flightID;
     private int clientID;
     private Intent intent;
     private ListView pastOrdersList;
-    private TextView pastOrdersAlert;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,44 +35,38 @@ public class PastOrdersPage extends AppCompatActivity {
 
         pastOrdersList = findViewById(R.id.lv_past_orders);
 
-        pastOrdersAlert = findViewById(R.id.tv_past_orders_message);
         clientID = clientID();
 
-        pastOrdersAlert.setVisibility(View.INVISIBLE);
 
-        try{
+        try {
             databaseHelper = new DatabaseHelper(getApplicationContext());
-            db = databaseHelper.getReadableDatabase();
+            databaseInstance = databaseHelper.getReadableDatabase();
 
-            cursor = DatabaseHelper.selectItinerary(db, clientID);
+            cursor = DatabaseHelper.selectOrder(databaseInstance, clientID);
 
             if (cursor != null && cursor.getCount() > 0) {
 
-                //Toast.makeText(getApplicationContext(), String.valueOf(cursor.getCount()), Toast.LENGTH_SHORT).show();
-
                 CursorAdapter listAdapter = new SimpleCursorAdapter(getApplicationContext(),
-                        R.layout.custom_past_orders_view,
+                        R.layout.custom_past_orders_list_view,
                         cursor,
-                        new String[]{"ORIGIN", "DESTINATION", "AIRLINENAME",
-                                "FLIGHTDURATION", "FLIGHTCLASSNAME", "DEPARTUREDATE"},
-                        new int[]{R.id.tv_departing_city_list, R.id.tv_destination_city_list,
-                                R.id.tv_airline_carrier_list_layout, R.id.tv_travel_time_list_layout, R.id.tv_flight_type_list_layout, R.id.tv_departing_date_list},
+                        new String[]{"DEPARTING_CITY", "DESTINATION_CITY", "AIRLINE_CARRIER",
+                                "FLIGHT_DURATION", "SEAT_FLIGHT_TYPE", "DEPARTING_DATE"},
+                        new int[]{R.id.txt_order_departure_city_list, R.id.txt_order_destination_city_list,
+                                R.id.txt_order_airline_carrier, R.id.txt_order_flight_duration,
+                                R.id.txt_order_flight_type, R.id.txt_departing_date_list},
                         0);
 
                 pastOrdersList.setAdapter(listAdapter);
-            }else{
-
-                pastOrdersAlert.setVisibility(View.VISIBLE);
-            }
+            } else
+                Toast.makeText(PastOrdersPage.this, "Error: No Past Orders Found!", Toast.LENGTH_SHORT).show();
 
             pastOrdersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 
                     flightID = (int) id;
-                    //Toast.makeText(getApplicationContext(), String.valueOf(flightID), Toast.LENGTH_SHORT).show();
 
-                    intent = new Intent(getApplicationContext(), FlightDetailActivity.class);
+                    intent = new Intent(getApplicationContext(), CheckoutPage.class);
                     intent.putExtra("FLIGHT_ID", flightID);
 
                     startActivity(intent);
@@ -83,16 +74,19 @@ public class PastOrdersPage extends AppCompatActivity {
             });
 
 
-        }catch (SQLiteException e){
-            Toast.makeText(getApplicationContext(), "Database unavailable", Toast.LENGTH_SHORT).show();
+        } catch (SQLiteException e) {
+            System.out.println("PAST ORDERS PAGE ERROR");
+            System.out.println(e.toString());
+            Toast.makeText(getApplicationContext(), "Error: Database is Unavailable.", Toast.LENGTH_SHORT).show();
         }
 
     }
 
     public int clientID() {
-        LoginActivity.sharedPreferences = getSharedPreferences(LoginActivity.MY_PREFERENCES, Context.MODE_PRIVATE);
-        clientID = LoginActivity.sharedPreferences.getInt(LoginActivity.CLIENT_ID, 0);
+        SignInPage.sharedPreferences = getSharedPreferences(SignInPage.MY_PREFERENCES, Context.MODE_PRIVATE);
+        clientID = SignInPage.sharedPreferences.getInt(SignInPage.CLIENT_ID, 0);
         return clientID;
     }
+
 
 }

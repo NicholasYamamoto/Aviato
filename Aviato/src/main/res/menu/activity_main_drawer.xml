@@ -3,23 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:id="@+id/account_group"
-        android:checkableBehavior="single" >
-            <item
-                android:id="@+id/view_profile"
-                android:icon="@drawable/icon_view_profile"
-                android:title="View Profile"
-                />
+    <group
+        android:id="@+id/account_group"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/view_profile"
+            android:icon="@drawable/icon_view_profile"
+            android:title="View Profile" />
 
-            <item
-                android:id="@+id/past_orders"
-                android:icon="@drawable/icon_past_orders"
-                android:title="Past Orders"
-                />
+        <item
+            android:id="@+id/past_orders"
+            android:icon="@drawable/icon_past_orders"
+            android:title="Past Orders" />
     </group>
 
-    <group android:id="@+id/order_group"
-        android:checkableBehavior="single" >
+    <group
+        android:id="@+id/order_group"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/book_a_flight"
             android:icon="@drawable/icon_book_a_flight"
@@ -31,8 +31,9 @@
             android:title="Plan a Trip" />
     </group>
 
-    <group android:id="@+id/contact_group"
-        android:checkableBehavior="single" >
+    <group
+        android:id="@+id/contact_group"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/about_us"
             android:icon="@drawable/icon_about_us"
@@ -45,19 +46,19 @@
 
     </group>
 
-    <group android:id="@+id/logout_group"
-        android:checkableBehavior="single" >
+    <group
+        android:id="@+id/logout_group"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/log_out"
             android:icon="@drawable/icon_logout"
-            android:title="Logout"
-            />
+            android:title="Logout" />
     </group>
 
     <item
         android:id="@+id/version_number"
-        android:title="Version: 1.0.0"
         android:enabled="false"
+        android:title="Version: 1.0.0"
 
-    />
+        />
 </menu>

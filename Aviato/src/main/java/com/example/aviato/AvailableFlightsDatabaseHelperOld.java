@@ -5,7 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class AvailableFlightsDatabaseHelper extends SQLiteOpenHelper {
+public class AvailableFlightsDatabaseHelperOld extends SQLiteOpenHelper {
     private static final String TAG = "DatabaseHelper";
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "available_flights.db";
@@ -30,7 +30,7 @@ public class AvailableFlightsDatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_RETURN_GATE = "return_gate";
 
     //Constructor
-    public AvailableFlightsDatabaseHelper(Context context) {
+    public AvailableFlightsDatabaseHelperOld(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -67,23 +67,23 @@ public class AvailableFlightsDatabaseHelper extends SQLiteOpenHelper {
     }
 
     /*  TODO: Have this query the Available Flights table, creating the query based on the
-          values pulled from the Buttons/Spinners/DatePicker, and when a Flight is
+          values pulled from the Buttons/Spinners/DatePicker, and when a FlightInformationClass is
           selected, call the addFlight function to put it into the Order Details table.
 
  */
     public Cursor getAvailableFlights(String departing_date, String departing_city, String destination_city, String return_date) {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        String[] searchParameters = new String[] { departing_date, departing_city, destination_city, return_date};
+        String[] searchParameters = new String[]{departing_date, departing_city, destination_city, return_date};
         Cursor data = sqLiteDatabase.rawQuery("SELECT * FROM available_flights " +
-                                                  "WHERE depart_date = ? " +
-                                                  "AND depart_city = ?" +
-                                                  "AND destination_city = ?" +
-                                                  "AND return_date = ?",
-                                                  searchParameters);
+                        "WHERE depart_date = ? " +
+                        "AND depart_city = ?" +
+                        "AND destination_city = ?" +
+                        "AND return_date = ?",
+                searchParameters);
         return data;
     }
 
-//    //    // Add a Trip to the Order, which will populate some things from the Flight Information
+//    //    // Add a Trip to the Order, which will populate some things from the FlightInformationClass Information
 ////    // table and get displayed in the Checkout Page ONLY if this functionality was used
 //    public boolean addToTrip(String Name, String Quantity, String Price) {
 //        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
@@ -97,11 +97,10 @@ public class AvailableFlightsDatabaseHelper extends SQLiteOpenHelper {
 //    }
 
 
-
     //Adds city to the database and returns boolean true if insert was successful or false if insert failed
     /*
             TODO: The functionality of this is to choose the Destination city at a more personalized level,
-                  allowing you to skip some parts of the regular Book a Flight functionality and choose a city
+                  allowing you to skip some parts of the regular Book a FlightInformationClass functionality and choose a city
                   using a UI versus just choosing the name from the Spinner, and add some destinations.
                   So, this can be refactored to use the FlightInformationClass class and you can get rid of the
                   City class and related stuff altogether.

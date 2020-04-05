@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
     android:layout_gravity="center"
-    tools:context="com.example.aviato.Fragments.AboutUsFragment">
+    android:background="@color/colorAviatoLogoBlue"
+    tools:context="com.example.aviato.Pages.AboutUsPage">
 
     <include
         layout="@layout/app_bar_main"
@@ -15,31 +15,29 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_centerInParent="true"
-        >
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="25sp"
-            android:textAlignment="center"
-            android:text="Made with\u2764from these talented engineers:"
-            android:textColor="@color/colorBlack"
             android:layout_gravity="center_horizontal"
             android:paddingBottom="50dp"
-            >
+            android:text="Made with \u2764 from these talented engineers:"
+            android:textAlignment="center"
+            android:textColor="@color/colorPink"
+            android:textSize="25sp">
 
         </TextView>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingBottom="10dp"
             android:text="Nicholas Yamamoto"
             android:textColor="@color/colorWhite"
             android:textSize="30sp"
-            android:paddingBottom="10dp"
-            android:layout_gravity="center"
 
             >
 
@@ -48,23 +46,22 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingBottom="10dp"
             android:text="Jackson Duvert"
             android:textColor="@color/colorWhite"
-            android:textSize="30sp"
-            android:paddingBottom="10dp"
-            android:layout_gravity="center"
-            >
+            android:textSize="30sp">
 
         </TextView>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingBottom="10dp"
             android:text="Brian Graham"
             android:textColor="@color/colorWhite"
             android:textSize="30sp"
-            android:paddingBottom="10dp"
-            android:layout_gravity="center"
 
             >
 
@@ -73,25 +70,24 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingBottom="10dp"
             android:text="Lanu Atatai"
             android:textColor="@color/colorWhite"
-            android:textSize="30sp"
-            android:paddingBottom="10dp"
-            android:layout_gravity="center"
-            >
+            android:textSize="30sp">
 
         </TextView>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textAlignment="center"
-            android:text="For the Spring 2020 CS4920 - Senior Project course at UCM."
-            android:textColor="@color/colorBlack"
             android:layout_gravity="center"
             android:paddingTop="50dp"
-            >
+            android:text="For the Spring 2020 CS4920 - Senior Project course at UCM."
+            android:textAlignment="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp">
+
         </TextView>
     </LinearLayout>
 </RelativeLayout>

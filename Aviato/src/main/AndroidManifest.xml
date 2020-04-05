@@ -22,12 +22,18 @@
         <activity android:name="com.example.aviato.Pages.SignInPage" />
         <activity android:name="com.example.aviato.Pages.SignUpPage" />
         <activity android:name="com.example.aviato.Pages.ForgotPasswordPage" />
-
         <activity android:name="com.example.aviato.Pages.ViewProfilePage" />
+        <activity android:name="com.example.aviato.Pages.PastOrdersPage" />
+        <activity android:name="com.example.aviato.Pages.PastOrderDetailsPage" />
+
+        <activity android:name="com.example.aviato.Pages.AboutUsPage" />
+        <activity android:name="com.example.aviato.Pages.ContactUsPage" />
 
         <activity android:name="com.example.aviato.Pages.BookAFlightPage" />
         <activity android:name="com.example.aviato.Pages.PlanATripPage" />
 
+        <activity android:name="com.example.aviato.Pages.DepartingFlightsPage" />
+        <activity android:name="com.example.aviato.Pages.ReturningFlightsPage" />
         <activity android:name="com.example.aviato.Pages.CheckoutPage" />
         <activity android:name="com.example.aviato.Pages.OrderConfirmationPage" />
 
@@ -35,6 +41,5 @@
             android:name="com.example.aviato.MainActivity"
             android:theme="@style/AppTheme" />
     </application>
-
 
 </manifest>

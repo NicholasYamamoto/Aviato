@@ -1,4 +1,4 @@
-package com.example.aviato.Fragments;
+package com.example.aviato.Pages;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -7,37 +7,28 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.view.LayoutInflater;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.aviato.R;
 
 import static android.Manifest.permission.CALL_PHONE;
+import static java.security.AccessController.getContext;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class ContactUsFragment extends Fragment {
-
-    public ContactUsFragment() {
-        // Required empty public constructor
-    }
+public class ContactUsPage extends AppCompatActivity {
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_contact_us, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_contact_us_page);
 
         Button call_us, email_us;
 
-        call_us = view.findViewById(R.id.callUsBtn);
-        email_us = view.findViewById(R.id.emailUsBtn);
+        call_us = findViewById(R.id.btn_call_us);
+        email_us = findViewById(R.id.btn_email_us);
 
         call_us.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -51,7 +42,7 @@ public class ContactUsFragment extends Fragment {
                 callIntent.setData(Uri.parse("tel:17607067425"));
                 startActivity(callIntent);
 
-                if (ContextCompat.checkSelfPermission(getContext(), CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+                if (ContextCompat.checkSelfPermission(getApplicationContext(), CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
                     startActivity(callIntent);
                 } else {
                     requestPermissions(new String[]{CALL_PHONE}, 1);
@@ -71,9 +62,10 @@ public class ContactUsFragment extends Fragment {
             }
         });
 
-        return view;
+
     }
 }
+
 
 
 

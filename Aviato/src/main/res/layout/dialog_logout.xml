@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -8,10 +7,10 @@
         android:id="@+id/logout_dialog_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:padding="10dp"
-        android:textAlignment="center"
         android:text="@string/dialog_title"
-        android:layout_gravity="center_horizontal" />
+        android:textAlignment="center" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,9 +23,8 @@
             android:layout_height="match_parent"
             android:layout_weight="0.50"
             android:background="#E0E0E0"
-            android:text="Cancel"
             android:clickable="true"
-            />
+            android:text="Cancel" />
 
         <Button
             android:id="@+id/logout_dialog_ok"
@@ -34,10 +32,10 @@
             android:layout_height="match_parent"
             android:layout_weight="0.50"
             android:background="#E63C3C"
-            android:text="Ok"
-            android:textColor="#FFFF"
             android:clickable="true"
             android:hapticFeedbackEnabled="true"
+            android:text="Ok"
+            android:textColor="#FFFF"
 
             />
 

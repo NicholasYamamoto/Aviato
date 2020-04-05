@@ -12,5 +12,6 @@
     <color name="colorLightGray">#EEEEEE</color>
 
     <color name="primaryBlue">#283593</color>
+    <color name="backgroundDarkGray">#464646</color>
 
 </resources>

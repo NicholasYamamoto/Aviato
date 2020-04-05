@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorLightGray"
+    android:background="@color/colorAviatoLogoBlue"
     tools:context=".Pages.PastOrderDetailsPage">
 
     <RelativeLayout
@@ -15,17 +14,20 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="15dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
                     android:background="@drawable/bgrounded"
                     android:orientation="vertical"
-                    android:padding="15dp"
-                    android:layout_marginBottom="15dp">
+                    android:padding="15dp">
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
@@ -36,7 +38,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentLeft="true"
-                            android:text="Client Name: "
+                            android:text="Name: "
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -44,53 +46,55 @@
                             android:id="@+id/txtFName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignParentEnd="true"
                             android:layout_alignBaseline="@+id/fName"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
                             android:textSize="16sp" />
+
                         <TextView
-                            android:id="@+id/tv_past_order_payment_method_label"
+                            android:id="@+id/txt_past_order_payment_method_label"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_below="@+id/fName"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentLeft="true"
-                            android:layout_below="@+id/fName"
                             android:text="Payment Method: "
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/tv_past_order_credit_card_number"
+                            android:id="@+id/txt_past_order_credit_card_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
+                            android:layout_alignBaseline="@+id/txt_past_order_payment_method_label"
                             android:layout_alignParentEnd="true"
-                            android:layout_alignBaseline="@+id/tv_past_order_payment_method_label"
+                            android:layout_alignParentRight="true"
                             android:textSize="16sp" />
 
                         <TextView
-                            android:id="@+id/tv_past_order_timestamp_label"
+                            android:id="@+id/txt_past_order_timestamp_label"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_below="@+id/txt_past_order_payment_method_label"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentLeft="true"
-                            android:layout_below="@+id/tv_past_order_payment_method_label"
                             android:text="Booking Date: "
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/tv_past_order_timestamp"
+                            android:id="@+id/txt_past_order_timestamp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
+                            android:layout_alignBaseline="@+id/txt_past_order_timestamp_label"
                             android:layout_alignParentEnd="true"
-                            android:layout_alignBaseline="@+id/tv_past_order_timestamp_label"
+                            android:layout_alignParentRight="true"
                             android:textSize="16sp" />
 
                     </RelativeLayout>
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/pastOrderFlightDetails"
                     android:layout_width="match_parent"
@@ -105,7 +109,7 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/tv_past_order_airline_carrier"
+                            android:id="@+id/txt_past_order_airline_carrier"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -114,10 +118,10 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/tv_past_order_flight_number_label"
+                            android:id="@+id/txt_past_order_flight_number_label"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/tv_past_order_airline_carrier"
+                            android:layout_below="@+id/txt_past_order_airline_carrier"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentLeft="true"
                             android:text="Flight #: "
@@ -125,19 +129,19 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/tv_past_order_flight_number"
+                            android:id="@+id/txt_past_order_flight_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
+                            android:layout_alignBaseline="@+id/txt_past_order_flight_number_label"
                             android:layout_alignParentEnd="true"
-                            android:layout_alignBaseline="@+id/tv_past_order_flight_number_label"
+                            android:layout_alignParentRight="true"
                             android:textSize="16sp" />
 
                         <TextView
-                            android:id="@+id/tv_past_order_departing_city_label"
+                            android:id="@+id/txt_past_order_departing_city_label"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/tv_past_order_flight_number_label"
+                            android:layout_below="@+id/txt_past_order_flight_number_label"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentLeft="true"
                             android:text="Departed From: "
@@ -146,19 +150,19 @@
 
 
                         <TextView
-                            android:id="@+id/tv_past_order_departing_city"
+                            android:id="@+id/txt_past_order_departing_city"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
+                            android:layout_alignBaseline="@+id/txt_past_order_departing_city_label"
                             android:layout_alignParentEnd="true"
-                            android:layout_alignBaseline="@+id/tv_past_order_departing_city_label"
+                            android:layout_alignParentRight="true"
                             android:textSize="16sp" />
 
                         <TextView
-                            android:id="@+id/tv_past_order_destination_city_label"
+                            android:id="@+id/txt_past_order_destination_city_label"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/tv_past_order_departing_city_label"
+                            android:layout_below="@+id/txt_past_order_departing_city_label"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentLeft="true"
                             android:text="Destination: "
@@ -166,19 +170,19 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/tv_past_order_destination_city"
+                            android:id="@+id/txt_past_order_destination_city"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
+                            android:layout_alignBaseline="@+id/txt_past_order_destination_city_label"
                             android:layout_alignParentEnd="true"
-                            android:layout_alignBaseline="@+id/tv_past_order_destination_city_label"
+                            android:layout_alignParentRight="true"
                             android:textSize="16sp" />
 
                         <TextView
-                            android:id="@+id/tv_past_order_departing_date_label"
+                            android:id="@+id/txt_past_order_departing_date_label"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/tv_past_order_destination_city_label"
+                            android:layout_below="@+id/txt_past_order_destination_city_label"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentLeft="true"
                             android:text="Departure Date: "
@@ -186,19 +190,19 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/tv_past_order_departing_date"
+                            android:id="@+id/txt_past_order_departing_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
+                            android:layout_alignBaseline="@+id/txt_past_order_departing_date_label"
                             android:layout_alignParentEnd="true"
-                            android:layout_alignBaseline="@+id/tv_past_order_departing_date_label"
+                            android:layout_alignParentRight="true"
                             android:textSize="16sp" />
 
                         <TextView
-                            android:id="@+id/tv_past_order_arrival_date_label"
+                            android:id="@+id/txt_past_order_arrival_date_label"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/tv_past_order_departing_date_label"
+                            android:layout_below="@+id/txt_past_order_departing_date_label"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentLeft="true"
                             android:text="Arrival Date: "
@@ -206,19 +210,19 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/tv_past_order_arrival_date"
+                            android:id="@+id/txt_past_order_arrival_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
+                            android:layout_alignBaseline="@+id/txt_past_order_arrival_date_label"
                             android:layout_alignParentEnd="true"
-                            android:layout_alignBaseline="@+id/tv_past_order_arrival_date_label"
-                            android:textSize="16sp"/>
+                            android:layout_alignParentRight="true"
+                            android:textSize="16sp" />
 
                         <TextView
-                            android:id="@+id/tv_past_order_departing_time_label"
+                            android:id="@+id/txt_past_order_departing_time_label"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/tv_past_order_arrival_date_label"
+                            android:layout_below="@+id/txt_past_order_arrival_date_label"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentLeft="true"
                             android:text="Departure Time: "
@@ -227,19 +231,19 @@
 
 
                         <TextView
-                            android:id="@+id/tv_past_order_departure_time"
+                            android:id="@+id/txt_past_order_departure_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
+                            android:layout_alignBaseline="@+id/txt_past_order_departing_time_label"
                             android:layout_alignParentEnd="true"
-                            android:layout_alignBaseline="@+id/tv_past_order_departing_time_label"
+                            android:layout_alignParentRight="true"
                             android:textSize="16sp" />
 
                         <TextView
-                            android:id="@+id/tv_past_order_arrival_time_label"
+                            android:id="@+id/txt_past_order_arrival_time_label"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/tv_past_order_departing_time_label"
+                            android:layout_below="@+id/txt_past_order_departing_time_label"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentLeft="true"
                             android:text="Arrival Time: "
@@ -247,19 +251,19 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/tv_past_order_arrival_time"
+                            android:id="@+id/txt_past_order_arrival_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
+                            android:layout_alignBaseline="@+id/txt_past_order_arrival_time_label"
                             android:layout_alignParentEnd="true"
-                            android:layout_alignBaseline="@+id/tv_past_order_arrival_time_label"
-                            android:textSize="16sp"/>
+                            android:layout_alignParentRight="true"
+                            android:textSize="16sp" />
 
                         <TextView
-                            android:id="@+id/tv_past_order_flight_duration_label"
+                            android:id="@+id/txt_past_order_flight_duration_label"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/tv_past_order_arrival_time_label"
+                            android:layout_below="@+id/txt_past_order_arrival_time_label"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentLeft="true"
                             android:text="Flight Duration: "
@@ -268,19 +272,19 @@
 
 
                         <TextView
-                            android:id="@+id/tv_past_order_flight_duration"
+                            android:id="@+id/txt_past_order_flight_duration"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
+                            android:layout_alignBaseline="@+id/txt_past_order_flight_duration_label"
                             android:layout_alignParentEnd="true"
-                            android:layout_alignBaseline="@+id/tv_past_order_flight_duration_label"
+                            android:layout_alignParentRight="true"
                             android:textSize="16sp" />
 
                         <TextView
-                            android:id="@+id/tv_past_order_flight_type_label"
+                            android:id="@+id/txt_past_order_flight_type_label"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/tv_past_order_flight_duration_label"
+                            android:layout_below="@+id/txt_past_order_flight_duration_label"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentLeft="true"
                             android:text="Flight Class: "
@@ -288,27 +292,29 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/tv_past_order_flight_type"
+                            android:id="@+id/txt_past_order_flight_type"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
+                            android:layout_alignBaseline="@+id/txt_past_order_flight_type_label"
                             android:layout_alignParentEnd="true"
-                            android:layout_alignBaseline="@+id/tv_past_order_flight_type_label"
+                            android:layout_alignParentRight="true"
                             android:textSize="16sp" />
 
                     </RelativeLayout>
 
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
+                    android:layout_above="@+id/btnCancelFlight"
                     android:layout_below="@+id/pastOrderFlightDetails"
+                    android:layout_marginBottom="15dp"
                     android:background="@drawable/bgrounded"
                     android:orientation="vertical"
-                    android:padding="15dp"
-                    android:layout_above="@+id/btnCancelFlight">
+                    android:padding="15dp">
+
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
@@ -324,16 +330,16 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/tv_past_order_passenger_count"
+                            android:id="@+id/txt_past_order_passenger_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignParentEnd="true"
                             android:layout_alignBaseline="@+id/passengerDetails"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
                             android:textSize="16sp" />
 
                         <TextView
-                            android:id="@+id/tv_past_order_subtotal_label"
+                            android:id="@+id/txt_past_order_subtotal_label"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/passengerDetails"
@@ -344,19 +350,19 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/tv_past_order_subtotal"
+                            android:id="@+id/txt_past_order_subtotal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
+                            android:layout_alignBaseline="@+id/txt_past_order_subtotal_label"
                             android:layout_alignParentEnd="true"
-                            android:layout_alignBaseline="@+id/tv_past_order_subtotal_label"
+                            android:layout_alignParentRight="true"
                             android:textSize="16sp" />
 
                         <TextView
-                            android:id="@+id/tv_past_order_grand_total_label"
+                            android:id="@+id/txt_past_order_grand_total_label"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/tv_past_order_subtotal_label"
+                            android:layout_below="@+id/txt_past_order_subtotal_label"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentLeft="true"
                             android:text="Grand Total: "
@@ -364,12 +370,12 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/tv_past_order_grand_total"
+                            android:id="@+id/txt_past_order_grand_total"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
+                            android:layout_alignBaseline="@+id/txt_past_order_grand_total_label"
                             android:layout_alignParentEnd="true"
-                            android:layout_alignBaseline="@+id/tv_past_order_grand_total_label"
+                            android:layout_alignParentRight="true"
                             android:textSize="16sp" />
 
                     </RelativeLayout>
@@ -378,20 +384,6 @@
 
             </LinearLayout>
         </ScrollView>
-
-
-
-        <Button
-            android:id="@+id/btnCancelFlight"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@color/primaryBlue"
-            android:fontFamily="sans-serif"
-            android:text="Cancel flight"
-            android:textAllCaps="false"
-            android:textColor="@color/colorInverted"
-            android:textSize="18sp" />
     </RelativeLayout>
 
 </LinearLayout>

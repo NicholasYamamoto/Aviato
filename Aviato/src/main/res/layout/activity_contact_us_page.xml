@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/aviato_logo_background"
+        tools:context="com.example.aviato.Pages.ContactUsPage">
+
+        <include
+            layout="@layout/app_bar_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/contactUsMessageTxtVw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:gravity="center"
+            android:text="@string/text_contact_us_page"
+            android:textColor="@color/colorWhite"
+            android:textSize="40dp">
+
+        </TextView>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/contactUsMessageTxtVw"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_call_us"
+                android:layout_width="150dp"
+                android:layout_height="55dp"
+                android:layout_marginTop="200dp"
+                android:background="@drawable/btns_lightblue"
+                android:hapticFeedbackEnabled="true"
+                android:stateListAnimator="@null"
+                android:text="Call Us"
+                android:textColor="@color/colorWhite"
+
+                />
+
+            <Button
+                android:id="@+id/btn_email_us"
+                android:layout_width="150dp"
+                android:layout_height="55dp"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/btns_lightblue"
+                android:hapticFeedbackEnabled="true"
+                android:stateListAnimator="@null"
+                android:text="Email Us"
+                android:textColor="@color/colorWhite"
+
+                />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="250dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header_main"
+        app:menu="@menu/activity_main_drawer" />
+
+</android.support.v4.widget.DrawerLayout>

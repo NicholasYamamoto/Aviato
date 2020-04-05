@@ -1,211 +1,145 @@
-package com.example.aviato.Classes;
+/*************************************************************************************************
+ * JANUARY 8, 2018
+ * Mentesnot Aboset
+ * ************************************************************************************************/
+package com.mentesnot.easytravel.models;
+
+
+import java.util.Date;
 
 public class FlightInformationClass {
-    private int tripID;
-    private int customerID;
-    private String carrier_name;
 
-    private String departingDate;
-    private String departingTime;
-    private String departingCity;
-    private String departingGate;
+    private int flightID;
+    private int flightNumber;
+    private String origin;
+    private String destination;
+    private Date departureDate;
+    private Date arrivalDate;
+    private Date departingTime;
+    private Date arrivalTime;
+    private Double fare;
+    private Double totalCost;
+    private int travelTime;
+    private String flightClass;
 
-    private String destinationDate;
-    private String destinationTime;
-    private String destinationCity;
-    private String destinationGate;
 
-    private String returnDate;
-    private String returnTime;
-    private String returnGate;
+    public FlightInformationClass(int flightNumber, String origin, String destination, Date departureDate,
+                                  Date arrivalDate, Date departingTime, Date arrivalTime, Double fare, Double totalCost, int travelTime,
+                                  String flightClass) {
 
-    private String ticketNumber;
-    //TODO: Remove this from FlightInformation and move to Order Details or Checkout when it gets calculated
-    private int orderTotal;
-
-    // Constructor WITH Trip ID when Plan a Trip is used
-    public FlightInformationClass(int tripID, int customerID, String carrierName,
-                                  String departingDate, String departingCity,
-                                  String departingTime, String departingGate,
-                                  String destinationDate, String destinationCity,
-                                  String destinationTime, String destinationGate,
-                                  String returnDate, String returnTime, String returnGate,
-                                  String ticketNumber, int orderTotal)
-    {
-        this.tripID = tripID;
-        this.customerID = customerID;
-        this.carrier_name = carrierName;
-
-        this.departingDate = departingDate;
+        this.flightNumber = flightNumber;
+        this.origin = origin;
+        this.destination = destination;
+        this.departureDate = departureDate;
+        this.arrivalDate = arrivalDate;
         this.departingTime = departingTime;
-        this.departingCity = departingCity;
-        this.departingGate = departingGate;
-
-        this.destinationCity = destinationCity;
-        this.destinationTime = destinationTime;
-        this.destinationGate = destinationGate;
-        this.destinationDate = destinationDate;
-
-        this.returnDate = returnDate;
-        this.returnTime = returnTime;
-        this.returnGate = returnGate;
-
-        this.ticketNumber = ticketNumber;
-        this.orderTotal = orderTotal;
+        this.arrivalTime = arrivalTime;
+        this.fare = fare;
+        this.totalCost = totalCost;
+        this.travelTime = travelTime;
+        this.flightClass = flightClass;
     }
 
-    // Constructor WITHOUT Trip ID when Plan a Trip is used
-    public FlightInformationClass(int customerID, String carrier_name, String departDate,
-                                  String departingTime, String departingCity, String departingGate,
-                                  String destinationCity, String destinationTime,
-                                  String destinationGate, String destinationDate,
-                                  String returnDate, String returnTime, String returnGate,
-                                  String ticketNumber, int orderTotal)
-    {
-        this.customerID = customerID;
-        this.carrier_name = carrier_name;
+    public FlightInformationClass(String origin, String destination, Date departureDate) {
 
-        this.departingDate = departDate;
-        this.departingTime = departingTime;
-        this.departingCity = departingCity;
-        this.departingGate = departingGate;
-
-        this.destinationDate = destinationDate;
-        this.destinationTime = destinationTime;
-        this.destinationCity = destinationCity;
-        this.destinationGate = destinationGate;
-
-        this.returnDate = returnDate;
-        this.returnTime = returnTime;
-        this.returnGate = returnGate;
-
-        this.ticketNumber = ticketNumber;
-        this.orderTotal = orderTotal;
+        this.origin = origin;
+        this.destination = destination;
+        this.departureDate = departureDate;
     }
 
-    public int getTripID() {
-        return tripID;
+    public int getFlightID() {
+        return flightID;
     }
 
-    public void setTripID(int tripID) {
-        this.tripID = tripID;
+    public void setFlightID(int flightID) {
+        this.flightID = flightID;
     }
 
-    public int getCustomerID() {
-        return customerID;
+    public int getFlightNumber() {
+        return flightNumber;
     }
 
-    public void setCustomerID(int customerID) {
-        this.customerID = customerID;
+    public void setFlightNumber(int flightNumber) {
+        this.flightNumber = flightNumber;
     }
 
-    public String getCarrierID() {
-        return carrier_name;
+    public String getOrigin() {
+        return origin;
     }
 
-    public void setCarrierID(String carrier_name) {
-        this.carrier_name = carrier_name;
+    public void setOrigin(String origin) {
+        this.origin = origin;
     }
 
-    public String getDepartDate() {
-        return departingDate;
+    public String getDestination() {
+        return destination;
     }
 
-    public void setDepartDate(String departDate) {
-        this.departingDate = departDate;
+    public void setDestination(String destination) {
+        this.destination = destination;
     }
 
-    public String getDepartingTime() {
+    public Date getDepartingDate() {
+        return departureDate;
+    }
+
+    public void setDepartingDate(Date departureDate) {
+        this.departureDate = departureDate;
+    }
+
+    public Date getArrivalDate() {
+        return arrivalDate;
+    }
+
+    public void setArrivalDate(Date arrivalDate) {
+        this.arrivalDate = arrivalDate;
+    }
+
+    public Date getDepartingTime() {
         return departingTime;
     }
 
-    public void setDepartingTime(String departingTime) {
+    public void setDepartingTime(Date departingTime) {
         this.departingTime = departingTime;
     }
 
-    public String getDepartingCity() {
-        return departingCity;
+    public Date getArrivalTime() {
+        return arrivalTime;
     }
 
-    public void setDepartingCity(String departingCity) {
-        this.departingCity = departingCity;
+    public void setArrivalTime(Date arrivalTime) {
+        this.arrivalTime = arrivalTime;
     }
 
-    public String getDepartingGate() {
-        return departingGate;
+    public Double getFare() {
+        return fare;
     }
 
-    public void setDepartingGate(String departingGate) {
-        this.departingGate = departingGate;
+    public void setFare(Double fare) {
+        this.fare = fare;
     }
 
-    public String getDestinationCity() {
-        return destinationCity;
+    public Double getTotalCost() {
+        return totalCost;
     }
 
-    public void setDestinationCity(String destinationCity) {
-        this.destinationCity = destinationCity;
+    public void setTotalCost(Double totalCost) {
+        this.totalCost = totalCost;
     }
 
-    public String getDestinationDate() {
-        return destinationDate;
+    public int getTravelTime() {
+        return travelTime;
     }
 
-    public void setDestinationDate(String destinationDate) {
-        this.destinationDate = destinationDate;
+    public void setTravelTime(int travelTime) {
+        this.travelTime = travelTime;
     }
 
-    public String getDestinationTime() {
-        return destinationTime;
+    public String getFlightClass() {
+        return flightClass;
     }
 
-    public void setDestinationTime(String destinationTime) {
-        this.destinationTime = destinationTime;
+    public void setFlightClass(String flightClass) {
+        this.flightClass = flightClass;
     }
-
-    public String getDestinationGate() {
-        return destinationGate;
-    }
-
-    public void setDestinationGate(String destinationGate) {
-        this.destinationGate = destinationGate;
-    }
-
-    public String getReturnDate() {
-        return returnDate;
-    }
-
-    public void setReturnDate(String returnDate) {
-        this.returnDate = returnDate;
-    }
-
-    public String getReturnTime() {
-        return returnTime;
-    }
-
-    public void setReturnTime(String returnTime) {
-        this.returnTime = returnTime;
-    }
-
-    public String getReturnGate() {
-        return returnGate;
-    }
-
-    public void setReturnGate(String returnGate) {
-        this.returnGate = returnGate;
-    }
-
-    public String getTicketNumber() {
-        return ticketNumber;
-    }
-
-    public void setTicketNumber(String ticketNumber) {
-        this.ticketNumber = ticketNumber;
-    }
-
-    public int getOrderTotal() {
-        return orderTotal;
-    }
-
-    public void setOrderTotal(int orderTotal) { this.orderTotal = orderTotal; }
 }

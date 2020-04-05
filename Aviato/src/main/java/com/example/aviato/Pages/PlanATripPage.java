@@ -28,7 +28,7 @@
 //                cityPicture);
 //        boolean isInserted = databaseHelper.addFlightInformation(trip);
 //
-//        forgotPasswordSubmitBtn.setOnClickListener(new View.OnClickListener() {
+//        btn_forgot_password_submit.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
 //                boolean isExist = databaseHelper.verifyEmailForgotPassword(forgotPasswordEmail.getText().toString());
@@ -42,8 +42,8 @@
 //
 //                else {
 //                    forgotPasswordEmail.setText(null);
-//                    Toast.makeText(PlanATripPage.this, "No User Found. Please Create an Account or Try Again.", Toast.LENGTH_SHORT).show();
-//                    Intent intent = new Intent(getApplicationContext(), SignInPage.class);
+//                    Toast.makeText(PlanATripPage.this, "No User Found. Please Create an AccountClass or Try Again.", Toast.LENGTH_SHORT).show();
+//                    Intent intent = new Intent(getApplicationContext(), SignInPageOld.class);
 //                    startActivity(intent);
 //                }
 //            }
