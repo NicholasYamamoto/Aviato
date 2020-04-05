@@ -80,7 +80,19 @@
             android:layout_gravity="center"
 
             >
-
         </TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"
+            android:textAlignment="center"
+            android:text="For the Spring 2020 CS4920 - Senior Project course at UCM."
+            android:textColor="@color/colorWhite"
+            android:layout_gravity="center"
+            android:paddingTop="50dp"
+            >
+        </TextView>
+
     </LinearLayout>
 </RelativeLayout>
