@@ -5,12 +5,13 @@ public class AccountClass {
     private String email;
     private String password;
 
-    public AccountClass(){
+    public AccountClass() {
     }
 
-    public AccountClass(String email){
+    public AccountClass(String email) {
         this.email = email;
     }
+
     public int getAccountID() {
         return accountID;
     }

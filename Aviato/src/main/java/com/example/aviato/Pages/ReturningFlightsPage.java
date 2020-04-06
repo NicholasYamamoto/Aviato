@@ -32,8 +32,6 @@ public class ReturningFlightsPage extends AppCompatActivity {
 
     ListView availableReturningFlightsList;
 
-    boolean flightUnavailable = false;
-
     int returnFlightID;
 
     @Override
@@ -68,13 +66,13 @@ public class ReturningFlightsPage extends AppCompatActivity {
                 CursorAdapter listAdapter = new SimpleCursorAdapter(getApplicationContext(),
                         R.layout.custom_search_list_view,
                         cursor,
-                        new String[]{"DEPARTING_TIME", "DESTINATION_TIME", "PRICE", "AIRLINE_CARRIER", "FLIGHT_DURATION", "FLIGHT_TYPE"},
+                        new String[]{"DEPARTING_TIME", "DESTINATION_TIME", "PRICE", "AIRLINE_CARRIER", "FLIGHT_DURATION", "FLIGHT_TYPE_NAME"},
                         new int[]{R.id.txt_departing_time_list_layout, R.id.txt_arrival_time_list_layout, R.id.txt_price_list_layout, R.id.txt_airline_carrier_list_layout, R.id.txt_travel_time_list_layout, R.id.txt_flight_type_list_layout},//map the contents of NAME col to text in ListView
                         0);
 
                 availableReturningFlightsList.setAdapter(listAdapter);
             } else
-                flightUnavailable = true;
+                Toast.makeText(getApplicationContext(), "The selected Return flight is not available.", Toast.LENGTH_SHORT).show();
 
             availableReturningFlightsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -99,7 +97,8 @@ public class ReturningFlightsPage extends AppCompatActivity {
         } catch (SQLiteException e) {
             System.out.println("RETURNING FLIGHTS PAGE - Displaying Available Return Flights ERROR");
             System.out.println(e.toString());
-            Toast.makeText(getApplicationContext(), "Error: Database is Unavailable.", Toast.LENGTH_SHORT).show();        }
-
+            Toast.makeText(getApplicationContext(), "Error: Database is Unavailable.", Toast.LENGTH_SHORT).show();
+        }
     }
+
 }

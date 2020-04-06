@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,33 +17,16 @@ import com.example.aviato.R;
 public class PastOrderDetailsPage extends AppCompatActivity {
 
     SQLiteOpenHelper databaseHelper;
-    private SQLiteDatabase databaseInstance;
-    private Cursor cursor;
-    private int flightID;
+    SQLiteDatabase databaseInstance;
+    Cursor cursor;
 
-    private TextView flightNo;
-    private TextView origin;
-    private TextView destination;
-    private TextView departureDate;
-    private TextView arrivalDate;
-    private TextView departureTime;
-    private TextView arrivalTime;
-    private TextView flightDuration;
-    private TextView flightClass;
-    private TextView airline;
-    private TextView subtotal;
-    private TextView grandTotal;
-    private Button btnCancelFlight;
-    private Intent intent;
-    private int itineraryID;
-    private TextView traveller;
-    private int numTraveller;
-    private double singleTicketCost;
-    private double totalTicketCost;
-    private TextView fName;
-    private TextView cCard;
-    private TextView timeStamp;
-    private int clientID;
+    TextView flightNo, departing_city, destination_city, departing_date, destination_date,
+            departing_time, destination_time, flight_duration, flight_type, airline_carrier,
+            subtotal, grand_total, first_name, credit_card_number, time_stamp;
+    Intent intent;
+    TextView passenger;
+    int flightID, passengerCount, clientID;
+    double singleTicketCost, totalTicketCost;
 
     /*
 Calculate the Grand Total of the Order
@@ -62,31 +44,31 @@ Calculate the Grand Total of the Order
         flightID = intent.getIntExtra("FLIGHT_ID", 0);
         clientID = clientID();
 
-        fName = findViewById(R.id.txtFName);
-        cCard = findViewById(R.id.txt_past_order_credit_card_number);
-        timeStamp = findViewById(R.id.txt_past_order_timestamp);
+        first_name = findViewById(R.id.txtFName);
+        credit_card_number = findViewById(R.id.txt_past_order_credit_card_number);
+        time_stamp = findViewById(R.id.txt_past_order_timestamp);
 
-        airline = findViewById(R.id.txt_past_order_airline_carrier);
+        airline_carrier = findViewById(R.id.txt_past_order_airline_carrier);
         flightNo = findViewById(R.id.txt_past_order_flight_number);
-        origin = findViewById(R.id.txt_past_order_departing_city);
-        destination = findViewById(R.id.txt_past_order_destination_city);
-        departureDate = findViewById(R.id.txt_past_order_departing_date);
-        arrivalDate = findViewById(R.id.txt_past_order_arrival_date);
-        departureTime = findViewById(R.id.txt_past_order_departure_time);
-        arrivalTime = findViewById(R.id.txt_past_order_arrival_time);
-        flightDuration = findViewById(R.id.txt_past_order_flight_duration);
-        flightClass = findViewById(R.id.txt_past_order_flight_type);
-        traveller = findViewById(R.id.txt_past_order_passenger_count);
+        departing_city = findViewById(R.id.txt_past_order_departing_city);
+        destination_city = findViewById(R.id.txt_past_order_destination_city);
+        departing_date = findViewById(R.id.txt_past_order_departing_date);
+        destination_date = findViewById(R.id.txt_past_order_arrival_date);
+        departing_time = findViewById(R.id.txt_past_order_departure_time);
+        destination_time = findViewById(R.id.txt_past_order_arrival_time);
+        flight_duration = findViewById(R.id.txt_past_order_flight_duration);
+        flight_type = findViewById(R.id.txt_past_order_flight_type);
+        passenger = findViewById(R.id.txt_past_order_passenger_count);
         subtotal = findViewById(R.id.txt_past_order_subtotal);
-        grandTotal = findViewById(R.id.txt_past_order_grand_total);
+        grand_total = findViewById(R.id.txt_past_order_grand_total);
 
         displaySelectedFlightInfo(flightID);
 
 
-        totalTicketCost = calculateGrandTotal(singleTicketCost, numTraveller);
-        traveller.setText(String.valueOf(numTraveller));
+        totalTicketCost = calculateGrandTotal(singleTicketCost, passengerCount);
+        passenger.setText(String.valueOf(passengerCount));
         subtotal.setText("$" + singleTicketCost);
-        grandTotal.setText("$" + totalTicketCost);
+        grand_total.setText("$" + totalTicketCost);
 
     }
 
@@ -95,31 +77,31 @@ Calculate the Grand Total of the Order
             databaseHelper = new DatabaseHelper(getApplicationContext());
             databaseInstance = databaseHelper.getReadableDatabase();
 
-            cursor = DatabaseHelper.getPastOrderDetails(databaseInstance, id);
+            cursor = DatabaseHelper.selectFlight(databaseInstance, id);
 
             if (cursor != null && cursor.getCount() > 0) {
                 cursor.moveToFirst();
                 flightNo.setText(String.valueOf(cursor.getInt(1)));
-                origin.setText(cursor.getString(2));
-                destination.setText(cursor.getString(3));
-                departureDate.setText(cursor.getString(4));
-                arrivalDate.setText(cursor.getString(5));
-                departureTime.setText(cursor.getString(6));
-                arrivalTime.setText(cursor.getString(7));
-                flightDuration.setText(cursor.getString(8) + "h");
+                departing_city.setText(cursor.getString(2));
+                destination_city.setText(cursor.getString(3));
+                departing_date.setText(cursor.getString(4));
+                destination_date.setText(cursor.getString(5));
+                departing_time.setText(cursor.getString(6));
+                destination_time.setText(cursor.getString(7));
+                flight_duration.setText(cursor.getString(8) + "h");
                 singleTicketCost = cursor.getDouble(9);
-                airline.setText(cursor.getString(10));
-                flightClass.setText(cursor.getString(12));
-                numTraveller = cursor.getInt(13);
-                timeStamp.setText(cursor.getString(14));
+                airline_carrier.setText(cursor.getString(10));
+                flight_type.setText(cursor.getString(12));
+                passengerCount = cursor.getInt(13);
+                time_stamp.setText(cursor.getString(14));
             }
 
             cursor = DatabaseHelper.selectClientJoinAccount(databaseInstance, clientID);
             if (cursor != null && cursor.getCount() == 1) {
                 cursor.moveToFirst();
 
-                fName.setText(DatabaseHelper.capitalizeString(cursor.getString(0)) + " " + DatabaseHelper.capitalizeString(cursor.getString(1)));
-                cCard.setText(cursor.getString(3));
+                first_name.setText(DatabaseHelper.capitalizeString(cursor.getString(0)) + " " + DatabaseHelper.capitalizeString(cursor.getString(1)));
+                credit_card_number.setText(cursor.getString(3));
             }
 
         } catch (SQLiteException e) {

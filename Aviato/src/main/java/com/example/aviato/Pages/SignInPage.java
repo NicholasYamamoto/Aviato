@@ -129,8 +129,7 @@ public class SignInPage extends AppCompatActivity {
                     intent.putExtra("email", signinEmailAddress.getText().toString());
                     startActivity(intent);
                     finish();
-                }
-                else
+                } else
                     Toast.makeText(SignInPage.this, "Account Not Found. Please Try Again.", Toast.LENGTH_SHORT).show();
             }
 

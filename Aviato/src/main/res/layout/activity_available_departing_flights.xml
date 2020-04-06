@@ -31,8 +31,11 @@
                 android:layout_height="120dp"
                 android:background="@drawable/bgrounded"
                 android:padding="15dp"
+                android:textAlignment="center"
+                android:layout_gravity="center_horizontal"
                 android:text="There are no available flights. Please try again!"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:gravity="center_horizontal" />
 
         </LinearLayout>
     </RelativeLayout>

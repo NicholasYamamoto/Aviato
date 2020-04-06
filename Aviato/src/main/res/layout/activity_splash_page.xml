@@ -4,32 +4,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@drawable/aviato_logo_background"
+    android:background="@drawable/aviato_logo_slogan_background"
     tools:context="com.example.aviato.Pages.SplashPage">
 
-    <Button
-        android:id="@+id/signin"
-        android:layout_width="150dp"
-        android:layout_height="55dp"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="25dp"
-        android:background="@drawable/btns_lightblue"
-        android:hapticFeedbackEnabled="true"
-        android:stateListAnimator="@null"
-        android:text="Sign In"
-        android:textColor="@color/colorWhite" />
+        <Button
+            android:id="@+id/btn_splash_sign_in"
+            android:layout_width="250dp"
+            android:layout_height="55dp"
+            android:padding="10dp"
+            android:background="@drawable/btns_lightblue"
+            android:hapticFeedbackEnabled="true"
+            android:stateListAnimator="@null"
+            android:text="Sign In"
+            android:textColor="@color/colorWhite"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="500dp"
+            />
 
-    <Button
-        android:id="@+id/signup"
-        android:layout_width="150dp"
-        android:layout_height="55dp"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="25dp"
-        android:layout_toRightOf="@+id/signin"
-        android:background="@drawable/btns_lightblue"
-        android:hapticFeedbackEnabled="true"
-        android:stateListAnimator="@null"
-        android:text="Sign Up"
-        android:textColor="@color/colorWhite" />
+        <Button
+            android:id="@+id/btn_splash_sign_up"
+            android:layout_width="250dp"
+            android:layout_height="60dp"
+            android:layout_below="@id/btn_splash_sign_in"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btns_lightblue"
+            android:hapticFeedbackEnabled="true"
+            android:padding="10dp"
+            android:stateListAnimator="@null"
+            android:text="Sign Up"
+            android:textColor="@color/colorWhite" />
 
 </RelativeLayout>

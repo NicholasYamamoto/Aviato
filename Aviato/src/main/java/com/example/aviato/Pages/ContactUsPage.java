@@ -15,7 +15,6 @@ import android.widget.Button;
 import com.example.aviato.R;
 
 import static android.Manifest.permission.CALL_PHONE;
-import static java.security.AccessController.getContext;
 
 
 public class ContactUsPage extends AppCompatActivity {
@@ -40,7 +39,6 @@ public class ContactUsPage extends AppCompatActivity {
 
                 // Never gonna give you up, never gonna let you down...
                 callIntent.setData(Uri.parse("tel:17607067425"));
-                startActivity(callIntent);
 
                 if (ContextCompat.checkSelfPermission(getApplicationContext(), CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
                     startActivity(callIntent);

@@ -16,10 +16,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.aviato.Pages.AboutUsPage;
-import com.example.aviato.Pages.ContactUsPage;
 import com.example.aviato.Fragments.MainFragment;
+import com.example.aviato.Pages.AboutUsPage;
 import com.example.aviato.Pages.BookAFlightPage;
+import com.example.aviato.Pages.ContactUsPage;
 import com.example.aviato.Pages.PastOrdersPage;
 import com.example.aviato.Pages.SignInPage;
 
@@ -40,8 +40,9 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         databaseInstance = new DatabaseHelper(this);
-        Intent i = getIntent();
-        Toast.makeText(getApplicationContext(), "Hello " + i.getStringExtra("email") + ", Welcome to Aviato.", Toast.LENGTH_LONG).show();
+
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         // Home Screen Fragment
         MainFragment fragment = new MainFragment();
@@ -49,9 +50,6 @@ public class MainActivity extends AppCompatActivity
                 getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.commit();
-
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -86,34 +84,24 @@ public class MainActivity extends AppCompatActivity
 //                    getSupportFragmentManager().beginTransaction();
 //            fragmentTransaction.replace(R.id.fragment_container, fragment);
 //            fragmentTransaction.commit();
-        }
-
-        else if (id == R.id.past_orders) {
+        } else if (id == R.id.past_orders) {
             Intent intent = new Intent(getApplicationContext(), PastOrdersPage.class);
             startActivity(intent);
-        }
-
-        else if (id == R.id.book_a_flight) {
+        } else if (id == R.id.book_a_flight) {
             Intent intent = new Intent(getApplicationContext(), BookAFlightPage.class);
             startActivity(intent);
-        }
-
-        else if (id == R.id.plan_a_trip) {
+        } else if (id == R.id.plan_a_trip) {
 //            Intent intent = new Intent(getApplicationContext(), PlanATripPage.class);
 //            startActivity(intent);
-        }
-
-        else if (id == R.id.about_us) {
+        } else if (id == R.id.about_us) {
+            // TODO: Fix this to use Fragment instead of Intent so MenuBar will not disappear
             Intent intent = new Intent(getApplicationContext(), AboutUsPage.class);
             startActivity(intent);
-        }
-
-        else if (id == R.id.contact_us) {
+        } else if (id == R.id.contact_us) {
+            // TODO: Fix this to use Fragment instead of Intent so MenuBar will not disappear
             Intent intent = new Intent(getApplicationContext(), ContactUsPage.class);
             startActivity(intent);
-        }
-
-        else if (id == R.id.log_out) {
+        } else if (id == R.id.log_out) {
             openLogoutDialog();
         }
 

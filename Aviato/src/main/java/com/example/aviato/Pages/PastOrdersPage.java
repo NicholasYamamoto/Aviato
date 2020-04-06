@@ -37,7 +37,6 @@ public class PastOrdersPage extends AppCompatActivity {
 
         clientID = clientID();
 
-
         try {
             databaseHelper = new DatabaseHelper(getApplicationContext());
             databaseInstance = databaseHelper.getReadableDatabase();
@@ -50,7 +49,7 @@ public class PastOrdersPage extends AppCompatActivity {
                         R.layout.custom_past_orders_list_view,
                         cursor,
                         new String[]{"DEPARTING_CITY", "DESTINATION_CITY", "AIRLINE_CARRIER",
-                                "FLIGHT_DURATION", "SEAT_FLIGHT_TYPE", "DEPARTING_DATE"},
+                                "FLIGHT_DURATION", "SEAT_FLIGHT_TYPE_NAME", "DEPARTING_DATE"},
                         new int[]{R.id.txt_order_departure_city_list, R.id.txt_order_destination_city_list,
                                 R.id.txt_order_airline_carrier, R.id.txt_order_flight_duration,
                                 R.id.txt_order_flight_type, R.id.txt_departing_date_list},
@@ -66,13 +65,12 @@ public class PastOrdersPage extends AppCompatActivity {
 
                     flightID = (int) id;
 
-                    intent = new Intent(getApplicationContext(), CheckoutPage.class);
+                    intent = new Intent(getApplicationContext(), PastOrderDetailsPage.class);
                     intent.putExtra("FLIGHT_ID", flightID);
 
                     startActivity(intent);
                 }
             });
-
 
         } catch (SQLiteException e) {
             System.out.println("PAST ORDERS PAGE ERROR");
@@ -87,6 +85,4 @@ public class PastOrdersPage extends AppCompatActivity {
         clientID = SignInPage.sharedPreferences.getInt(SignInPage.CLIENT_ID, 0);
         return clientID;
     }
-
-
 }

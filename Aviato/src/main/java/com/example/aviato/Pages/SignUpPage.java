@@ -91,7 +91,8 @@ public class SignUpPage extends AppCompatActivity {
         } catch (SQLiteException e) {
             System.out.println("SIGN UP PAGE - Account Creation ERROR");
             System.out.println(e.toString());
-            Toast.makeText(getApplicationContext(), "Error: Database is Unavailable.", Toast.LENGTH_SHORT).show();        }
+            Toast.makeText(getApplicationContext(), "Error: Database is Unavailable.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

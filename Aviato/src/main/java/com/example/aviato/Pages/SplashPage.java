@@ -22,8 +22,8 @@ public class SplashPage extends AppCompatActivity {
         setContentView(R.layout.activity_splash_page);
         anim_slide_down = AnimationUtils.loadAnimation(this, R.anim.slide_down);
 
-        sign_in = findViewById(R.id.signin);
-        sign_up = findViewById(R.id.signup);
+        sign_in = findViewById(R.id.btn_splash_sign_in);
+        sign_up = findViewById(R.id.btn_splash_sign_up);
 
         sign_in.setAnimation(anim_slide_down);
         sign_up.setAnimation(anim_slide_down);

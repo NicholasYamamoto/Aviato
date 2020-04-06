@@ -28,7 +28,7 @@ public class BookAFlightPage extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     Intent intent;
     String departingDate, returnDate;
-    int passengerCount = 1;
+    int passengerCount;
     int year, month, day;
 
     DatePickerDialog departingDateDialog;
@@ -57,6 +57,8 @@ public class BookAFlightPage extends AppCompatActivity {
         flight_add_passenger_btn = findViewById(R.id.btn_book_add_passenger);
         flight_passenger_count_tv = findViewById(R.id.txt_book_passenger_count);
         flight_remove_passenger_btn = findViewById(R.id.btn_book_remove_passenger);
+
+        flight_type_spinner = findViewById(R.id.spnr_book_flight_type);
 
         searchFlightsBtn = findViewById(R.id.btn_book_search_flights);
 
@@ -88,7 +90,7 @@ public class BookAFlightPage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 passengerCount = Integer.parseInt(flight_passenger_count_tv.getText().toString());
-                if (passengerCount == 0) ;
+                if (passengerCount == 1) ;
                 else
                     flight_passenger_count_tv.setText(String.valueOf(passengerCount - 1));
             }
@@ -121,7 +123,7 @@ public class BookAFlightPage extends AppCompatActivity {
         editor.putString("departure_date", departingDate);
         editor.putString("return_date", returnDate);
         editor.putString("flight_type", flight_type_spinner.getSelectedItem().toString());
-        editor.putInt("passenger_count", passengerCount);
+        editor.putInt("passenger_count", Integer.parseInt(flight_passenger_count_tv.getText().toString()));
 
         editor.apply();
 

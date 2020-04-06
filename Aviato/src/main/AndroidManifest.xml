@@ -35,7 +35,6 @@
         <activity android:name="com.example.aviato.Pages.DepartingFlightsPage" />
         <activity android:name="com.example.aviato.Pages.ReturningFlightsPage" />
         <activity android:name="com.example.aviato.Pages.CheckoutPage" />
-        <activity android:name="com.example.aviato.Pages.OrderConfirmationPage" />
 
         <activity
             android:name="com.example.aviato.MainActivity"

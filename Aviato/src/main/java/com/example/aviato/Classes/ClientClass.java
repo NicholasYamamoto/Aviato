@@ -11,7 +11,7 @@ public class ClientClass {
     private String creditCard;
     private Bitmap image;
 
-    public ClientClass(){
+    public ClientClass() {
 
     }
 
