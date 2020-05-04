@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
 
-        //add a recall for the map fragment or to refresh the map
+
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
