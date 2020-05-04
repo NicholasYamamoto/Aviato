@@ -15,6 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
+            android:layout_margin="20dp"
             android:gravity="center_horizontal"
             android:text="Review Your Order:"
             android:textAlignment="center"
@@ -382,7 +383,7 @@
         <View
             android:id="@+id/order_details_view"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="175dp"
             android:layout_below="@id/return_info_view"
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="10dp"
@@ -481,6 +482,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/order_details_view"
+            android:layout_marginTop="25dp"
             android:gravity="center"
             android:orientation="vertical">
 

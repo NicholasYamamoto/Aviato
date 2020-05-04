@@ -22,6 +22,7 @@ import com.example.aviato.Pages.BookAFlightPage;
 import com.example.aviato.Pages.ContactUsPage;
 import com.example.aviato.Pages.PastOrdersPage;
 import com.example.aviato.Pages.SignInPage;
+import com.example.aviato.Pages.SplashPage;
 
 //import com.example.aviato.Pages.PlanATripPage;
 
@@ -56,7 +57,6 @@ public class MainActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
 
         navigationView = findViewById(R.id.nav_view);
         navigationView.setItemIconTintList(null);
@@ -122,9 +122,8 @@ public class MainActivity extends AppCompatActivity
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 getApplicationContext().getSharedPreferences(SignInPage.MY_PREFERENCES, 0).edit().clear().apply();
-                Intent intent = new Intent(getApplicationContext(), SignInPage.class);
+                Intent intent = new Intent(getApplicationContext(), SplashPage.class);
                 Toast.makeText(getApplicationContext(), "Successfully Logged Out!", Toast.LENGTH_LONG).show();
                 startActivity(intent);
                 finish();
