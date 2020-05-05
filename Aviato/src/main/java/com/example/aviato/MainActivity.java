@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.example.aviato.Fragments.AboutUsFragment;
 import com.example.aviato.Fragments.MainFragment;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 import com.example.aviato.Fragments.PastOrdersFragment;
 import com.example.aviato.Fragments.ViewProfileFragment;
 import com.example.aviato.Pages.BookAFlightPage;
@@ -29,6 +30,8 @@ import com.example.aviato.Pages.LoginOptionsPage;
 import com.example.aviato.Pages.PlanATripPage;
 import com.example.aviato.Pages.ViewCartPage;
 =======
+=======
+>>>>>>> Stashed changes
 import com.example.aviato.Fragments.ViewProfileFragment;
 import com.example.aviato.Pages.AboutUsPage;
 import com.example.aviato.Pages.BookAFlightPage;
@@ -36,6 +39,9 @@ import com.example.aviato.Pages.ContactUsPage;
 import com.example.aviato.Pages.PastOrdersPage;
 import com.example.aviato.Pages.SignInPage;
 import com.example.aviato.Pages.SplashPage;
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 
 public class MainActivity extends AppCompatActivity
@@ -132,7 +138,11 @@ public class MainActivity extends AppCompatActivity
             FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             fragmentTransaction.replace(R.id.Fragment_container, fragment);
+=======
+            fragmentTransaction.replace(R.id.fragment_container, fragment);
+>>>>>>> Stashed changes
 =======
             fragmentTransaction.replace(R.id.fragment_container, fragment);
 >>>>>>> Stashed changes
@@ -140,6 +150,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         else if (id == R.id.past_orders) {
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 
             Cursor check;
@@ -162,11 +173,16 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(getApplicationContext(), PastOrdersPage.class);
             startActivity(intent);
 >>>>>>> Stashed changes
+=======
+            Intent intent = new Intent(getApplicationContext(), PastOrdersPage.class);
+            startActivity(intent);
+>>>>>>> Stashed changes
         }
 
         else if (id == R.id.book_a_flight) {
             Intent intent = new Intent(getApplicationContext(), BookAFlightPage.class);
             startActivity(intent);
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 
         }
@@ -185,11 +201,16 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.commit();
 
 =======
+=======
+>>>>>>> Stashed changes
         }
 
         else if (id == R.id.about_us) {
             Intent intent = new Intent(getApplicationContext(), AboutUsPage.class);
             startActivity(intent);
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
         }
 

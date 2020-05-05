@@ -16,6 +16,9 @@
         android:layout_height="match_parent" />
 =======
         android:layout_height="wrap_content" />
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 
     <android.support.design.widget.NavigationView
