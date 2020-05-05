@@ -247,7 +247,159 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         status = sqLiteDatabase.insert(TABLE_CARRIER, null, contentValues);
 
+<<<<<<< Updated upstream
         return status != -1;
+=======
+        updateDatabase(db, oldVersion, newVersion);
+
+    }
+
+    private void updateDatabase(SQLiteDatabase db, int oldVersion, int newVersion) {
+
+        if (oldVersion < 1) {
+
+            // Create all Database tables
+            db.execSQL(createAirlineTable());
+            db.execSQL(createFlightTable());
+            db.execSQL(createSeatTable());
+            db.execSQL(createFlightTypeTable());
+            db.execSQL(createClientTable());
+            db.execSQL(createAccountTable());
+            db.execSQL(createPastOrdersTable());
+
+            // Insert Airlines to table
+            insertAirline(db, "Southwest Airlines");
+            insertAirline(db, "Delta Airlines");
+            insertAirline(db, "American Airlines");
+            insertAirline(db, "SkyWest Airlines");
+            insertAirline(db, "JetBlue Airlines");
+            insertAirline(db, "Alaska Airlines");
+            insertAirline(db, "Spirit Airlines");
+
+            // Insert Flights to table
+            insertFlight(db, "Los Angeles, CA - LAX", "Kansas City, MO - MCI", "2020-5-4", "2020-5-4", "10:10 AM", "12:10 PM", 200.00, 1);
+            insertFlight(db, "Los Angeles, CA - LAX", "Kansas City, MO - MCI", "2020-5-4", "2020-5-4", "10:10 AM", "12:10 PM", 150.00, 2);
+            insertFlight(db, "Los Angeles, CA - LAX", "Kansas City, MO - MCI", "2020-5-4", "2020-5-4", "11:10 AM", "12:10 PM", 350.00, 3);
+
+            insertFlight(db, "Kansas City, MO - MCI", "Los Angeles, CA - LAX", "2020-5-6", "2020-5-6", "10:10 AM", "12:10 PM", 120.00, 6);
+            insertFlight(db, "Kansas City, MO - MCI", "Los Angeles, CA - LAX", "2020-5-6", "2020-5-6", "09:00 AM", "12:10 PM", 150.00, 7);
+            insertFlight(db, "Kansas City, MO - MCI", "Los Angeles, CA - LAX", "2020-5-6", "2020-5-6", "10:10 AM", "12:10 PM", 170.00, 8);
+
+            // Insert Seats to table
+            insertSeat(db, 0, 1, 1);
+            insertSeat(db, 0, 2, 1);
+            insertSeat(db, 0, 3, 1);
+            insertSeat(db, 0, 4, 1);
+            insertSeat(db, 0, 5, 1);
+            insertSeat(db, 0, 6, 1);
+            insertSeat(db, 0, 7, 1);
+            insertSeat(db, 0, 8, 1);
+            insertSeat(db, 0, 9, 1);
+            insertSeat(db, 0, 10, 1);
+            insertSeat(db, 0, 11, 1);
+            insertSeat(db, 0, 12, 1);
+            insertSeat(db, 0, 13, 1);
+            insertSeat(db, 0, 14, 1);
+            insertSeat(db, 0, 15, 1);
+            insertSeat(db, 0, 16, 1);
+            insertSeat(db, 0, 17, 1);
+            insertSeat(db, 0, 18, 1);
+            insertSeat(db, 0, 19, 1);
+            insertSeat(db, 0, 20, 1);
+            insertSeat(db, 0, 21, 1);
+            insertSeat(db, 0, 22, 1);
+            insertSeat(db, 0, 23, 1);
+            insertSeat(db, 0, 24, 1);
+            insertSeat(db, 0, 25, 1);
+            insertSeat(db, 0, 26, 2);
+            insertSeat(db, 0, 27, 2);
+            insertSeat(db, 0, 28, 2);
+
+            // Insert Flight Class to table
+            insertFlightClass(db, "Economy");
+            insertFlightClass(db, "Business");
+
+
+            // Insert default Client to table
+            insertClient(db, "Chuck", "Norris", "8168675309", "1234123412341234");
+
+            // Insert default User Account to table
+            insertAccount(db, "chuck@norris.com", "password", 1);
+
+            db.execSQL(updateFlight());
+            db.execSQL(updateSeatNumber());
+
+        }
+    }
+
+    public String createAirlineTable() {
+        return "CREATE TABLE AIRLINE ("
+                + "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + "AIRLINE_CARRIER TEXT COLLATE NOCASE);";
+    }
+
+    public String createFlightTable() {
+        return "CREATE TABLE FLIGHT (" +
+                "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "FLIGHT_NUMBER INTEGER, " +
+                "DEPARTING_CITY TEXT COLLATE NOCASE, " +
+                "DESTINATION_CITY TEXT COLLATE NOCASE, " +
+                "DEPARTING_DATE DATE, " +
+                "DESTINATION_DATE DATE, " +
+                "DEPARTING_TIME TIME, " +
+                "DESTINATION_TIME TIME, " +
+                "FLIGHT_DURATION TIME, " +
+                "PRICE REAL, " +
+                "FLIGHT_AIRLINE INTEGER, " +
+                "FOREIGN KEY(FLIGHT_AIRLINE) REFERENCES AIRLINE(_id));";
+    }
+
+    public String createSeatTable() {
+        return "CREATE TABLE SEAT (" +
+                "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "SEAT_NUMBER INTEGER, " +
+                "SEAT_FLIGHT INTEGER, " +
+                "STATUS INTEGER, " +
+                "SEAT_FLIGHT_TYPE INTEGER, " +
+                "FOREIGN KEY(SEAT_FLIGHT) REFERENCES FLIGHT(_id)," +
+                "FOREIGN KEY(SEAT_FLIGHT_TYPE) REFERENCES FLIGHT_TYPE(_id));";
+    }
+
+    public String createFlightTypeTable() {
+        return "CREATE TABLE FLIGHT_TYPE (" +
+                "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "FLIGHT_TYPE_NAME TEXT);";
+    }
+
+    public String createClientTable() {
+        return "CREATE TABLE CLIENT (" +
+                "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "FIRST_NAME TEXT COLLATE NOCASE, " +
+                "LAST_NAME TEXT COLLATE NOCASE, " +
+                "PHONE TEXT, " +
+                "CREDIT_CARD_NUMBER TEXT, " +
+                "IMAGE BLOB);";
+    }
+
+    public String createAccountTable() {
+        return "CREATE TABLE ACCOUNT (" +
+                "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "EMAIL TEXT, " +
+                "PASSWORD TEXT, " +
+                "ACCOUNT_CLIENT INTEGER, " +
+                "FOREIGN KEY (ACCOUNT_CLIENT) REFERENCES CLIENT(_id));";
+    }
+
+    public String createPastOrdersTable() {
+        return "CREATE TABLE PAST_ORDERS (" +
+                "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "TIMESTAMP DATETIME DEFAULT (STRFTIME('%Y-%m-%d  %H:%M', 'NOW','localtime')), " +
+                "PAST_ORDERS_CLIENT INTEGER, " +
+                "PAST_ORDERS_FLIGHT INTEGER, " +
+                "PASSENGER INTEGER, " +
+                "FOREIGN KEY(PAST_ORDERS_CLIENT) REFERENCES CLIENT(_id), " +
+                "FOREIGN KEY(PAST_ORDERS_FLIGHT) REFERENCES FLIGHT(_id));";
+>>>>>>> Stashed changes
     }
 
     //Adds trip to the database and returns boolean true if insert was successful or false if insert failed

@@ -23,5 +23,9 @@
         map:uiZoomControls="false"
         map:uiZoomGestures="true"
         tools:ignore="MissingPrefix"/>
+<<<<<<< Updated upstream
 
 </RelativeLayout>
+=======
+</RelativeLayout>
+>>>>>>> Stashed changes

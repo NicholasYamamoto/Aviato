@@ -20,9 +20,8 @@
 
     <string-array name="carriers_array">
         <item>Southwest Airlines</item>
-        <item>Delta Air Lines</item>
-        <item>American Airlines</item>
         <item>Delta Airlines</item>
+        <item>American Airlines</item>
         <item>SkyWest Airlines</item>
         <item>JetBlue Airlines</item>
         <item>Alaska Airlines</item>

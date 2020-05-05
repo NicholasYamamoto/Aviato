@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.aviato.Fragments.AboutUsFragment;
 import com.example.aviato.Fragments.MainFragment;
+<<<<<<< Updated upstream
 import com.example.aviato.Fragments.PastOrdersFragment;
 import com.example.aviato.Fragments.ViewProfileFragment;
 import com.example.aviato.Pages.BookAFlightPage;
@@ -27,6 +28,15 @@ import com.example.aviato.Pages.ContactUsPage;
 import com.example.aviato.Pages.LoginOptionsPage;
 import com.example.aviato.Pages.PlanATripPage;
 import com.example.aviato.Pages.ViewCartPage;
+=======
+import com.example.aviato.Fragments.ViewProfileFragment;
+import com.example.aviato.Pages.AboutUsPage;
+import com.example.aviato.Pages.BookAFlightPage;
+import com.example.aviato.Pages.ContactUsPage;
+import com.example.aviato.Pages.PastOrdersPage;
+import com.example.aviato.Pages.SignInPage;
+import com.example.aviato.Pages.SplashPage;
+>>>>>>> Stashed changes
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -121,11 +131,16 @@ public class MainActivity extends AppCompatActivity
             ViewProfileFragment fragment = new ViewProfileFragment();
             FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
+<<<<<<< Updated upstream
             fragmentTransaction.replace(R.id.Fragment_container, fragment);
+=======
+            fragmentTransaction.replace(R.id.fragment_container, fragment);
+>>>>>>> Stashed changes
             fragmentTransaction.commit();
         }
 
         else if (id == R.id.past_orders) {
+<<<<<<< Updated upstream
 
             Cursor check;
             check = database.getOrderDetails();
@@ -143,11 +158,16 @@ public class MainActivity extends AppCompatActivity
                 noOrdersMessage.setGravity(Gravity.CENTER_VERTICAL, Gravity.CENTER_HORIZONTAL, 350);
                 noOrdersMessage.show();
             }
+=======
+            Intent intent = new Intent(getApplicationContext(), PastOrdersPage.class);
+            startActivity(intent);
+>>>>>>> Stashed changes
         }
 
         else if (id == R.id.book_a_flight) {
             Intent intent = new Intent(getApplicationContext(), BookAFlightPage.class);
             startActivity(intent);
+<<<<<<< Updated upstream
 
         }
 
@@ -164,6 +184,13 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.Fragment_container, fragment);
             fragmentTransaction.commit();
 
+=======
+        }
+
+        else if (id == R.id.about_us) {
+            Intent intent = new Intent(getApplicationContext(), AboutUsPage.class);
+            startActivity(intent);
+>>>>>>> Stashed changes
         }
 
         else if (id == R.id.contact_us) {

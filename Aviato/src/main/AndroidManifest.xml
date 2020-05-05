@@ -9,10 +9,20 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET"/>
+<<<<<<< Updated upstream
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+=======
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true"/>
+>>>>>>> Stashed changes
 
     <application
         android:allowBackup="true"
@@ -29,14 +39,24 @@
             </intent-filter>
         </activity>
 
+<<<<<<< Updated upstream
 
         <activity android:name="com.example.aviato.Pages.LoginOptionsPage" />
+=======
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"/>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyB-nG-DZiSejLyrj_JBzmQ61YAS4v8R-cg"/>
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+
+>>>>>>> Stashed changes
         <activity android:name="com.example.aviato.Pages.SignInPage" />
         <activity android:name="com.example.aviato.Pages.SignUpPage" />
         <activity android:name="com.example.aviato.Pages.ForgotPasswordPage" />
 
         <activity android:name="com.example.aviato.Pages.BookAFlightPage" />
-        <activity android:name="com.example.aviato.Pages.PlanATripPage" />
 
         <activity android:name="com.example.aviato.Pages.ContactUsPage" />
 
