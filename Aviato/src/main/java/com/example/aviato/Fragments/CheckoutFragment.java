@@ -1,5 +1,6 @@
 package com.example.aviato.Fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -131,9 +132,10 @@ public class CheckoutFragment extends Fragment {
         txt_passenger_count.setText(String.valueOf(passengerCount));
 
         grandTotal = calculateGrandTotal(departingTicketPrice, returnTicketPrice, passengerCount);
-        txt_total.setText("$" + grandTotal);
+        txt_total.setText((int) grandTotal);
     }
 
+    @SuppressLint("SetTextI18n")
     public void displaySelectedDepartingFlightInfo(int departingFlightID) {
         try {
             databaseHelper = new DatabaseHelper(getActivity());
@@ -144,16 +146,20 @@ public class CheckoutFragment extends Fragment {
             if (cursor != null && cursor.getCount() == 1) {
                 cursor.moveToFirst();
 
-                //TODO: Add a Cursor element for Gate Number
                 txt_departing_city.setText(cursor.getString(2));
                 txt_departing_date.setText(cursor.getString(4));
                 txt_departing_time.setText(cursor.getString(6));
-                txt_departing_gate.setText("HELLO WORLD");
+                txt_departing_gate.setText(cursor.getString(8));
 
                 txt_destination_city.setText(cursor.getString(3));
                 txt_destination_date.setText(cursor.getString(5));
                 txt_destination_time.setText(cursor.getString(7));
-                txt_destination_gate.setText("HELLO WORLD");
+                txt_destination_gate.setText(cursor.getString(8));
+
+                txt_return_city.setText(cursor.getString(2));
+                txt_return_date.setText(cursor.getString(5));
+                txt_return_time.setText(cursor.getString(7));
+                txt_return_gate.setText(cursor.getString(8));
 
                 txt_total.setText(cursor.getString(12));
 
@@ -191,10 +197,10 @@ public class CheckoutFragment extends Fragment {
             if (cursor != null && cursor.getCount() == 1) {
                 cursor.moveToFirst();
 
-                txt_return_city.setText("BUTTHOLES");
+                txt_return_city.setText(cursor.getString(5));
                 txt_return_date.setText(cursor.getString(6));
                 txt_return_time.setText(cursor.getString(7));
-                txt_return_gate.setText("HELLO WORLD");
+                txt_return_gate.setText(cursor.getString(8));
             }
 
         } catch (SQLiteException e) {
@@ -228,7 +234,7 @@ public class CheckoutFragment extends Fragment {
                 Toast.makeText(getActivity(), "Error: You Have Already Booked This Flight!", Toast.LENGTH_SHORT).show();
             }
 
-            if (flightExists == false) {
+            if (!flightExists) {
 
                 DatabaseHelper.insertOrder(databaseInstance, departingFlightID, clientID, passengerCount);
                 DatabaseHelper.insertOrder(databaseInstance, returnFlightID, clientID, passengerCount);

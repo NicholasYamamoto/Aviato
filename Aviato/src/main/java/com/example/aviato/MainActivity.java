@@ -17,14 +17,13 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.aviato.Fragments.MainFragment;
+import com.example.aviato.Fragments.ViewProfileFragment;
 import com.example.aviato.Pages.AboutUsPage;
 import com.example.aviato.Pages.BookAFlightPage;
 import com.example.aviato.Pages.ContactUsPage;
 import com.example.aviato.Pages.PastOrdersPage;
 import com.example.aviato.Pages.SignInPage;
 import com.example.aviato.Pages.SplashPage;
-
-//import com.example.aviato.Pages.PlanATripPage;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -70,6 +69,36 @@ public class MainActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else
             super.onBackPressed();
+        }
+    
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        if (id == R.id.view_cart) {
+            Cursor check;
+            check = database.getOrderDetails() ;
+
+            Intent intent = new Intent(getApplicationContext(), ViewCartPage.class);
+            startActivity(intent);
+        }
+
+        return super.onOptionsItemSelected(item);
+
+
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -79,26 +108,58 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.view_profile) {
-//            ViewProfileFragment fragment = new ViewProfileFragment();
-//            FragmentTransaction fragmentTransaction =
-//                    getSupportFragmentManager().beginTransaction();
-//            fragmentTransaction.replace(R.id.fragment_container, fragment);
-//            fragmentTransaction.commit();
-        } else if (id == R.id.past_orders) {
+            ViewProfileFragment fragment = new ViewProfileFragment();
+            FragmentTransaction fragmentTransaction =
+                    getSupportFragmentManager().beginTransaction();
+
+            fragmentTransaction.replace(R.id.fragment_container, fragment);
+            fragmentTransaction.commit();
+        }
+
+        else if (id == R.id.past_orders) {
+            Cursor check;
+            check = database.getOrderDetails();
+
+            if (check != null && check.getCount() > 0) {
+                PastOrdersFragment fragment = new PastOrdersFragment();
+                FragmentTransaction fragmentTransaction =
+                        getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.Fragment_container, fragment);
+                fragmentTransaction.commit();
+
+            }
+ else {
+                Toast noOrdersMessage = Toast.makeText(getApplicationContext(), "No past orders found for this user.", Toast.LENGTH_LONG);
+                noOrdersMessage.setGravity(Gravity.CENTER_VERTICAL, Gravity.CENTER_HORIZONTAL, 350);
+                noOrdersMessage.show();
+            }
             Intent intent = new Intent(getApplicationContext(), PastOrdersPage.class);
             startActivity(intent);
-        } else if (id == R.id.book_a_flight) {
+        }
+
+        else if (id == R.id.book_a_flight) {
             Intent intent = new Intent(getApplicationContext(), BookAFlightPage.class);
             startActivity(intent);
-        } else if (id == R.id.plan_a_trip) {
-//            Intent intent = new Intent(getApplicationContext(), PlanATripPage.class);
-//            startActivity(intent);
-        } else if (id == R.id.about_us) {
-            // TODO: Fix this to use Fragment instead of Intent so MenuBar will not disappear
+
+
+        }
+
+        else if (id == R.id.about_us) {
+            AboutUsFragment fragment = new AboutUsFragment();
+            FragmentTransaction fragmentTransaction =
+                    getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.Fragment_container, fragment);
+            fragmentTransaction.commit();
+
+        }
+
+        else if (id == R.id.about_us) {
             Intent intent = new Intent(getApplicationContext(), AboutUsPage.class);
             startActivity(intent);
-        } else if (id == R.id.contact_us) {
-            // TODO: Fix this to use Fragment instead of Intent so MenuBar will not disappear
+
+        }
+
+        else if (id == R.id.contact_us) {
             Intent intent = new Intent(getApplicationContext(), ContactUsPage.class);
             startActivity(intent);
         } else if (id == R.id.log_out) {

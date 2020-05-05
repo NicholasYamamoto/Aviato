@@ -3,9 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
     android:layout_gravity="center"
     android:background="@color/colorAviatoLogoBlue"
     tools:context="com.example.aviato.Pages.AboutUsPage">
+
+    <include
+        layout="@layout/app_bar_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <include
         layout="@layout/app_bar_main"
@@ -21,6 +27,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="25dp"
+            android:textAlignment="center"
+            android:text="Made with love from these talented engineers:"
+            android:textColor="@color/colorWhite"
             android:layout_gravity="center_horizontal"
             android:paddingBottom="50dp"
             android:text="Made with \u2764 from these talented engineers:"
@@ -37,7 +47,9 @@
             android:paddingBottom="10dp"
             android:text="Nicholas Yamamoto"
             android:textColor="@color/colorWhite"
-            android:textSize="30sp"
+            android:textSize="35dp"
+            android:paddingBottom="10dp"
+            android:layout_gravity="center"
 
             >
 
@@ -50,7 +62,10 @@
             android:paddingBottom="10dp"
             android:text="Jackson Duvert"
             android:textColor="@color/colorWhite"
-            android:textSize="30sp">
+            android:textSize="35dp"
+            android:paddingBottom="10dp"
+            android:layout_gravity="center"
+            >
 
         </TextView>
 
@@ -61,7 +76,9 @@
             android:paddingBottom="10dp"
             android:text="Brian Graham"
             android:textColor="@color/colorWhite"
-            android:textSize="30sp"
+            android:textSize="35dp"
+            android:paddingBottom="10dp"
+            android:layout_gravity="center"
 
             >
 
@@ -74,20 +91,24 @@
             android:paddingBottom="10dp"
             android:text="Lanu Atatai"
             android:textColor="@color/colorWhite"
-            android:textSize="30sp">
+            android:textSize="35dp"
+            android:paddingBottom="10dp"
+            android:layout_gravity="center"
 
+            >
         </TextView>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="25sp"
+            android:textAlignment="center"
+            android:text="For the Spring 2020 CS4920 - Senior Project course at UCM."
+            android:textColor="@color/colorWhite"
             android:layout_gravity="center"
             android:paddingTop="50dp"
-            android:text="For the Spring 2020 CS4920 - Senior Project course at UCM."
-            android:textAlignment="center"
-            android:textColor="@color/colorWhite"
-            android:textSize="20sp">
-
+            >
         </TextView>
+
     </LinearLayout>
 </RelativeLayout>

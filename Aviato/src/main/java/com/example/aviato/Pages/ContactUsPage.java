@@ -16,7 +16,6 @@ import com.example.aviato.R;
 
 import static android.Manifest.permission.CALL_PHONE;
 
-
 public class ContactUsPage extends AppCompatActivity {
 
     @Override

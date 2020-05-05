@@ -8,20 +8,12 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
+
     <include
         android:id="@+id/app_bar_main"
         layout="@layout/app_bar_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-
-    <!--    <ImageView-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_below="@id/app_bar_main"-->
-    <!--        android:layout_margin="10dp"-->
-    <!--        android:layout_height="250dp"-->
-    <!--        android:background="@drawable/splash_chiefs_super_bowl"-->
-    <!--        >-->
-    <!--    </ImageView>-->
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
@@ -32,6 +24,6 @@
         app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/activity_main_drawer" />
 
+
+
 </android.support.v4.widget.DrawerLayout>
-
-

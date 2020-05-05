@@ -29,16 +29,15 @@ public class DepartingFlightsPage extends AppCompatActivity {
     ListView flightList;
     int departingFlightID;
     TextView flightUnavailableMessage;
-    private SharedPreferences sharedPreferences;
-    private SQLiteOpenHelper databaseHelper;
-    private SQLiteDatabase databaseInstance;
-    private Cursor cursor;
+    SharedPreferences sharedPreferences;
+    SQLiteOpenHelper databaseHelper;
+    SQLiteDatabase databaseInstance;
+    Cursor cursor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_available_departing_flights);
-
 
         sharedPreferences = getSharedPreferences("PREFS", Context.MODE_PRIVATE);
 

@@ -14,7 +14,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.aviato.DatabaseHelper;
 import com.example.aviato.MainActivity;
@@ -91,46 +90,24 @@ public class SignInPage extends AppCompatActivity {
         });
     }
 
-    public void verifyAccountLogin() {
-        try {
-            databaseHelper = new DatabaseHelper(getApplicationContext());
-            databaseInstance = databaseHelper.getReadableDatabase();
-
-            // Filter the Login information
-            String filteredEmail = DatabaseHelper.filterString(signinEmailAddress.getText().toString());
-            String filteredPassword = DatabaseHelper.filterString(signinPassword.getText().toString());
-
-            if (signinEmailAddress.getText().toString().equals(""))
-                Toast.makeText(SignInPage.this, "Email Address cannot be left blank", Toast.LENGTH_SHORT).show();
-
-            else if (signinPassword.getText().toString().equals(""))
-                Toast.makeText(SignInPage.this, "Password cannot be left blank", Toast.LENGTH_SHORT).show();
-
-            else {
-                cursor = DatabaseHelper.login(databaseInstance, filteredEmail, filteredPassword);
-
-                if (cursor != null && cursor.getCount() == 1) {
-                    cursor.moveToFirst();
-
-                    String email = cursor.getString(1);
-                    clientID = cursor.getInt(3);
-
-                    sharedPreferences = getSharedPreferences(MY_PREFERENCES, Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-
-                    editor.putInt(CLIENT_ID, clientID);
-                    editor.putString(EMAIL, email);
-                    editor.putBoolean(LOGIN_STATUS, true);
-
-                    editor.apply();
-
-                    // Open the Home Page if Login is Successful!
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    intent.putExtra("email", signinEmailAddress.getText().toString());
-                    startActivity(intent);
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                boolean isExist = myDB.verifyAccount(signinEmail.getText().toString(),
+//                        signinPassword.getText().toString());
+//                if (isExist) {
+                    Intent login = new Intent(getApplicationContext(), MainActivity.class);
+                    login.putExtra("user_name", signinEmail.getText().toString());
+                    startActivity(login);
                     finish();
-                } else
-                    Toast.makeText(SignInPage.this, "Account Not Found. Please Try Again.", Toast.LENGTH_SHORT).show();
+//                }
+//
+//                else {
+//                    signinPassword.setText(null);
+//                    Toast.makeText(SignInPage.this, "Log In Failed. Please Try Again.", Toast.LENGTH_SHORT).show();
+//                    Intent intent = new Intent(getApplicationContext(), SignInPage.class);
+//                    startActivity(intent);
+//                }
             }
 
         } catch (SQLiteException e) {

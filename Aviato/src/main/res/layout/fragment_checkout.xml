@@ -58,7 +58,7 @@
             android:layout_below="@id/txt_departing_city_label"
             android:layout_marginTop="5sp"
             android:gravity="center_horizontal"
-            android:text="Kansas City - MCI"
+            android:text="Lorem Ipsum"
             android:textAlignment="center"
             android:textColor="@color/colorWhite"
             android:textSize="20sp"
@@ -84,7 +84,7 @@
             android:layout_below="@id/txt_departing_date_label"
             android:layout_marginTop="5sp"
             android:gravity="center_horizontal"
-            android:text="April 10, 2020"
+            android:text="Lorem Ipsum"
             android:textAlignment="center"
             android:textColor="@color/colorWhite"
             android:textSize="20sp"
@@ -110,7 +110,7 @@
             android:layout_below="@id/txt_departing_time_label"
             android:layout_marginTop="5sp"
             android:gravity="center_horizontal"
-            android:text="10:00PM"
+            android:text="Lorem Ipsum"
             android:textAlignment="center"
             android:textColor="@color/colorWhite"
             android:textSize="20sp"
@@ -136,7 +136,7 @@
             android:layout_below="@id/txt_departing_gate_label"
             android:layout_marginTop="5sp"
             android:gravity="center_horizontal"
-            android:text="19"
+            android:text="Lorem Ipsum"
             android:textAlignment="center"
             android:textColor="@color/colorWhite"
             android:textSize="20sp"
@@ -151,7 +151,9 @@
             android:layout_below="@id/departing_info_view"
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="10dp"
-            android:background="@android:drawable/dialog_holo_dark_frame"></View>
+            android:background="@android:drawable/dialog_holo_dark_frame">
+
+        </View>
 
         <TextView
             android:id="@+id/txt_arrival_info_label"
@@ -175,7 +177,7 @@
             android:layout_below="@id/txt_arrival_info_label"
             android:layout_marginTop="5sp"
             android:gravity="center_horizontal"
-            android:text="Los Angeles - LAX"
+            android:text="Lorem Ipsum"
             android:textAlignment="center"
             android:textColor="@color/colorWhite"
             android:textSize="20sp"
@@ -253,7 +255,7 @@
             android:layout_below="@id/txt_destination_gate_label"
             android:layout_marginTop="5sp"
             android:gravity="center_horizontal"
-            android:text="19"
+            android:text="Lorem Ipsum"
             android:textAlignment="center"
             android:textColor="@color/colorWhite"
             android:textSize="20sp"
@@ -294,7 +296,7 @@
             android:layout_below="@id/txt_return_info_label"
             android:layout_marginTop="5sp"
             android:gravity="center_horizontal"
-            android:text="Kansas CIty - MCI"
+            android:text="Lorem Ipsum"
             android:textAlignment="center"
             android:textColor="@color/colorWhite"
             android:textSize="20sp"
@@ -468,7 +470,7 @@
                 android:layout_height="55sp"
                 android:layout_marginHorizontal="5sp"
                 android:gravity="center_horizontal"
-                android:text="$117.69"
+                android:text="Lorem Ipsum"
                 android:textAlignment="center"
                 android:textColor="@color/colorWhite"
                 android:textColorHint="@color/colorWhite"
@@ -485,20 +487,6 @@
             android:layout_marginTop="25dp"
             android:gravity="center"
             android:orientation="vertical">
-
-            <!--            <Button-->
-            <!--                android:id="@+id/btn_review_trip_details"-->
-            <!--                android:layout_width="340sp"-->
-            <!--                android:layout_height="55sp"-->
-            <!--                android:text="Review Trip Details"-->
-            <!--                android:textSize="20sp"-->
-            <!--                android:textColor="@color/colorWhite"-->
-            <!--                android:layout_marginTop="25sp"-->
-            <!--                android:layout_marginBottom="5sp"-->
-            <!--                android:background="@drawable/btns_lightblue"-->
-            <!--                android:hapticFeedbackEnabled="true"-->
-            <!--                android:stateListAnimator="@null"-->
-            <!--                />-->
 
             <Button
                 android:id="@+id/btn_submit_order"

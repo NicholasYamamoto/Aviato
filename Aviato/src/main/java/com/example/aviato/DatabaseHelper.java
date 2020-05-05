@@ -295,6 +295,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + "ACCOUNT");
         db.execSQL("DROP TABLE IF EXISTS " + "PAST_ORDERS");
 
+
+        return status != -1;
         updateDatabase(db, oldVersion, newVersion);
 
     }
@@ -312,59 +314,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             db.execSQL(createAccountTable());
             db.execSQL(createPastOrdersTable());
 
-            // Insert some mock data for Testing
+            // Insert Airlines to table
+            insertAirline(db, "Southwest Airlines");
+            insertAirline(db, "Delta Airlines");
+            insertAirline(db, "American Airlines");
+            insertAirline(db, "SkyWest Airlines");
+            insertAirline(db, "JetBlue Airlines");
+            insertAirline(db, "Alaska Airlines");
+            insertAirline(db, "Spirit Airlines");
 
-            insertAirline(db, "Air Canada");
-            insertAirline(db, "Air France");
-            insertAirline(db, "Air Transat");
-            insertAirline(db, "Alitalia");
-            insertAirline(db, "Austrian");
-            insertAirline(db, "Delta");
-            insertAirline(db, "Emirates");
-            insertAirline(db, "InterJet");
-            insertAirline(db, "Lufthansa");
-            insertAirline(db, "United");
-            insertAirline(db, "WestJet");
+            // Insert Flights to table
+            insertFlight(db, "Los Angeles, CA - LAX", "Kansas City, MO - MCI", "2020-5-4", "2020-5-4", "10:10 AM", "12:10 PM", 200.00, 1);
+            insertFlight(db, "Los Angeles, CA - LAX", "Kansas City, MO - MCI", "2020-5-4", "2020-5-4", "10:10 AM", "12:10 PM", 150.00, 2);
+            insertFlight(db, "Los Angeles, CA - LAX", "Kansas City, MO - MCI", "2020-5-4", "2020-5-4", "11:10 AM", "12:10 PM", 350.00, 3);
 
+            insertFlight(db, "Kansas City, MO - MCI", "Los Angeles, CA - LAX", "2020-5-6", "2020-5-6", "10:10 AM", "12:10 PM", 120.00, 6);
+            insertFlight(db, "Kansas City, MO - MCI", "Los Angeles, CA - LAX", "2020-5-6", "2020-5-6", "09:00 AM", "12:10 PM", 150.00, 7);
+            insertFlight(db, "Kansas City, MO - MCI", "Los Angeles, CA - LAX", "2020-5-6", "2020-5-6", "10:10 AM", "12:10 PM", 170.00, 8);
 
-            //toronto to ottawa
-            insertFlight(db, "Toronto", "Ottawa", "2018-8-10", "2018-8-10", "10:10", "12:10", 200.00, 1);
-            insertFlight(db, "Toronto", "Ottawa", "2018-8-10", "2018-8-10", "10:10", "12:10", 150.00, 2);
-            insertFlight(db, "Toronto", "Ottawa", "2018-8-10", "2018-8-10", "11:10", "12:10", 350.00, 3);
-            insertFlight(db, "Toronto", "Ottawa", "2018-8-10", "2018-8-10", "09:10", "12:10", 250.00, 4);
-            insertFlight(db, "Toronto", "Ottawa", "2018-8-10", "2018-8-10", "10:10", "12:10", 100.00, 5);
-
-            //ottawa to toronto
-            insertFlight(db, "Ottawa", "Toronto", "2018-8-12", "2018-8-12", "10:10", "12:10", 120.00, 6);
-            insertFlight(db, "Ottawa", "Toronto", "2018-8-12", "2018-8-12", "09:00", "12:10", 150.00, 7);
-            insertFlight(db, "Ottawa", "Toronto", "2018-8-12", "2018-8-12", "10:10", "12:10", 170.00, 8);
-            insertFlight(db, "Ottawa", "Toronto", "2018-8-12", "2018-8-12", "09:00", "12:10", 140.00, 9);
-            insertFlight(db, "Ottawa", "Toronto", "2018-8-12", "2018-8-12", "09:00", "12:10", 100.00, 10);
-            insertFlight(db, "Ottawa", "Toronto", "2018-8-12", "2018-8-12", "10:10", "12:10", 350.00, 11);
-
-            //Edmonton to winnipeg
-            insertFlight(db, "Edmonton", "Winnipeg", "2018-8-25", "2018-8-25", "02:00", "04:45", 300.00, 2);
-            insertFlight(db, "Edmonton", "Winnipeg", "2018-8-25", "2018-8-25", "01:00", "03:15", 205.00, 1);
-            insertFlight(db, "Edmonton", "Winnipeg", "2018-8-25", "2018-8-25", "09:00", "12:20", 350.00, 10);
-            insertFlight(db, "Edmonton", "Winnipeg", "2018-8-25", "2018-8-25", "08:00", "10:15", 400.00, 11);
-            insertFlight(db, "Edmonton", "Winnipeg", "2018-8-25", "2018-8-25", "11:00", "13:11", 250.00, 1);
-
-            //winnipeg to edmonton
-            insertFlight(db, "Winnipeg", "Edmonton", "2018-9-15", "2018-9-15", "11:00", "13:11", 300.00, 9);
-            insertFlight(db, "Winnipeg", "Edmonton", "2018-9-15", "2018-9-15", "09:00", "12:00", 250.00, 1);
-            insertFlight(db, "Winnipeg", "Edmonton", "2018-9-15", "2018-9-15", "08:00", "11:00", 400.00, 3);
-            insertFlight(db, "Winnipeg", "Edmonton", "2018-9-15", "2018-9-15", "01:00", "04:00", 150.00, 7);
-            insertFlight(db, "Winnipeg", "Edmonton", "2018-9-15", "2018-9-15", "12:00", "14:00", 350.00, 10);
-
-
-            insertFlight(db, "Montreal", "Edmonton", "2018-7-28", "2018-7-28", "10:10", "12:10", 350.00, 4);
-            insertFlight(db, "New York", "Edmonton", "2018-8-15", "2018-8-15", "09:10", "12:10", 185.00, 5);
-            insertFlight(db, "Quebec City", "NewYork", "2018-7-28", "2018-7-28", "11:10", "12:10", 250.00, 6);
-            insertFlight(db, "Charlottetown", "Victoria", "2018-8-25", "2018-8-25", "10:10", "12:10", 360.00, 7);
-            insertFlight(db, "Los Angeles", "Ottawa", "2018-8-26", "2018-8-26", "10:10", "12:10", 350.00, 8);
-            insertFlight(db, "Winnipeg", "Toronto", "2018-8-27", "2018-8-27", "09:10", "12:10", 350.00, 9);
-            insertFlight(db, "Victoria", "New York", "2018-8-28", "2018-8-28", "10:10", "12:10", 350.00, 10);
-
+            // Insert Seats to table
             insertSeat(db, 0, 1, 1);
             insertSeat(db, 0, 2, 1);
             insertSeat(db, 0, 3, 1);
@@ -394,19 +362,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             insertSeat(db, 0, 27, 2);
             insertSeat(db, 0, 28, 2);
 
+            // Insert Flight Class to table
             insertFlightClass(db, "Economy");
             insertFlightClass(db, "Business");
 
-            insertClient(db, "John", "Doe", "4164121000", "5412547854125963");
 
-            insertAccount(db, "john@gmail.com", "password", 1);
+            // Insert default Client to table
+            insertClient(db, "Chuck", "Norris", "8168675309", "1234123412341234");
+
+            // Insert default User Account to table
+            insertAccount(db, "chuck@norris.com", "password", 1);
 
             db.execSQL(updateFlight());
             db.execSQL(updateSeatNumber());
 
         }
-
-
     }
 
     public String createAirlineTable() {
